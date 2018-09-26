@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PCH Record Visualization</title>
+    <title>PCH Reports</title>
 
     <!-- Bootstrap core CSS-->
     <link href="../vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -86,7 +86,7 @@
 
     </nav>
 
-        <div id="wrapper">
+    <div id="wrapper">
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
@@ -97,75 +97,101 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Report.html">
-            <i class="fas fa-fw fa-list-alt"></i>
-            <span>Report Creation</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="RecordUpload.html">
             <i class="fas fa-fw fa-cloud-upload-alt"></i>
             <span>Record Upload</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Visualizations.html">
+          <a class="nav-link" href="DataReport.html">
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span>Data Report</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Visualizations</span></a>
+          <span>Charts</span></a>
         </li>
       </ul>
 
       <div id="content-wrapper">
         <div class="container-fluid">
-
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-            <a href="Dashboard.html">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Record Visualizations</li>
-          </ol>
+        
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+          <a href="Dashboard.html">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Report Creation</li>
+        </ol>
 
           <!-- Page Content -->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-chart-area"></i>
-              Area Chart Example</div>
-            <div class="card-body">
-              <canvas id="myAreaChart" width="100%" height="30"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-chart-bar"></i>
-                  Bar Chart Example</div>
+          <div class="row justify-content-center">
+              <div class="card text-black bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header text-center">Create New Report</div>
                 <div class="card-body">
-                  <canvas id="myBarChart" width="100%" height="50"></canvas>
+                  <p class="card-text">Create a new report from uploaded document.</p>
+                  <button href="#" class="btn btn-primary" data-toggle="modal" data-target=".upload">Create</button>
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
               </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-chart-pie"></i>
-                  Pie Chart Example</div>
+            <!-- <div class="col-4">
+              <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-header text-center">View Reports</div>
                 <div class="card-body">
-                  <canvas id="myPieChart" width="100%" height="100"></canvas>
+                  <p class="card-text">View existing reports already created.</p>
+                  <button href="#"class="btn btn-primary" data-toggle="modal" data-target=".view-reports">View</button>
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-              </div>
+              </div>  
+            </div>           -->
+          </div>
+          <div class="row justify-content-left">
+            <div class="container">
+                <table class="table table-hover">
+                    <h2 style="text-align:center">Existing Reports</h1>
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date Created</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Report A</td>
+                        <td>9/10/18</td>
+                        <td><button type="button" class="btn btn-success btn-sm m-0">Chart</button></td>
+                      </tr>
+                      <tr>
+                        <td>Report B</td>
+                        <td>9/15/18</td>
+                        <td><button type="button" class="btn btn-success btn-sm m-0">Chart</button></td>
+                      </tr>
+                      <tr>
+                        <td>Report C</td>
+                        <td>9/20/18</td>
+                        <td><button type="button" class="btn btn-success btn-sm m-0">Chart</button></td>
+
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
           </div>
-
-        </div>
-
         </div>
         <!-- /.container-fluid -->
+
+        <div class="modal fade view-reports" tabindex="-1" role="dialog" aria-labelledby="view-reports" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">List of created reports here
+            </div>
+          </div>
+        </div>
+        <div class="modal fade upload" tabindex="-1" role="dialog" aria-labelledby="upload" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">Choosing which uploaded document goes here
+            </div>
+          </div>
+        </div>
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
