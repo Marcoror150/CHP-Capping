@@ -96,7 +96,7 @@
                 <div class="card-header text-center">Create New Report</div>
                 <div class="card-body">
                   <p class="card-text">Create a new report from uploaded document.</p>
-                  <button href="#" class="btn btn-primary" data-toggle="modal" data-target=".upload">Create</button>
+                  <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#upload-modal">Create</button>
                 </div>
               </div>
           </div>
@@ -133,16 +133,24 @@
           </div>
         </div>
         <!-- /.container-fluid -->
-
-        <div class="modal fade view-reports" tabindex="-1" role="dialog" aria-labelledby="view-reports" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">List of created reports here
+        <!-- Modal -->
+        <div class="modal fade" id="upload-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Choose your fields to create a report</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                stuff..
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="modal fade upload" tabindex="-1" role="dialog" aria-labelledby="upload" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">Choose your fields to create a report</div>
           </div>
         </div>
 
