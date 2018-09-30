@@ -1,2 +1,2 @@
-# PCH-Capping
+# CHP-Capping
 Group project for the Poughkeepsie Children's Home.
