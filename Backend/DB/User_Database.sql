@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS UserTypes;
 
 CREATE TABLE UserTypes (
 	UserType		  VARCHAR NOT NULL,
-  Description		CHAR(25),
+  Description		VARCHAR NOT NULL,
   PRIMARY KEY   (UserType)
 );
 
@@ -27,6 +27,6 @@ CREATE TABLE Users (
   Password     VARCHAR NOT NULL,
   First_Name   VARCHAR NOT NULL,
   Last_Name    VARCHAR NOT NULL,
-  Acc_Type     VARCHAR NOT NULL REFERENCES UserTypes (Type)
+  UserType     VARCHAR NOT NULL REFERENCES UserTypes (UserType)
   PRIMARY KEY  (UID)
 );
