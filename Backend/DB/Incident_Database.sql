@@ -22,14 +22,14 @@ CREATE TABLE Children (
 
 --Program Table
 CREATE TABLE Program (
-	PID		VARCHAR NOT NULL
+	PID		VARCHAR (50) NOT NULL
   PRIMARY KEY (PID)
 );
 
 --ChildrenProgram Table
 CREATE TABLE ChildrenProgram (
 	KID 				int REFERENCES Children (KID),
-  PID					VARCHAR NOT NULL REFERENCES Program (PID),
+  PID					VARCHAR (50) NOT NULL REFERENCES Program (PID),
   StartDate		DATE,
   EndDate			DATE,
   PRIMARY KEY (KID, PID, StartDate)
@@ -38,7 +38,7 @@ CREATE TABLE ChildrenProgram (
 --IncidentTypes Table
 CREATE TABLE IncidentTypes (
   TID   int identity (1,1),
-  Name  VARCHAR NOT NULL,
+  Name  VARCHAR (50) NOT NULL,
   PRIMARY KEY (TID)
 );
 
@@ -46,7 +46,7 @@ CREATE TABLE IncidentTypes (
 CREATE TABLE Incidents (
   IID          int identity (1,1),
   KID          int REFERENCES Children (KID),
-  Description  VARCHAR,
+  Description  VARCHAR (50),
   PRIMARY KEY (IID),
 );
 
