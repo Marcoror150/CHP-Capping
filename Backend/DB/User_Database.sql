@@ -1,3 +1,16 @@
+/*
+CHP User Database Definition
+Marc Christensen and Nick DePaul
+10/7/2018
+Tested on MS SQL 2017
+*/
+
+/* Drop every table
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS UserTypes;
+*/
+
+
 --UserTypes Table
 
 CREATE TABLE UserTypes (
