@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS UserTypes;
 --UserTypes Table
 
 CREATE TABLE UserTypes (
-	UserType		  VARCHAR NOT NULL,
-  Description		VARCHAR NOT NULL,
+	UserType		  VARCHAR (50) NOT NULL,
+  Description		VARCHAR (100) NOT NULL,
   PRIMARY KEY   (UserType)
 );
 
@@ -23,10 +23,10 @@ CREATE TABLE UserTypes (
 
 CREATE TABLE Users (
   UID          int identity (1,1),
-  Username     VARCHAR NOT NULL,
-  Password     VARCHAR NOT NULL,
-  First_Name   VARCHAR NOT NULL,
-  Last_Name    VARCHAR NOT NULL,
-  UserType     VARCHAR NOT NULL REFERENCES UserTypes (UserType)
+  Username     VARCHAR (50) NOT NULL,
+  Password     VARCHAR (50) NOT NULL,
+  First_Name   VARCHAR (50) NOT NULL,
+  Last_Name    VARCHAR (50) NOT NULL,
+  UserType     VARCHAR (50) NOT NULL REFERENCES UserTypes (UserType)
   PRIMARY KEY  (UID)
 );
