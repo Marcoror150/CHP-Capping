@@ -14,9 +14,9 @@ DROP TABLE IF EXISTS UserTypes;
 --UserTypes Table
 
 CREATE TABLE UserTypes (
-	Type					VARCHAR NOT NULL,
-  Description		CHAR(25)
-  PRIMARY KEY  (Type)
+	UserType		  VARCHAR NOT NULL,
+  Description		CHAR(25),
+  PRIMARY KEY   (UserType)
 );
 
 --Users Table
