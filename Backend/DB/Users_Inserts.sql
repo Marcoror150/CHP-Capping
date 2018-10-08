@@ -13,3 +13,12 @@ VALUES ('don_marie', 'password', 'Donnamarie', 'LastName', 'highUser');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('drC', 'password', 'dr', 'c', 'viewOnly');
+
+INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
+VALUES ('admin', 'admin', 'admin', 'admin', 'admin');
+
+INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
+VALUES ('s_intern', 'password', 'super', 'intern', 'superIntern');
+
+INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
+VALUES ('intern1', 'password', 'intern', 'intern', 'intern');
