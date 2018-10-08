@@ -15,7 +15,7 @@ INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('drC', 'password', 'dr', 'c', 'viewOnly');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
-VALUES ('admin', 'admin', 'admin', 'admin', 'admin');
+VALUES ('Phillip', 'admin', 'Phillip', 'admin', 'admin');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('s_intern', 'password', 'super', 'intern', 'superIntern');
