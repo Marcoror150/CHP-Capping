@@ -46,7 +46,7 @@ CREATE TABLE IncidentTypes (
 CREATE TABLE Incidents (
   IID          int identity (1,1),
   KID          int REFERENCES Children (KID),
-  Description  VARCHAR (50),
+  m_in_pgm     int,
   PRIMARY KEY (IID),
 );
 
