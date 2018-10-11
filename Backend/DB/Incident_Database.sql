@@ -16,13 +16,14 @@ DROP TABLE IF EXISTS Children;
 
 --Children Table
 CREATE TABLE Children (
-	KID		int
+	KID		     int,
+  ACEs_Score int,
   PRIMARY KEY (KID)
 );
 
 --Program Table
 CREATE TABLE Program (
-	PID		VARCHAR (50) NOT NULL
+	PID		VARCHAR (50) NOT NULL,
   PRIMARY KEY (PID)
 );
 
@@ -46,7 +47,7 @@ CREATE TABLE IncidentTypes (
 CREATE TABLE Incidents (
   IID          int identity (1,1),
   KID          int REFERENCES Children (KID),
-  m_in_pgm     int,
+  M_In_Pgm     int,
   PRIMARY KEY (IID),
 );
 
