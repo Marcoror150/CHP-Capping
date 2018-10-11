@@ -16,7 +16,7 @@ def connectToDB():
     except:
         raise ValueError('Unable to connect to the database')
 
-# Create a new table given a table name and the necessary columns
+# Create a new table given a table name and the necessary columnspy
 def createTable(table,columns):
     conn, cur = connectToDB()
 
