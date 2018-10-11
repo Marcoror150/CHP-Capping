@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="CHPLogo.png" height="102" width="102"/>
-    <title>CHP Record Upload</title>
+    <title>CHP Admin</title>
 
     <!-- Bootstrap core CSS-->
     <link href="../vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,6 @@
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
-
       <a class="navbar-brand mr-1" href="index.html">CHP Incident Recording and Visualization</a>
 
     <!-- Account Control -->
@@ -54,6 +53,9 @@
     </nav>
 
     <div id="wrapper">
+
+
+
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
@@ -77,53 +79,46 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-clipboard"></i>
+            <span>Admin Tools</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <h6 class="dropdown-header">User Management</h6>
+            <a class="dropdown-item" href="register.html">Add/Remove User</a>
+            <a class="dropdown-item" href="login.html">Manage Permissions</a>
+            <a class="dropdown-item" href="forgot-password.html">Reset Password</a>
+
+            <!--Database stuff-->
+            <!--<div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Database Management</h6>
+            <a class="dropdown-item" href="404.html">Add/Remove Fields</a> -->
+
+          </div>
         </li>
       </ul>
 
       <div id="content-wrapper">
 
+        <div class="container-fluid">
 
-        <div class="container-fluid mx-auto" >
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="Homepage.html">Homepage</a>
-          </li>
-          <li class="breadcrumb-item active">Record Upload</li>
-        </ol>
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+            Homepage
+          </ol>
 
-        <!-- Page Content -->
-        <div class="row justify-content-center">
-          <h1>Record Upload</h1>
+          <!-- Page Content -->
+          <h1>CHP Admin</h1>
+          <hr>
+          <p>Manage the system using the tools to the right.</p>
+
         </div>
-
-        <div class="row justify-content-center">
-          <p>Upload a .CSV file of an incident report to create a new entry.</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="input-group mb-3" style="max-width:30rem">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-            </div>
-            <div class="input-group-append">
-              <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-            </div>
-          </div>
-        </div>
-      </div>
         <!-- /.container-fluid -->
-
-
-        <div class="modal fade upload" tabindex="-1" role="dialog" aria-labelledby="upload" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">UPLOAD STUFF GOES HERE
-            </div>
-          </div>
-        </div>
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
@@ -133,6 +128,7 @@
             </div>
           </div>
         </footer>
+
       </div>
       <!-- /.content-wrapper -->
 

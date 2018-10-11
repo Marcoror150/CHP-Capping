@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="CHPLogo.png" height="102" width="102"/>
-    <title>CHP Record Upload</title>
+    <title>CHP Homepage</title>
 
     <!-- Bootstrap core CSS-->
     <link href="../vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +36,7 @@
       </button>
 
       <a class="navbar-brand mr-1" href="index.html">CHP Incident Recording and Visualization</a>
+
 
     <!-- Account Control -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -77,53 +78,86 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
         </li>
       </ul>
 
       <div id="content-wrapper">
 
+        <div class="container-fluid" style="height:100%">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"> Homepage
+          </ol>
 
-        <div class="container-fluid mx-auto" >
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="Homepage.html">Homepage</a>
-          </li>
-          <li class="breadcrumb-item active">Record Upload</li>
-        </ol>
+          <!-- Page Content -->
+          <div class="card text-center">
+            <div class="card-header">Recent Incident Records</div>
+            <div class="card-body">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date Created</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Incident Record A</td>
+                    <td>9/10/18</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
+                      <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
+                      <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
+                    </td>
 
-        <!-- Page Content -->
-        <div class="row justify-content-center">
-          <h1>Record Upload</h1>
-        </div>
-
-        <div class="row justify-content-center">
-          <p>Upload a .CSV file of an incident report to create a new entry.</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="input-group mb-3" style="max-width:30rem">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-            </div>
-            <div class="input-group-append">
-              <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+                  </tr>
+                  <tr>
+                    <td>Incident Record B</td>
+                    <td>9/15/18</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm m-0">Review</button>
+                      <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
+                      <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Incident Record C</td>
+                    <td>9/20/18</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm m-0">Review</button>
+                      <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
+                      <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
+                    </td><!--onclick="location.href='Charts.html'"-->
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+          <!-- Modal -->
+          <div class="modal fade" id="reviewModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Name of PDF</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  PDF goes here
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+              </div>
         </div>
-      </div>
         <!-- /.container-fluid -->
-
-
-        <div class="modal fade upload" tabindex="-1" role="dialog" aria-labelledby="upload" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">UPLOAD STUFF GOES HERE
-            </div>
-          </div>
-        </div>
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
@@ -133,6 +167,7 @@
             </div>
           </div>
         </footer>
+
       </div>
       <!-- /.content-wrapper -->
 

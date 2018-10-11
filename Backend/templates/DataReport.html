@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="CHPLogo.png" height="102" width="102"/>
-    <title>CHP Record Upload</title>
+    <title>CHP Data Report</title>
 
     <!-- Bootstrap core CSS-->
     <link href="../vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,11 +30,9 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
-
       <a class="navbar-brand mr-1" href="index.html">CHP Incident Recording and Visualization</a>
 
     <!-- Account Control -->
@@ -77,50 +75,82 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
         </li>
       </ul>
 
       <div id="content-wrapper">
+        <div class="container-fluid">
 
-
-        <div class="container-fluid mx-auto" >
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="Homepage.html">Homepage</a>
+          <a href="Homepage.html">Homepage</a>
           </li>
-          <li class="breadcrumb-item active">Record Upload</li>
+          <li class="breadcrumb-item active">Data Report</li>
         </ol>
 
-        <!-- Page Content -->
-        <div class="row justify-content-center">
-          <h1>Record Upload</h1>
-        </div>
-
-        <div class="row justify-content-center">
-          <p>Upload a .CSV file of an incident report to create a new entry.</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="input-group mb-3" style="max-width:30rem">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-            </div>
-            <div class="input-group-append">
-              <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+          <!-- Page Content -->
+          <div class="row justify-content-center">
+              <div class="card text-black bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header text-center">Create New Report</div>
+                <div class="card-body">
+                  <p class="card-text">Create a new report from uploaded document.</p>
+                  <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#upload-modal">Create</button>
+                </div>
+              </div>
+          </div>
+          <div class="row justify-content-left">
+            <div class="container">
+                <table class="table table-hover">
+                  <h2 style="text-align:center">Existing Reports</h1>
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Date Created</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Report A</td>
+                      <td>9/10/18</td>
+                      <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='Charts.html'">Chart</button></td>
+                    </tr>
+                    <tr>
+                      <td>Report B</td>
+                      <td>9/15/18</td>
+                      <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='Charts.html'">Chart</button></td>
+                    </tr>
+                    <tr>
+                      <td>Report C</td>
+                      <td>9/20/18</td>
+                      <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='Charts.html'">Chart</button></td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
           </div>
         </div>
-      </div>
         <!-- /.container-fluid -->
-
-
-        <div class="modal fade upload" tabindex="-1" role="dialog" aria-labelledby="upload" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">UPLOAD STUFF GOES HERE
+        <!-- Modal -->
+        <div class="modal fade" id="upload-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Choose your fields to create a report</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                stuff..
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
         </div>
@@ -133,6 +163,7 @@
             </div>
           </div>
         </footer>
+
       </div>
       <!-- /.content-wrapper -->
 

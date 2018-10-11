@@ -18,5 +18,26 @@ def login():
 def charts():
     return render_template('Charts.html')
     
+@app.route("/datareport", methods=['GET', 'POST']) 
+def datareport():
+    return render_template('DataReport.html')
+    
+@app.route("/admin", methods=['GET'])
+def admin():
+    return render_template('Admin.html')
+    
+@app.route("/homepage", methods=['GET', 'POST'])
+def homepage():
+    return render_template('Homepage.html')
+    
+@app.route("/recordupload", methods=['GET', 'POST'])
+def recordupload():
+    return render_template('RecordUpload.html')
+
+@app.route("/reportspage", methods=['GET', 'POST'])    
+def reportspage():
+    return render_template('ReportsPage.html')
+    
+    
 if __name__ == "__main__":
     app.run()
