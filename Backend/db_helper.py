@@ -5,7 +5,9 @@ import pyodbc
 def connectToDB():
     try:
         # Connect to the db and capture its object
-        conn = pyodbc.connect('DSN=pochildrenshome;Trusted_Connection=yes;')
+        # conn = pyodbc.connect('DSN=pochildrenshome;Trusted_Connection=yes;')
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=10.11.12.200;PORT=1433;DATABASE=POCHILDRENSHOME;UID=ChildrensHome;PWD=Capping2018!;')
+
         conn.setencoding('utf-8') 
 
         # Create a cursor from the connection object
@@ -107,7 +109,31 @@ def showAllTables():
             print(entry)
         conn.close()
     except:
-            conn.close()
+        conn.close()
+
+def query(query):
+    conn, cur = connectToDB()
+    sql = """
+        %s
+    """
+    sql = sql % (query)
+
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Iterate through the cursor results if there are any
+        entries = cur.fetchall()
+        if not entries:
+            print('No entries')
+            return
+        # Print all entries to check
+        for entry in entries:
+            print(entry)
+        conn.close()
+    except:
+        conn.close()
+
 
 
 

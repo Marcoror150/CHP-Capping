@@ -32,7 +32,6 @@ def parseData(raw_data):
     for i, item in enumerate(raw_data):
         raw_data[i] = cleanseNonNumbers(item)
         data_split = raw_data[i].split(',') 
-        print(data_split)
         col1 = int(data_split[0])
         col2 = float(data_split[1])
         data.append([col1,col2])
