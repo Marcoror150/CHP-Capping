@@ -8,7 +8,7 @@ app.debug = True
 # Create instance of flask
 app = Flask(__name__)
 # Define port for Flask to run on
-port = 80
+port = 8080
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
