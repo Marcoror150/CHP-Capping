@@ -5,6 +5,11 @@ from flask import render_template
 app = Flask(__name__)
 app.debug = True
 
+# Create instance of flask
+app = Flask(__name__)
+# Define port for Flask to run on
+port = 80
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -38,4 +43,4 @@ def reportspage():
     
     
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=apiPort, debug=False)

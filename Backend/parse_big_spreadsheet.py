@@ -28,7 +28,7 @@ def main():
         # KID, Start Date, and ACEs Score
         KID = int(child_info[0])
         start_date = child_info[1]
-        # print(KID)
+        print('Child: ' + str(KID))
         try:
             end_date = child_info[2]
         except IndexError:
@@ -39,9 +39,9 @@ def main():
         except IndexError:
             ACESs_score = None
     
-        # Insert thew child if they already doesn't exist and their program info
-        insertTable('Children',[KID,ACEs_score])
-        insertTable('ChildrenPrograms',[KID,program,start_date,end_date])
+        # Insert the child if they already doesn't exist and their program info
+        # insertTable('Children',[KID,ACEs_score])
+        # insertTable('ChildrenPrograms',[KID,program,start_date,end_date])
 
         # Seperate out the incident data
         incidents = child_info[4:]
@@ -62,12 +62,12 @@ def main():
         for idx,val in enumerate(incidents):
             if counter == 0:
                 month = int(val)
-                # print('\n'+incidents_types[counter]+':'+month)
+                print('\n'+incidents_types[counter]+':'+ str(month))
                 counter+=1
 
             elif counter == 1:
                 phys_ass = val
-                # print(incidents_types[counter]+':'+phys_ass)
+                print(incidents_types[counter]+':'+phys_ass)
                 if phys_ass == '':
                     need_insert = False
                 else:
@@ -76,7 +76,7 @@ def main():
 
             elif counter == 2:
                 sex_agg = val
-                # print(incidents_types[counter]+':'+sex_agg)
+                print(incidents_types[counter]+':'+sex_agg)
                 if sex_agg == '':
                     need_insert = False
                 else:
@@ -85,7 +85,7 @@ def main():
 
             elif counter == 3:
                 restraints = val
-                # print(incidents_types[counter]+':'+restraints)
+                print(incidents_types[counter]+':'+restraints)
                 if restraints == '':
                     need_insert = False
                 else:
@@ -94,7 +94,7 @@ def main():
 
             elif counter == 4:
                 awols = val
-                # print(incidents_types[counter]+':'+awols)
+                print(incidents_types[counter]+':'+awols)
                 if awols == '':
                     need_insert = False
                 else:
@@ -103,7 +103,7 @@ def main():
 
             elif counter == 5:
                 self_harm = val
-                # print(incidents_types[counter]+':'+self_harm)
+                print(incidents_types[counter]+':'+self_harm)
                 if self_harm == '':
                     need_insert = False
                 else:
@@ -112,7 +112,7 @@ def main():
 
             elif counter == 6:
                 prop_dam = val
-                # print(incidents_types[counter]+':'+prop_dam)
+                print(incidents_types[counter]+':'+prop_dam)
                 if sex_agg == '':
                     prop_dam = False
                 else:
@@ -121,7 +121,7 @@ def main():
 
             elif counter == 7:
                 steal = val
-                # print(incidents_types[counter]+':'+steal)
+                print(incidents_types[counter]+':'+steal)
                 if steal == '':
                     need_insert = False
                 else:
@@ -130,7 +130,7 @@ def main():
 
             elif counter == 8:
                 weapons = val
-                # print(incidents_types[counter]+':'+weapons)
+                print(incidents_types[counter]+':'+weapons)
                 if weapons == '':
                     need_insert = False
                 else:
@@ -139,7 +139,7 @@ def main():
                 
             elif counter == 9:
                 suicide = val
-                # print(incidents_types[counter]+':'+suicide)
+                print(incidents_types[counter]+':'+suicide)
                 if suicide == '':
                     need_insert = False
                 else:
@@ -148,7 +148,7 @@ def main():
 
             elif counter == 10:
                 er_visits = val
-                # print(incidents_types[counter]+':'+er_visits)
+                print(incidents_types[counter]+':'+er_visits)
                 if er_visits == '':
                     need_insert = False
                 else:
@@ -157,15 +157,15 @@ def main():
 
             elif counter == 11:
                 month_total = val
-                # print(incidents_types[counter]+':'+month_total)
+                print(incidents_types[counter]+':'+month_total)
                 counter = 0
                 need_insert = False
             
-            if need_insert:
-                insertTable('Incidents',[KID,month])
-                iid = getLastID()
-                tid = getTID(incidents_types[counter])
-                insertTable('IncidentClassification',[iid,tid])
+            # if need_insert:
+            #     insertTable('Incidents',[KID,month])
+            #     iid = getLastID()
+            #     tid = getTID(incidents_types[counter])
+            #     insertTable('IncidentClassification',[iid,tid])
 
         # Testing purposes
         # print(month)
