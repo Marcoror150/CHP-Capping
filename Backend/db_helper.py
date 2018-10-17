@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+# Helper functions that connects Python to the database
+# Michael Gutierrez
+# 10/16/2018
+
 import pyodbc
 
 # Connect to the db and return the connection and cursor for query execution
@@ -84,9 +89,9 @@ def insertTable(table,values):
         cur.executemany(sql, values)
         conn.commit()
         conn.close()
-    except:
+    except ValueError:
         conn.close()
-        raise ValueError('Unable to insert into table %s, check proper values or duplicate values' %table)
+        print('Unable to insert into table %s, check proper values or duplicate values' %table)
 
 # Get all entries of a given table
 def selectAll(table):
@@ -134,6 +139,7 @@ def getAllTables():
     except:
         conn.close()
 
+# Run any general query
 def query(query):
     conn, cur = connectToDB()
     sql = """
@@ -154,6 +160,56 @@ def query(query):
         # Print all entries to check
         for entry in entries:
             print(entry)
+
         conn.close()
     except:
         conn.close()
+
+# Get the id given an incedent name
+def getTID(name):
+    conn, cur = connectToDB()
+    sql = """
+        SELECT TID
+        FROM IncidentTypes
+        WHERE name = '%s'
+    """
+    # Stitch together the sql query
+    sql = sql % (name)
+
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Check if IncidentType exists
+        entry = cur.fetchall()
+        if not entries:
+            conn.close()
+            print('No entries')
+            return
+        else:
+            conn.close()
+            return entry
+    except:
+        conn.close()
+# Get latest id of the table last inserted to
+def getLastID():
+    conn, cur = connectToDB()
+    sql = """
+        SELECT SCOPE_IDENTITY()
+    """
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Check if IncidentType exists
+        entry = cur.fetchall()
+        if not entries:
+            conn.close()
+            print('No entries')
+            return
+        else:
+            conn.close()
+            return entry
+    except:
+        conn.close()
+
