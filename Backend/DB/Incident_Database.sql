@@ -23,7 +23,7 @@ CREATE TABLE Children (
 
 --Program Table
 CREATE TABLE Program (
-	PID		VARCHAR (50) NOT NULL,
+	PID		VARCHAR (3) NOT NULL,
   PRIMARY KEY (PID)
 );
 
