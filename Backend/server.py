@@ -5,8 +5,8 @@ from flask import render_template
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
 
-# Create instance of flask
-app = Flask(__name__)
+# # Create instance of flask
+# app = Flask(__name__)
 # Define port for Flask to run on
 port = 8080
 

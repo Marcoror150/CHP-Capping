@@ -14,66 +14,58 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
       
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='./css/bootstrap.min.css')}}" />
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='./vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.min.css')}}" />
-
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='bootstrap.min.css') }}"/>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.min.css' )}}"/>
     </head>
     <body>
-
-      <script src="{{ url_for('static',filename='JS/jquery-3.3.1.min.js') }}"> </script>
-      <script src="{{ url_for('static',filename='JS/popper.min.js') }}"> </script>
-      <script src="{{ url_for('static',filename='JS/bootstrap.min.js') }}"> </script>
+      <!--All JS scripts for this page-->
+      <script type="text/javascript" src="{{ url_for( 'static',filename = 'jquery-3.3.1.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for( 'static',filename = 'bootstrap.bundle.min.js') }}"></script>
       
 
-<div class="container">
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <div class="row">
-        <div class="col-9">
-          <h1 class="display-4">Children's Home of Poughkeepsie</h1>
-          <p class="lead">Incident Recording and Visualization System</p>
+      <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <div class="row">
+              <div class="col-9">
+                <h1 class="display-4">Children's Home of Poughkeepsie</h1>
+                <p class="lead">Incident Recording and Visualization System</p>
+              </div>
+              <div class="col">
+                <!--CHP Logo at top of Page-->
+                <img src="{{ url_for('static', filename = 'images/CHPLogo.png') }}" width="225" height="150">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col">
-          <!--CHP Logo at top of Page-->
-          <img src="{{ url_for('static', filename = 'images/CHPLogo.png') }}" width="225" height="150">
-        </div>
+            <div class="card card-login mx-auto mt-5">
+              <div class="card-header">CHP Incident Visualization Login</div>
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="username" id="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
+                      <label for="inputUsername">Username</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                      <label for="inputPassword">Password</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="remember-me">
+                        Remember Username
+                      </label>
+                    </div>
+                  </div>
+                  <a class="btn btn-primary btn-block" href="/homepage">Login</a>
+                </form>
+              </div>
+            </div>
       </div>
-    </div>
-   </div>
-      <div class="card card-login mx-auto mt-5">
-        <div class="card-header">CHP Incident Visualization Login</div>
-        <div class="card-body">
-          <form>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="username" id="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
-                <label for="inputUsername">Username</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
-                <label for="inputPassword">Password</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="remember-me">
-                  Remember Username
-                </label>
-              </div>
-            </div>
-            <a class="btn btn-primary btn-block" href="/homepage">Login</a>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!--All JS scripts for this page-->
-    <script type="text/javascript" src="{{ url_for('static',filename='JS/jquery/jquery.min.js') }}"> </script>
-    <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
-    <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery-easing/jquery.easing.min.js') }}"> </script>
-    
     </body>
 </html>
