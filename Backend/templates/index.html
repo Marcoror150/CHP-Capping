@@ -5,7 +5,6 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <link href={{ url_for('static',filename='images/CHPLogo.png')}} height="102" width="102"/>
       <title>CHP Incident Visualization Login</title>
 
       <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -35,7 +34,8 @@
           <p class="lead">Incident Recording and Visualization System</p>
         </div>
         <div class="col">
-          <img src="CHPLogo.png" alt="CHP Logo" width="214px" height ="143px"/>
+          <!--CHP Logo at top of Page-->
+          <img src="{{ url_for('static', filename = 'images/CHPLogo.png') }}" width="225" height="150">
         </div>
       </div>
     </div>
