@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.debug = True
 
 # Create instance of flask
@@ -43,4 +43,4 @@ def reportspage():
     
     
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)

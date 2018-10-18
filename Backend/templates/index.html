@@ -5,7 +5,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <link rel="icon" type="image/png" href="CHPLogo.png" height="102" width="102"/>
+      <link href={{ url_for('static',filename='images/CHPLogo.png')}} height="102" width="102"/>
       <title>CHP Incident Visualization Login</title>
 
       <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -15,15 +15,16 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
       
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.min.css')}}" />
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.min.css')}}" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='./css/bootstrap.min.css')}}" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='./vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.min.css')}}" />
 
     </head>
     <body>
-      <script src="../JS/jquery-3.3.1.min.js"></script>
-      <script src="../JS/popper.min.js"></script>
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="../JS/bootstrap.min.js"></script>
+
+      <script src="{{ url_for('static',filename='JS/jquery-3.3.1.min.js') }}"> </script>
+      <script src="{{ url_for('static',filename='JS/popper.min.js') }}"> </script>
+      <script src="{{ url_for('static',filename='JS/bootstrap.min.js') }}"> </script>
+      
 
 <div class="container">
   <div class="jumbotron jumbotron-fluid">
@@ -70,7 +71,7 @@
     </div>
 
     <!--All JS scripts for this page-->
-    <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"> </script>
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/jquery/jquery.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery-easing/jquery.easing.min.js') }}"> </script>
     
