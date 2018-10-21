@@ -1,0 +1,5 @@
+[pochildrenshome]
+Driver=ODBC Driver 17 for SQL Server
+Description=PCH DB
+Trace=No
+Server=10.11.12.200

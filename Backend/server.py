@@ -1,8 +1,4 @@
-from flask import Flask
-from flask import request
-from flask import render_template
-from flask import session
-from flask import flash
+from flask import Flask, request, render_template, session,flash
 from db_helper import validateLogin
 
 app = Flask(__name__, static_url_path='/static')
