@@ -2,24 +2,21 @@ from flask import Flask
 from flask import request
 from flask import render_template
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='/Backend/static')
 app.debug = True
 
-# # Create instance of flask
+# Create instance of flask
 # app = Flask(__name__)
 # Define port for Flask to run on
 port = 8080
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+	print ("console")
 	if request.method == 'POST':
-		username = request.form["inputUsername"]
-		password = request.form["inputPassword"]
-		sql = "SELECT * FROM Users WHERE username = '"+username+"' AND password = '"+password+"';"
-		print (sql)
 		return render_template('dumbpage.html')
 	else:
-		return render_template('index.html')
+		return render_template('charts.html')
 
 @app.route("/charts", methods=['GET'])
 def charts():
@@ -35,7 +32,7 @@ def admin():
     
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
-	return render_template('Homepage.html')
+    return render_template('Homepage.html')
     
 @app.route("/recordupload", methods=['GET', 'POST'])
 def recordupload():
