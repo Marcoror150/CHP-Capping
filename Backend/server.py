@@ -16,14 +16,22 @@ port = 8080
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+	# We will only be using the POST method, but we must verify
 	if request.method == 'POST':
+	
+		# Get the form data from request
 		username = request.form["inputUsername"]
 		password = request.form["inputPassword"]
+		
+		# Check the given credentials against the DB
 		if validateLogin(username,password):
+		
+			# Credentials are valid so create a session and send them to the homepage
 			session['logged_in'] = True
+			session['username'] = username
 			return render_template('homepage.html')
 		else:
-			flash("Invalid Login")
+			flash("Invalid login", 'error')
 			return render_template('index.html')
 	else:
 		return render_template('index.html')

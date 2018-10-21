@@ -43,6 +43,11 @@
               <div class="card-body">
                 <form method="POST">
                   <div class="form-group">
+					{% with errors = get_flashed_messages(category_filter=['error']) %}
+						{% if errors %}
+							<p style="color:red">{{ errors[0] }}</p>
+						{% endif %}
+					{% endwith %}
                     <div class="form-label-group">
                       <input type="username" name="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
                       <label for="inputUsername">Username</label>
