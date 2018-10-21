@@ -19,7 +19,7 @@ else
   mkdir $RTC
   cd $RTC
   mkdir Archive
-  cd ../../
+  cd ../
 fi
 
 if [ -e $YMP ]
@@ -30,7 +30,7 @@ else
   mkdir $YMP
   cd $YMP
   mkdir Archive
-  cd ../../
+  cd ../
 fi
 
 if [ -e $SHP ]
@@ -41,7 +41,7 @@ else
   mkdir $SHP
   cd $SHP
   mkdir Archive
-  cd ../../
+  cd ../
 fi
 
 if [ -e $ABH ]
@@ -52,7 +52,7 @@ else
   mkdir $ABH
   cd $ABH
   mkdir Archive
-  cd ../../
+  cd ../
 fi
 
 if [ -e $GEFC ]
@@ -63,5 +63,5 @@ else
   mkdir $GEFC
   cd $GEFC
   mkdir Archive
-  cd ../../
+  cd ../
 fi
