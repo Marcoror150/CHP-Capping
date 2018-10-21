@@ -4,9 +4,7 @@
 # Michael Gutierrez
 # 10/16/2018
 
-import os
-import re
-import calendar
+import os, re, calendar
 from db_helper import *
 
 def main():
@@ -168,9 +166,9 @@ def main():
             #     insertTable('IncidentClassification',[iid,tid])
 
         # Testing purposes
-        # print(month)
-        # print('only 1 child')
-        # break
+        print(month)
+        print('only 1 child')
+        break
 
 if __name__ == "__main__":
     main()
