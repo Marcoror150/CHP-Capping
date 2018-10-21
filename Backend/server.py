@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, session,flash
-from db_helper import validateLogin
+from db_helper import validateLogin, getUserType
 
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
@@ -25,7 +25,11 @@ def login():
 			# Credentials are valid so create a session and send them to the homepage
 			session['logged_in'] = True
 			session['username'] = username
-			return render_template('homepage.html')
+			print (username)
+			if(getUserType(username) == 'admin'):
+				return render_template('Admin.html')
+			else:
+				return render_template('homepage.html')
 		else:
 			flash("Invalid login", 'error')
 			return render_template('index.html')

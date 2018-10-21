@@ -167,19 +167,30 @@ def query(query):
 def validateLogin(uname,pwd):
 	conn, cur = connectToDB()
 	sql = "SELECT * FROM Users WHERE username = '"+uname+"' AND password = '"+pwd+"';"
-	print (sql)
 	try:
 		cur.execute(sql)
 		
 		entries = cur.fetchall()
+		conn.close()
 		if not entries:
 			return False
 		else:
-			for entry in entries:
-				print (entry)
 			return True
 		
+	except:
 		conn.close()
+
+#		
+def getUserType(uname):
+	conn, cur = connectToDB()
+	sql = "SELECT UserType FROM Users WHERE username = '"+uname+"';"
+	
+	print (sql)
+	try:
+		cur.execute(sql)
+		entries = cur.fetchall()
+		conn.close()
+		return (entries[0][0])
 	except:
 		conn.close()
 
