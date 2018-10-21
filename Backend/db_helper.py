@@ -138,7 +138,6 @@ def getAllTables():
         return entries
     except:
         conn.close()
-
 # Run any general query
 def query(query):
     conn, cur = connectToDB()
@@ -164,6 +163,25 @@ def query(query):
         conn.close()
     except:
         conn.close()
+
+def validateLogin(uname,pwd):
+	conn, cur = connectToDB()
+	sql = "SELECT * FROM Users WHERE username = '"+uname+"' AND password = '"+pwd+"';"
+	print (sql)
+	try:
+		cur.execute(sql)
+		
+		entries = cur.fetchall()
+		if not entries:
+			return False
+		else:
+			for entry in entries:
+				print (entry)
+			return True
+		
+		conn.close()
+	except:
+		conn.close()
 
 # Get the id given an incedent name
 def getTID(name):

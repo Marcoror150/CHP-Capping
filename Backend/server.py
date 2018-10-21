@@ -1,9 +1,13 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask import session
+from flask import flash
+from db_helper import validateLogin
 
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
+app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e\x86\x81\xe5\x85\xdd'
 
 # # Create instance of flask
 # app = Flask(__name__)
@@ -15,9 +19,12 @@ def login():
 	if request.method == 'POST':
 		username = request.form["inputUsername"]
 		password = request.form["inputPassword"]
-		sql = "SELECT * FROM Users WHERE username = '"+username+"' AND password = '"+password+"';"
-		print (sql)
-		return render_template('dumbpage.html')
+		if validateLogin(username,password):
+			session['logged_in'] = True
+			return render_template('homepage.html')
+		else:
+			flash("Invalid Login")
+			return render_template('index.html')
 	else:
 		return render_template('index.html')
 
