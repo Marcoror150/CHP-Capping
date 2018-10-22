@@ -51,7 +51,7 @@
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-          {% if session['userType'] in ['root','highUser','superIntern'] %}
+        {% if session['userType'] in ['root','highUser','superIntern'] %}
           <li class="nav-item">
             <a class="nav-link" href="/homepage">
               <i class="fas fa-fw fa-home"></i>
@@ -59,6 +59,7 @@
             </a>
           </li>
         {% endif %}
+
         {% if session['userType'] != 'viewOnly' %}
           <li class="nav-item">
             <a class="nav-link" href="/recordupload">
