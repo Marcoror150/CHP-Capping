@@ -27,13 +27,16 @@ def login():
 			# Credentials are valid so create a session
 			session['logged_in'] = True
 			session['username'] = username
+			session['userType'] = getUserType(username)
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
-			if(getUserType(username) == 'admin'):
+			if(session['userType'] == 'admin'):
 				return render_template('Admin.html')
+			elif(session['userType'] == 'intern'):
+				return render_template('RecordUpload.html')
 			else:
 				return render_template('homepage.html')
-				
+
 		else:
 			# Credentials are not valid so give error message
 			flash("Invalid login", 'error')

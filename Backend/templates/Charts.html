@@ -51,12 +51,14 @@
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/homepage">
-            <i class="fas fa-fw fa-home"></i>
-            <span>Homepage</span>
-          </a>
-        </li>
+        {% if session['userType'] in ['root','highuser','superIntern'] %}
+          <li class="nav-item">
+            <a class="nav-link" href="/homepage">
+              <i class="fas fa-fw fa-home"></i>
+              <span>Homepage</span>
+            </a>
+          </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="/recordupload">
             <i class="fas fa-fw fa-cloud-upload-alt"></i>
