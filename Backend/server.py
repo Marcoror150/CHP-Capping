@@ -3,6 +3,8 @@ from db_helper import validateLogin, getUserType
 
 app = Flask(__name__, static_url_path='/static')
 app.debug = True
+
+# Set a random secret key to be used for the session
 app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e\x86\x81\xe5\x85\xdd'
 
 # # Create instance of flask
@@ -22,15 +24,18 @@ def login():
 		# Check the given credentials against the DB
 		if validateLogin(username,password):
 		
-			# Credentials are valid so create a session and send them to the homepage
+			# Credentials are valid so create a session
 			session['logged_in'] = True
 			session['username'] = username
-			print (username)
+
+			# If user is admin, send them to Admin page. If not an admin, send to Homepage
 			if(getUserType(username) == 'admin'):
 				return render_template('Admin.html')
 			else:
 				return render_template('homepage.html')
+				
 		else:
+			# Credentials are not valid so give error message
 			flash("Invalid login", 'error')
 			return render_template('index.html')
 	else:
