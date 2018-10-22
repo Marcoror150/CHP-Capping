@@ -51,7 +51,7 @@
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        {% if session['userType'] in ['root','highuser','superIntern'] %}
+        {% if session['userType'] in ['root','highUser','superIntern'] %}
           <li class="nav-item">
             <a class="nav-link" href="/homepage">
               <i class="fas fa-fw fa-home"></i>
@@ -59,12 +59,14 @@
             </a>
           </li>
         {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="/recordupload">
-            <i class="fas fa-fw fa-cloud-upload-alt"></i>
-            <span>Record Upload</span>
-          </a>
-        </li>
+        {% if session['userType'] != 'viewOnly' %}
+          <li class="nav-item">
+            <a class="nav-link" href="/recordupload">
+              <i class="fas fa-fw fa-cloud-upload-alt"></i>
+              <span>Record Upload</span>
+            </a>
+          </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="/datareport">
             <i class="fas fa-fw fa-list-alt"></i>
