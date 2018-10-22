@@ -59,6 +59,26 @@
             </a>
           </li>
         {% endif %}
+        {% if session['userType'] == 'admin' %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-fw fa-clipboard"></i>
+              <span>Admin Tools</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+              <h6 class="dropdown-header">User Management</h6>
+              <a class="dropdown-item" href="register.html">Add/Remove User</a>
+              <a class="dropdown-item" href="login.html">Manage Permissions</a>
+              <a class="dropdown-item" href="forgot-password.html">Reset Password</a>
+  
+              <!--Database stuff-->
+              <!--<div class="dropdown-divider"></div>
+              <h6 class="dropdown-header">Database Management</h6>
+              <a class="dropdown-item" href="404.html">Add/Remove Fields</a> -->
+  
+            </div>
+          </li>
+        {% endif %}
         {% if session['userType'] != 'viewOnly' %}
           <li class="nav-item">
             <a class="nav-link" href="/recordupload">
