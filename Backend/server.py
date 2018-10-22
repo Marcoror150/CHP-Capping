@@ -34,6 +34,7 @@ def login():
 				return render_template('Admin.html')
 			elif(session['userType'] == 'intern'):
 				return render_template('RecordUpload.html')
+			elif(session['userType'] == 'viewOnly'):
 			else:
 				return render_template('homepage.html')
 
