@@ -74,12 +74,20 @@ SHPFiles=`ls ./shp`
 ABHFiles=`ls ./abh`
 GEFCFiles=`ls ./gefc`
 
+#Convert all .xlsx files to .csv files for further processing
+for file in $RTCFiles
+do
+if [ ${file:-5} ==".xlsx" ] #get any Excel file
+then	
+  mv $RTC/$file
+
 #Execute parsing of.csv files and move them to Archive if successed for RTC
 for file in $RTCFiles
 do
 if [ ${file: -4} == ".csv" ] #get any file that ends in .csv
 then
-  sh ../reportParsing.sh $RTC/$file
+  sh
+  ../reportParsing.sh $RTC/$file
   EXITCODE=$?
   if [ $EXITCODE -eq 0 ] #If the script had no issues
     then
