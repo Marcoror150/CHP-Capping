@@ -71,15 +71,15 @@ def reportspage():
     return render_template('ReportsPage.html')
 	
 @app.route("/usermgt", methods=['GET','POST'])
-def addRemoveUser()
+def addRemoveUser():
 	return render_template('UserMgt.html')
 
 @app.route("/groupmgt", methods=['GET','POST'])
-def changePermissions()
+def changePermissions():
 	return render_template('GroupMgt.html')
 
 @app.route("/adminpass", methods=['GET','POST'])
-def resetPassword()
+def resetPassword():
 	return render_template('AdminPass.html')
 	
 
