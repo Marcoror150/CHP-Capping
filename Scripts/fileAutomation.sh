@@ -77,17 +77,19 @@ GEFCFiles=`ls ./gefc`
 #Convert all .xlsx files to .csv files for further processing
 for file in $RTCFiles
 do
-if [ ${file:-5} ==".xlsx" ] #get any Excel file
+if [[ ${file: -5} == ".xlsx" ]] #get any Excel file
 then	
-  mv $RTC/$file
+  mv $RTC/"$file" $RTC/"${file: -5}".csv
+fi 
+done
+
 
 #Execute parsing of.csv files and move them to Archive if successed for RTC
 for file in $RTCFiles
 do
-if [ ${file: -4} == ".csv" ] #get any file that ends in .csv
+if [[ ${file: -4} == ".csv" ]] #get any file that ends in .csv
 then
-  sh
-  ../reportParsing.sh $RTC/$file
+  sh ../reportParsing.sh $RTC/$file
   EXITCODE=$?
   if [ $EXITCODE -eq 0 ] #If the script had no issues
     then
@@ -99,11 +101,11 @@ done
 #Execute parsing of.csv files and move them to Archive if successed for YMP
 for file in $YMPFiles
 do
-if [ ${file: -4} == ".csv" ] #get any file that ends in .csv
+if [[ ${file: -4} == ".csv" ]] #get any file that ends in .csv
 then
   sh ../reportParsing.sh $YMP/$file
   EXITCODE=$?
-  if [ $EXITCODE -eq 0 ] #If the script had no issues
+  if [[ $EXITCODE -eq 0 ]] #If the script had no issues
     then
     mv $YMP/$file $YMP/Archive #Move to respective archive
   fi
@@ -113,11 +115,11 @@ done
 #Execute parsing of.csv files and move them to Archive if successed for SHP
 for file in $SHPFiles
 do
-if [ ${file: -4} == ".csv" ] #get any file that ends in .csv
+if [[ ${file: -4} == ".csv" ]] #get any file that ends in .csv
 then
   sh ../reportParsing.sh $SHP/$file
   EXITCODE=$?
-  if [ $EXITCODE -eq 0 ] #If the script had no issues
+  if [[ $EXITCODE -eq 0 ]] #If the script had no issues
     then
     mv $SHP/$file $SHP/Archive #Move to respective archive
   fi
@@ -127,11 +129,11 @@ done
 #Execute parsing of.csv files and move them to Archive if successed for ABH
 for file in $ABHFiles
 do
-if [ ${file: -4} == ".csv" ] #get any file that ends in .csv
+if [[ ${file: -4} == ".csv" ]] #get any file that ends in .csv
 then
   sh ../reportParsing.sh $ABH/$file
   EXITCODE=$?
-  if [ $EXITCODE -eq 0 ] #If the script had no issues
+  if [[ $EXITCODE -eq 0 ]] #If the script had no issues
     then
     mv $ABH/$file $ABH/Archive #Move to respective archive
   fi
@@ -141,11 +143,11 @@ done
 #Execute parsing of.csv files and move them to Archive if successed for GEFC
 for file in $GEFCFiles
 do
-if [ ${file: -4} == ".csv" ] #get any file that ends in .csv
+if [[ ${file: -4} == ".csv" ]] #get any file that ends in .csv
 then
   sh ../reportParsing.sh $GEFC/$file
   EXITCODE=$?
-  if [ $EXITCODE -eq 0 ] #If the script had no issues
+  if [[$EXITCODE -eq 0 ]] #If the script had no issues
     then
     mv $GEFC/$file $GEFC/Archive #Move to respective archive
   fi
