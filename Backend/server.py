@@ -69,6 +69,20 @@ def recordupload():
 @app.route("/reportspage", methods=['GET', 'POST'])    
 def reportspage():
     return render_template('ReportsPage.html')
+	
+@app.route("/usermgt", methods=['GET','POST'])
+def addRemoveUser()
+	return render_template('UserMgt.html')
+
+@app.route("/groupmgt", methods=['GET','POST'])
+def changePermissions()
+	return render_template('GroupMgt.html')
+
+@app.route("/adminpass", methods=['GET','POST'])
+def resetPassword()
+	return render_template('AdminPass.html')
+	
+
     
     
 if __name__ == "__main__":
