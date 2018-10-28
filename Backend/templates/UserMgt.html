@@ -178,27 +178,10 @@
 		  
 		  
 		  
-		                    <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#upload-modal">Delete</button>
+		                    <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
 
         </div>
         <!-- /.container-fluid -->
-		<!-- Modal -->
-        <div class="modal fade" id="upload-modal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Are you sure you want to delete this user?</h4>
-              </div>
-              <!-- Modal footer -->
-              <div class="modal-footer">
-			    <button type="button" class="btn btn-success" class="close" id="confirmDeletion" data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-danger" class="close" id="rejectDeletion" data-dismiss="modal">No</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
@@ -237,6 +220,24 @@
         </div>
       </div>
     </div>
+	
+	<!-- Delete User Modal -->
+	<div class="modal fade" id="deleteUserModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Are you sure you want to delete this user?</h4>
+		  </div>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmDeletion" data-dismiss="modal">Yes</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectDeletion" data-dismiss="modal">No</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
    
     <!--All JS Script files used-->
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js') }}"> </script>

@@ -104,35 +104,9 @@
           <h1>CHP Admin Manage User Permissions</h1>
           <hr>
 		  
-						<button href="#" class="btn btn-danger" data-toggle="modal" data-target="#upload-modal">Change Permissions</button>
+						<button href="#" class="btn btn-danger" data-toggle="modal" data-target="#changePermissionsModal">Change Permissions</button>
         </div>
         <!-- /.container-fluid -->
-		<!-- Modal -->
-        <div class="modal fade" id="upload-modal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Select new user permissions</h4>
-              </div>
-			  
-				<label for="newUserPermissions">New User Permissions:</label>
-				<select class="form-control form-control-sm">
-					<option>Select One:</option>
-					<option>Admin</option>
-					<option>Full User</option>
-					<option>Super Intern</option>
-					<option>Intern</option>
-				</select>
-			  
-              <!-- Modal footer -->
-              <div class="modal-footer">
-			    <button type="button" class="btn btn-success" class="close" id="confirmChange" data-dismiss="modal">Chnage user permissions</button>
-                <button type="button" class="btn btn-danger" class="close" id="rejectChange" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
@@ -171,6 +145,35 @@
         </div>
       </div>
     </div>
+	
+	
+	<!-- Change Permissions Modal -->
+	<div class="modal fade" id="changePermissionsModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Select new user permissions</h4>
+		  </div>
+		  
+			<label for="newUserPermissions">New User Permissions:</label>
+			<select class="form-control form-control-sm">
+				<option>Select One:</option>
+				<option>Admin</option>
+				<option>Full User</option>
+				<option>Super Intern</option>
+				<option>Intern</option>
+			</select>
+		  
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmChange" data-dismiss="modal">Chnage user permissions</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectChange" data-dismiss="modal">Cancel</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
    
     <!--All JS Script files used-->
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js') }}"> </script>
