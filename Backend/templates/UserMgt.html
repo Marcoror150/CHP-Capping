@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" href="CHPLogo.png" height="102" width="102"/>
-    <title>CHP Admin</title>
+    <title>CHP Admin User Management</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/fontawesome-free/css/all.min.css') }}" />
@@ -101,9 +101,54 @@
           </ol>
 
           <!-- Page Content -->
-          <h1>CHP Admin</h1>
+          <h1>CHP Admin User Management</h1>
           <hr>
-          <p>Manage the system using the tools to the right.</p>
+          <p>Create a new user:</p>
+		  
+		  <form>
+		    <div class="form-group">
+			  <div class="form-row">
+				<div class="col">
+				  <label for="exampleFormControlInput1">User's First Name:</label>
+				  <input type="text" class="form-control" placeholder="First Name">
+				</div>
+				<div class="col">
+				  <label for="exampleFormControlInput1">User's Last Name:</label>
+				  <input type="text" class="form-control" placeholder="Last Name">
+				</div>
+			  </div>
+			
+			<label for="exampleFormControlInput1">User's Username:</label>
+			<input type="text" class="form-control" id="userName" placeholder="Username">
+			
+			
+			<div class="form-group">
+			  <div class="form-row">
+				<div class="col">
+				<label for="exampleFormControlInput1">User's Password:</label>
+				  <input type="password" class="form-control" placeholder="Password">
+				</div>
+				<div class="col">
+				  <input type="password" class="form-control" placeholder="Confirm Password">
+				</div>
+			  </div>
+			
+
+			
+			<label for="exampleFormControlInput1">User Permissions:</label>
+			<select class="form-control form-control-sm">
+				<option>Select One:</option>
+				<option>Admin</option>
+				<option>Full User</option>
+				<option>Super Intern</option>
+				<option>Intern</option>
+			</select>
+			
+			</div>
+			
+			</form>
+		  
+		  <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#upload-modal">Create</button>
 
         </div>
         <!-- /.container-fluid -->
