@@ -101,6 +101,7 @@
           </ol>
 
           <!-- Page Content -->
+		  <!-- Creating a new user -->
           <h1>CHP Admin User Management</h1>
           <hr>
           <p>Create a new user:</p>
@@ -109,46 +110,49 @@
 		    <div class="form-group">
 			  <div class="form-row">
 				<div class="col">
-				  <label for="exampleFormControlInput1">User's First Name:</label>
+				  <label for="fName">User's First Name:</label>
 				  <input type="text" class="form-control" placeholder="First Name">
 				</div>
 				<div class="col">
-				  <label for="exampleFormControlInput1">User's Last Name:</label>
+				  <label for="lName">User's Last Name:</label>
 				  <input type="text" class="form-control" placeholder="Last Name">
 				</div>
 			  </div>
 			
-			<label for="exampleFormControlInput1">User's Username:</label>
+			<label for="userName">User's Username:</label>
 			<input type="text" class="form-control" id="userName" placeholder="Username">
 			
 			
 			<div class="form-group">
 			  <div class="form-row">
 				<div class="col">
-				<label for="exampleFormControlInput1">User's Password:</label>
+				<label for="password">User's Password:</label>
 				  <input type="password" class="form-control" placeholder="Password">
 				</div>
 				<div class="col">
+				<label for="confirmPassword">Confirm Password:</label>
 				  <input type="password" class="form-control" placeholder="Confirm Password">
 				</div>
 			  </div>
 			
-
-			
-			<label for="exampleFormControlInput1">User Permissions:</label>
-			<select class="form-control form-control-sm">
-				<option>Select One:</option>
-				<option>Admin</option>
-				<option>Full User</option>
-				<option>Super Intern</option>
-				<option>Intern</option>
-			</select>
+				<label for="userPermissions">User Permissions:</label>
+				<select class="form-control form-control-sm">
+					<option>Select One:</option>
+					<option>Admin</option>
+					<option>Full User</option>
+					<option>Super Intern</option>
+					<option>Intern</option>
+				</select>
 			
 			</div>
 			
 			</form>
 		  
 		  <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#upload-modal">Create</button>
+		  <br><br>
+		  
+		  <!-- Remove a user -->
+		  <p>Remove a user:</p>
 
         </div>
         <!-- /.container-fluid -->
