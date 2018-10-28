@@ -101,12 +101,45 @@
           </ol>
 
           <!-- Page Content -->
-          <h1>CHP Admin</h1>
+          <h1>CHP Admin Reset User Passwords</h1>
           <hr>
-          <p>Manage the system using the tools to the right.</p>
+		  
+		  
+		  
+		  		  <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#upload-modal">Reset Password</button>
+		  
+		  
 
         </div>
         <!-- /.container-fluid -->
+		<!-- Modal -->
+        <div class="modal fade" id="upload-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+				<div class="form-group">
+				  <div class="form-row">
+					<div class="col">
+					<label for="password">User's New Password:</label>
+					  <input type="password" class="form-control" id="password" placeholder="Password">
+					</div>
+					<div class="col">
+					<label for="confirmPassword">Confirm Password:</label>
+					  <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+					</div>
+				  </div>
+				</div>
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Are you sure you want to delete this user?</h4>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+			    <button type="button" class="btn btn-success" class="close" id="confirmPassword" data-dismiss="modal">Change Password</button>
+                <button type="button" class="btn btn-danger" class="close" id="rejectPassword" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
@@ -119,7 +152,37 @@
 
       </div>
       <!-- /.content-wrapper -->
+	  <!-- Modal -->
+        <div class="modal fade" id="upload-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Change Password</h4>
+              </div>
+			  			<div class="form-group">
+			  <div class="form-row">
+				<div class="col">
+				<label for="password">User's Password:</label>
+				  <input type="password" class="form-control" placeholder="Password">
+				</div>
+				<div class="col">
+				<label for="confirmPassword">Confirm Password:</label>
+				  <input type="password" class="form-control" placeholder="Confirm Password">
+				</div>
+			  </div>
+			  </div>
 
+			  
+              <!-- Modal footer -->
+              <div class="modal-footer">
+			    <button type="button" class="btn btn-success" class="close" id="confirmPassword" data-dismiss="modal">Change Password</button>
+                <button type="button" class="btn btn-danger" class="close" id="rejectPassword" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+	  
     </div>
     <!-- /#wrapper -->
 
