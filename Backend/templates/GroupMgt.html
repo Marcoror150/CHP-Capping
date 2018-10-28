@@ -104,7 +104,7 @@
           <h1>CHP Admin Manage User Permissions</h1>
           <hr>
 		  
-						<button href="#" class="btn btn-danger" data-toggle="modal" data-target="#changePermissionsModal">Change Permissions</button>
+						<button href="#" class="btn btn-danger" type="button" data-toggle="modal" data-target="#changePermissionsModal">Change Permissions</button>
         </div>
         <!-- /.container-fluid -->
         <!-- Sticky Footer -->
@@ -155,7 +155,7 @@
 		  <div class="modal-header">
 			<h4 class="modal-title">Select new user permissions</h4>
 		  </div>
-		  
+		    <!-- Form to select user's new permissions -->
 			<label for="newUserPermissions">New User Permissions:</label>
 			<select class="form-control form-control-sm">
 				<option>Select One:</option>
@@ -164,7 +164,6 @@
 				<option>Super Intern</option>
 				<option>Intern</option>
 			</select>
-		  
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-success" class="close" id="confirmChange" data-dismiss="modal">Chnage user permissions</button>
@@ -173,7 +172,6 @@
 		</div>
 	  </div>
 	</div>
-	
    
     <!--All JS Script files used-->
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js') }}"> </script>
