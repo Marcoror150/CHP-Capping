@@ -28,7 +28,7 @@
         <i class="fas fa-bars"></i>
       </button>
 
-      <a class="navbar-brand mr-1" href="index.html">CHP Incident Recording and Visualization</a>
+      <a class="navbar-brand mr-1" href="/homepage">CHP Incident Recording and Visualization</a>
 
     <!-- Account Control -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -118,19 +118,20 @@
         </div>
 
         <div class="row justify-content-center">
-          <p>Upload a .CSV file of an incident report to create a new entry.</p>
+          <p>Upload a file of an incident report to create a new entry.</p>
         </div>
 
         <div class="row justify-content-center">
-          <div class="input-group mb-3" style="max-width:30rem">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile02">
-              <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+          <form method="POST">
+            <div class="input-group" style="max-width:30rem">
+              <input type="text" class="form-control" readonly>
+              <label class="input-group-btn">
+                <span class="btn btn-primary">Browse<input type="file" style="display: none;" multiple></span>
+                <button class="btn btn-primary" type="submit">Upload</button>
+              </label>
             </div>
-            <div class="input-group-append">
-              <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-            </div>
-          </div>
+          </form>
+          <!-- </div> -->
         </div>
       </div>
         <!-- /.container-fluid -->
