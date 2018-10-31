@@ -74,16 +74,6 @@ SHPFiles=`ls ./shp`
 ABHFiles=`ls ./abh`
 GEFCFiles=`ls ./gefc`
 
-#Convert all .xlsx files to .csv files for further processing
-for file in $RTCFiles
-do
-if [[ ${file: -5} == ".xlsx" ]] #get any Excel file
-then	
-  mv $RTC/"$file" $RTC/"${file: -5}".csv
-fi 
-done
-
-
 #Execute parsing of.csv files and move them to Archive if successed for RTC
 for file in $RTCFiles
 do

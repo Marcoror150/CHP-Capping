@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+# Additional functions used by the parser script.
+# Michael Gutierrez
+# 10/31/2018
 import re
 def cleanEmptyRows(csv):
     regex = re.compile(r'^(,)*$')
