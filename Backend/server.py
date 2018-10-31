@@ -1,14 +1,19 @@
-from flask import Flask, request, render_template, session,flash
+from flask import Flask, request, redirect, render_template, session,flash
 from db_helper import validateLogin, getUserType
+from werkzeug.utils import secure_filename
+from functions import validFile
+import os
+
+UPLOAD_FOLDER = 'csvs/'
 
 app = Flask(__name__, static_url_path='/static')
-app.debug = True
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Set a random secret key to be used for the session
 app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e\x86\x81\xe5\x85\xdd'
 
-# # Create instance of flask
-# app = Flask(__name__)
+
+
 # Define port for Flask to run on
 port = 8080
 
@@ -64,11 +69,24 @@ def homepage():
     
 @app.route("/recordupload", methods=['GET', 'POST'])
 def recordupload():
-    return render_template('RecordUpload.html')
+    if request.method == 'POST':
+        file = request.files['file']
+        
+        # if user does not select file submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
 
+        if file and validFile(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.close()      
+            return redirect('/reportspage')
+    else:
+        return render_template('RecordUpload.html', file="Browse to choose file")
 @app.route("/reportspage", methods=['GET', 'POST'])    
 def reportspage():
-    return render_template('ReportsPage.html')
+    return render_template('DataReport.html')
 	
 @app.route("/usermgt", methods=['GET','POST'])
 def addRemoveUser():

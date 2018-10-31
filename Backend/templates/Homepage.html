@@ -20,30 +20,29 @@
   </head>
 
   <body id="page-top">
-
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-		<button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-			<i class="fas fa-bars"></i>
-		</button>
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
 
       <a class="navbar-brand mr-1" href="/homepage">CHP Incident Recording and Visualization</a>
-	
-    <!-- Account Control -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-		<ul class="navbar-nav ml-auto ml-md-0">
-		<p style="color:white;">Logged in as: {{ session['username'] }}</p>
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-          </div>
-        </li>
-      </ul>
+    
+      <!-- Account Control -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <ul class="navbar-nav ml-auto ml-md-0">
+          <p style="color:white;">Logged in as: {{ session['username'] }}</p>
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle fa-fw"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="#">Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </form>
     </nav>
 
     <div id="wrapper">
@@ -77,7 +76,6 @@
       </ul>
 
       <div id="content-wrapper">
-
         <div class="container-fluid" style="height:100%">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"> Homepage
@@ -149,6 +147,17 @@
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Sticky Footer -->
+          <footer class="sticky-footer">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Copyright © CHP 2018</span>
+              </div>
+            </div>
+          </footer>
         </div>
         <!-- /.container-fluid -->
 
@@ -163,7 +172,6 @@
 
       </div>
       <!-- /.content-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 

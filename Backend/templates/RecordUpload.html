@@ -33,7 +33,7 @@
     <!-- Account Control -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <ul class="navbar-nav ml-auto ml-md-0">
-		<p style="color:white;">Logged in as: {{ session['username'] }}</p>
+		    <p style="color:white;">Logged in as: {{ session['username'] }}</p>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user-circle fa-fw"></i>
@@ -45,6 +45,7 @@
           </div>
         </li>
       </ul>
+    </form>
     </nav>
 
     <div id="wrapper">
@@ -104,46 +105,37 @@
 
 
         <div class="container-fluid mx-auto" >
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="/homepage">Homepage</a>
-          </li>
-          <li class="breadcrumb-item active">Record Upload</li>
-        </ol>
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/homepage">Homepage</a>
+            </li>
+            <li class="breadcrumb-item active">Record Upload</li>
+          </ol>
 
-        <!-- Page Content -->
-        <div class="row justify-content-center">
-          <h1>Record Upload</h1>
-        </div>
+          <!-- Page Content -->
+          <div class="row justify-content-center">
+            <h1>Record Upload</h1>
+          </div>
 
-        <div class="row justify-content-center">
-          <p>Upload a file of an incident report to create a new entry.</p>
-        </div>
+          <div class="row justify-content-center">
+            <p>Upload a file of an incident report to create a new entry.</p>
+          </div>
 
-        <div class="row justify-content-center">
-          <form method="POST">
-            <div class="input-group" style="max-width:30rem">
-              <input type="text" class="form-control" readonly>
-              <label class="input-group-btn">
-                <span class="btn btn-primary">Browse<input type="file" style="display: none;" multiple></span>
-                <button class="btn btn-primary" type="submit">Upload</button>
-              </label>
+          <form method="POST" enctype=multipart/form-data>
+            <div class="row justify-content-center">
+              <div class="input-group" style="max-width:30rem">
+                <label class="btn btn-primary">Browse
+                  <input type="file" name="file" id="path" accept=".xlsx, .xls, .csv" onchange="previewFilePath()" hidden>
+                </label>
+                <input type="text" class="form-control" name="showPath" id="showPath" value="{{ file }}" readonly>
+                <label>
+                  <button class="btn btn-success" id="upload" type="submit" onclick="changeVal('showPath','{{ file }}')" disabled>Upload</button>
+                </label>
+              </div>
             </div>
           </form>
-          <!-- </div> -->
         </div>
-      </div>
-        <!-- /.container-fluid -->
-
-
-        <div class="modal fade upload" tabindex="-1" role="dialog" aria-labelledby="upload" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">UPLOAD STUFF GOES HERE
-            </div>
-          </div>
-        </div>
-
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
@@ -187,7 +179,7 @@
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery-easing/jquery.easing.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/js/sb-admin.min.js') }}"> </script>
-
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/functions.js') }}"> </script>
   </body>
 
 </html>

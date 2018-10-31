@@ -13,7 +13,7 @@ def main():
     # TODO: automate this
     os.chdir('./../csvs')  
     f = open('CHP-RES - RTC Data.csv', 'r')
-    program = 'RES'
+    program = 'RTC'
 
     # Header line of the csv
     header = f.readline().split(',')
@@ -26,20 +26,24 @@ def main():
         # KID, Start Date, and ACEs Score
         KID = int(child_info[0])
         start_date = child_info[1]
-        print('Child: ' + str(KID))
         try:
             end_date = child_info[2]
         except IndexError:
             end_date = None
 
         try:
-            ACEs_score = child_info[3]
+            ACEs_score = int(child_info[3])
         except IndexError:
             ACESs_score = None
     
         # Insert the child if they already doesn't exist and their program info
-        # insertTable('Children',[KID,ACEs_score])
-        # insertTable('ChildrenPrograms',[KID,program,start_date,end_date])
+        child = []
+        child_programs = []
+        child.extend((KID,ACEs_score))
+        child_programs.extend((KID,program,start_date,end_date))
+
+        insertTable('Children',child)
+        insertTable('ChildrenProgram',child_programs)
 
         # Seperate out the incident data
         incidents = child_info[4:]
@@ -58,117 +62,122 @@ def main():
 
         # Loop incident columns in one entry
         for idx,val in enumerate(incidents):
+            try:
+                val = int(val)
+            except:
+                # print('Child left')
+                break
+
             if counter == 0:
                 month = int(val)
-                print('\n'+incidents_types[counter]+':'+ str(month))
+                # print('\n'+incidents_types[counter]+':'+ str(month))
                 counter+=1
 
             elif counter == 1:
                 phys_ass = val
-                print(incidents_types[counter]+':'+phys_ass)
-                if phys_ass == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+phys_ass)
+                if phys_ass != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 2:
                 sex_agg = val
-                print(incidents_types[counter]+':'+sex_agg)
-                if sex_agg == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+sex_agg)
+                if sex_agg != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 3:
                 restraints = val
-                print(incidents_types[counter]+':'+restraints)
-                if restraints == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+restraints)
+                if restraints != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 4:
                 awols = val
-                print(incidents_types[counter]+':'+awols)
-                if awols == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+awols)
+                if awols != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 5:
                 self_harm = val
-                print(incidents_types[counter]+':'+self_harm)
-                if self_harm == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+self_harm)
+                if self_harm != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 6:
                 prop_dam = val
-                print(incidents_types[counter]+':'+prop_dam)
-                if sex_agg == '':
-                    prop_dam = False
-                else:
+                # print(incidents_types[counter]+':'+prop_dam)
+                if sex_agg != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 7:
                 steal = val
-                print(incidents_types[counter]+':'+steal)
-                if steal == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+steal)
+                if steal != 0:
+                    print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 8:
                 weapons = val
-                print(incidents_types[counter]+':'+weapons)
-                if weapons == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+weapons)
+                if weapons != 0:
+                    print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
                 
             elif counter == 9:
                 suicide = val
-                print(incidents_types[counter]+':'+suicide)
-                if suicide == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+suicide)
+                if suicide != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 10:
                 er_visits = val
-                print(incidents_types[counter]+':'+er_visits)
-                if er_visits == '':
-                    need_insert = False
-                else:
+                # print(incidents_types[counter]+':'+er_visits)
+                if er_visits != 0:
+                    # print('inserting',incidents_types[counter])
                     need_insert = True
                 counter+=1
 
             elif counter == 11:
                 month_total = val
-                print(incidents_types[counter]+':'+month_total)
+                # print(incidents_types[counter]+'in month'+  str(month) + ':'+str(month_total))
                 counter = 0
                 need_insert = False
             
-            # if need_insert:
-            #     insertTable('Incidents',[KID,month])
-            #     iid = getLastID()
-            #     tid = getTID(incidents_types[counter])
-            #     insertTable('IncidentClassification',[iid,tid])
+            if need_insert:
+                # print('inserting incident')
+                incident = []
+                incident.extend((KID,month))
+                insertTable('Incidents',incident)
+                iid = getLastID('iid','Incidents')
 
+                incident_class = []
+                tid = int(getTID(incidents_types[counter-1]))
+
+                incident_class.extend((iid,tid))
+
+                insertTable('IncidentClassification',incident_class)
+                need_insert = False
+
+        f.close()
         # Testing purposes
-        print(month)
-        print('only 1 child')
-        break
+        # print('only 1 child')
+        # break
 
 if __name__ == "__main__":
     main()

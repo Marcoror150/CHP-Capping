@@ -76,17 +76,17 @@ def insertTable(table,values):
     columns = [col for tupl in getTableCols(table) for col in tupl]
 
     sql = """
-        INSERT INTO %s (%s) values(%s);
+        INSERT INTO %s values(%s);
     """
-    columns_sql = ','.join(columns)
-    values_sql = ','.join(['?' for i in range(len(columns))])
+    # columns_sql = ','.join(columns)
+    values_sql = ','.join(['?' for i in range(len(values))])
 
     # Stitch together the sql query
-    sql = sql % (table, columns_sql,values_sql)
+    sql = sql % (table,values_sql)
 
     # Execute the query, commit changes and close the connection
     try:
-        cur.executemany(sql, values)
+        cur.execute(sql, values)
         conn.commit()
         conn.close()
     except ValueError:
@@ -136,7 +136,8 @@ def getAllTables():
         entries = cur.fetchall()
         conn.close()
         return entries
-    except:
+    except Exception as e: 
+        print(e)
         conn.close()
 # Run any general query
 def query(query):
@@ -161,7 +162,8 @@ def query(query):
             print(entry)
 
         conn.close()
-    except:
+    except Exception as e: 
+        print(e)
         conn.close()
 
 def validateLogin(uname,pwd):
@@ -194,13 +196,13 @@ def getUserType(uname):
 	except:
 		conn.close()
 
-# Get the id given an incedent name
+# Get the incident_type id given an incident name
 def getTID(name):
     conn, cur = connectToDB()
     sql = """
         SELECT TID
         FROM IncidentTypes
-        WHERE name = '%s'
+        WHERE Name='%s'
     """
     # Stitch together the sql query
     sql = sql % (name)
@@ -211,34 +213,37 @@ def getTID(name):
 
         # Check if IncidentType exists
         entry = cur.fetchall()
-        if not entries:
+        if not entry:
             conn.close()
-            print('No entries')
+            print('No entry')
             return
         else:
             conn.close()
-            return entry
-    except:
+            return entry[0][0]
+    except Exception as e: 
+        print(e)
         conn.close()
-# Get latest id of the table last inserted to
-def getLastID():
+# Get latest id of the table last inserted to (serializable tables only)
+def getLastID(id,table):
     conn, cur = connectToDB()
     sql = """
-        SELECT SCOPE_IDENTITY()
+        SELECT MAX(%s) FROM %s;
     """
+    sql = sql % (id, table)
+
     # Execute the query and close the connection
     try:
         cur.execute(sql)
 
         # Check if IncidentType exists
         entry = cur.fetchall()
-        if not entries:
+        if not entry:
             conn.close()
-            print('No entries')
+            print('No entry')
             return
         else:
             conn.close()
-            return entry
-    except:
+            return entry[0][0]
+    except Exception as e: 
+        print(e)
         conn.close()
-
