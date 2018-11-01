@@ -115,7 +115,7 @@
                 <div class="card-header text-center">Create New Report</div>
                 <div class="card-body">
                   <p class="card-text">Create a new report from uploaded document.</p>
-                  <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#upload-modal">Create</button>
+                  <button href="#" class="btn btn-primary" type="button" data-toggle="modal" data-target="#createModal">Create</button>
                 </div>
               </div>
           </div>
@@ -152,9 +152,9 @@
           </div>
         </div>
         <!-- /.container-fluid -->
-        <!-- Modal -->
-        <div class="modal fade" id="upload-modal">
-          <div class="modal-dialog">
+        <!-- Create Modal -->
+        <div class="modal fade" id="createModal">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <!-- Modal Header -->
               <div class="modal-header">
@@ -163,11 +163,45 @@
               </div>
               <!-- Modal body -->
               <div class="modal-body">
-                stuff..
+                
+                <!-- <div class="form-group">
+                  <label class="sr-only">Date Range(defualt is today).</label>
+                  <input class="form-control"  id="daterange"  type="text" name="daterange"/>
+                </div> -->
+                <!-- $('input[name="daterange"]').daterangepicker({
+                  drops: 'up',
+                  opens: 'center',
+                  ranges: {
+                      'Today': [moment(), moment()],
+                      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                      'This Month': [moment().startOf('month'), moment().endOf('month')],
+                      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                  },
+                  locale: { 
+                      'separator': " ",
+                      'format': 'YYYY-MM-DD'
+                  },
+                  alwaysShowCalendars: true,
+              });
+               -->
+                <div class="form-group row">
+                  <label for="startDate" class="col-2 col-form-label">Start Date:</label>
+                  <div class="col-10">
+                    <input class="form-control" type="date" value="2011-08-19" id="startDate">
+                  </div>
+                </div>
+
+
+
+
+
               </div>
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" class="close" id="createReport" data-dismiss="modal">Create</button>
+                <button type="button" class="btn btn-danger"id="cancelReport" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -217,6 +251,9 @@
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery-easing/jquery.easing.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/js/sb-admin.min.js') }}"> </script>
+     <!-- DateRange -->
+     <script type="text/javascript" src="{{ url_for('static',filename='vendors/datepicker/moment.min.js') }}"> </script>
+     <script type="text/javascript" src="{{ url_for('static',filename='vendors/datepicker/daterangepicker.js') }}"> </script>
 
   </body>
 
