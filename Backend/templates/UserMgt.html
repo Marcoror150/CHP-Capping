@@ -159,17 +159,21 @@
                   <h2 style="text-align:center">Current Users</h1>
                   <thead>
                     <tr>
-                      <th scope="col">User</th>
-                      <th scope="col">Date Created</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">First Name</th>
+					  <th scope="col">Last Name</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
+					{% for item in data %}
                     <tr>
-                      <td>Report A</td>
-                      <td>9/10/18</td>
-                      <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='/charts'">Chart</button></td>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[3]}}</td>
+					  <td>{{item[4]}}</td>
+                      <td><button href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal">Remove</button></td>
                     </tr>
+					{% endfor %}
                   </tbody>
                 </table>
             </div>
@@ -178,7 +182,7 @@
 		  
 		  
 		  
-		                    <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
+		                    
 
         </div>
         <!-- /.container-fluid -->

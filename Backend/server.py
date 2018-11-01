@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect, render_template, session,flash
-from db_helper import validateLogin, getUserType
+from db_helper import validateLogin, getUserType, getUsers
 from werkzeug.utils import secure_filename
 from functions import validFile
 import os
@@ -90,7 +90,8 @@ def reportspage():
 	
 @app.route("/usermgt", methods=['GET','POST'])
 def addRemoveUser():
-	return render_template('UserMgt.html')
+	data = getUsers()
+	return render_template('UserMgt.html',data=data)
 
 @app.route("/groupmgt", methods=['GET','POST'])
 def changePermissions():

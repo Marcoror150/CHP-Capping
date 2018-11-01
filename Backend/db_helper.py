@@ -247,3 +247,16 @@ def getLastID(id,table):
     except Exception as e: 
         print(e)
         conn.close()
+
+def getUsers():
+	conn, cur = connectToDB()
+	sql = "SELECT * FROM Users;"
+	
+	try:
+		cur.execute(sql)
+		users = cur.fetchall()
+		conn.close()
+		return users
+	except Exception as e:
+		print(e)
+		conn.close()
