@@ -4,14 +4,13 @@ import os
 import re 
 
 
-# Cleanse input from whitespace and commas
+# Cleanse input from bad characters
 def cleanse(input):
-    output = input.replace(' ', '')
+    output = cleanseWhiteSpace(input)
     output = output.replace(',', '')
     output = output.replace('-', '')
     output = output.replace('\r', '')
     output = output.replace('\n', '')
-
     return output
 
 # Cleanses elements in a list
@@ -19,6 +18,10 @@ def cleanseMany(input):
     for i, item in enumerate(input):
         input[i] = cleanse(item)
     return input
+
+# Cleanse input from whitespace
+def cleanseWhiteSpace(input):
+    return input.replace(' ', '')
 
 # Strip all characters that are not numbers or decimal
 def cleanseNonNumbers(input):

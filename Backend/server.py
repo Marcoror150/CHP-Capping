@@ -79,6 +79,8 @@ def recordupload():
 
         if file and validFile(file.filename):
             filename = secure_filename(file.filename)
+            if not os.path.exists(app.config['UPLOAD_FOLDER']):
+                os.makedirs(app.config['UPLOAD_FOLDER'])
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.close()      
             return redirect('/reportspage')
