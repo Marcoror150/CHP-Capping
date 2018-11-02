@@ -1,0 +1,14 @@
+/backend/.DS_Store
+.DS_Store
+*.vscode
+/backend/deprecated.py
+/backend/dsn
+__pycache__/
+/__pycache__/
+/backend/__pycache__/
+/*.pyc
+*.pyc
+.vscode
+
+
+

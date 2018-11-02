@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/fontawesome-free/css/all.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/datatables/dataTables.bootstrap4.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.css') }}" /> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/daterangepicker/daterangepicker.css') }}" />
+
 
   </head>
 
@@ -115,7 +117,7 @@
                 <div class="card-header text-center">Create New Report</div>
                 <div class="card-body">
                   <p class="card-text">Create a new report from uploaded document.</p>
-                  <button href="#" class="btn btn-primary" type="button" data-toggle="modal" data-target="#createModal">Create</button>
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#createModal">Create</button>
                 </div>
               </div>
           </div>
@@ -163,40 +165,35 @@
               </div>
               <!-- Modal body -->
               <div class="modal-body">
-                
-                <!-- <div class="form-group">
-                  <label class="sr-only">Date Range(defualt is today).</label>
-                  <input class="form-control"  id="daterange"  type="text" name="daterange"/>
-                </div> -->
-                <!-- $('input[name="daterange"]').daterangepicker({
-                  drops: 'up',
-                  opens: 'center',
-                  ranges: {
-                      'Today': [moment(), moment()],
-                      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                      'This Month': [moment().startOf('month'), moment().endOf('month')],
-                      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                  },
-                  locale: { 
-                      'separator': " ",
-                      'format': 'YYYY-MM-DD'
-                  },
-                  alwaysShowCalendars: true,
-              });
-               -->
-                <div class="form-group row">
-                  <label for="startDate" class="col-2 col-form-label">Start Date:</label>
-                  <div class="col-10">
-                    <input class="form-control" type="date" value="2011-08-19" id="startDate">
+                <div class="row mb-3">
+                  <div class="col"></div>
+                  <div class="col">
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="kids">KID</label>
+                          </div>
+                          <!-- <select class="selectpicker" multiple data-live-search="true" id="kids">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select> -->
+                      </div>
+                  </div>
+                  <div class="col"></div>
+                </div>      
+                <div class="row mb-3" style="display: flex; align-items: center;">´
+                  <div class="col control-label form-check text-center">
+                    <input type="checkbox" class="form-check-input" id="dateBox" onclick="toggleDaterange();">
+                    <label class="form-check-label" for="dateBox"></label>
+                    <label>Date:</label>
+                  </div>
+                  <div class="col">
+                    <div class="input-group mb-3">
+                      <input type="text" id="daterange" class="form-control fa" placeholder="&#xf073 Date(s)" aria-label="Dates(s)" style="cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" readonly>
+                    </div>
                   </div>
                 </div>
-
-
-
-
-
               </div>
               <!-- Modal footer -->
               <div class="modal-footer">
@@ -252,9 +249,9 @@
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery-easing/jquery.easing.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/js/sb-admin.min.js') }}"> </script>
      <!-- DateRange -->
-     <script type="text/javascript" src="{{ url_for('static',filename='vendors/datepicker/moment.min.js') }}"> </script>
-     <script type="text/javascript" src="{{ url_for('static',filename='vendors/datepicker/daterangepicker.js') }}"> </script>
-
+     <script type="text/javascript" src="{{ url_for('static',filename='vendors/daterangepicker/moment.min.js') }}"> </script>
+     <script type="text/javascript" src="{{ url_for('static',filename='vendors/daterangepicker/daterangepicker.js') }}"> </script>
+     <script type="text/javascript" src="{{ url_for('static',filename='JS/functions.js') }}"> </script>
   </body>
 
 </html>
