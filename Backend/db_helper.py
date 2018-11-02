@@ -168,7 +168,7 @@ def query(query):
 
 def validateLogin(uname,pwd):
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Users WHERE username = '"+uname+"' AND password = '"+pwd+"';"
+	sql = "SELECT * FROM Users WHERE username = '"+uname+"' AND password='"+pwd+"';"
 	try:
 		cur.execute(sql)
 		
@@ -186,8 +186,7 @@ def validateLogin(uname,pwd):
 def getUserType(uname):
 	conn, cur = connectToDB()
 	sql = "SELECT UserType FROM Users WHERE username = '"+uname+"';"
-	
-	print (sql)
+
 	try:
 		cur.execute(sql)
 		entries = cur.fetchall()
@@ -248,6 +247,7 @@ def getLastID(id,table):
         print(e)
         conn.close()
 
+# Gets all entries from the User table
 def getUsers():
 	conn, cur = connectToDB()
 	sql = "SELECT * FROM Users;"
@@ -260,3 +260,44 @@ def getUsers():
 	except Exception as e:
 		print(e)
 		conn.close()
+		
+# Checks if the given username is already in the DB
+def validateUsername(username):
+	conn, cur = connectToDB()
+	sql = "SELECT * FROM Users WHERE username='"+username+"';"
+	
+	try:
+		cur.execute(sql)
+		users = cur.fetchall()
+		conn.close()
+		if not users:
+			return True
+		else:
+			return False
+	except Exception as e:
+		print(e)
+		conn.close()
+
+# Creates a new entry in the Users table with the given values
+def createUser(values):
+	conn, cur = connectToDB()
+	sql = "INSERT INTO Users VALUES("
+	for value in values:
+		sql = sql + "'" + value + "',"
+	
+	sql = sql[:-1] + ");"
+
+	try:
+		print (sql)
+		cur.execute(sql)
+		conn.commit()
+		print ("executed")
+		conn.close()
+	except Exception as e:
+		print(e)
+		conn.close()
+		
+		
+		
+		
+		

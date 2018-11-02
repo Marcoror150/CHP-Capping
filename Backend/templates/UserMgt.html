@@ -44,6 +44,7 @@
           </div>
         </li>
       </ul>
+	</form>
     </nav>
 
     <div id="wrapper">
@@ -104,51 +105,62 @@
 		      <!-- Creating a new user -->
           <h1>CHP Admin User Management</h1>
           <hr>
+		  {% with errors = get_flashed_messages(category_filter=['error']) %}
+			{% for error in errors %}
+			  <p style="color:red">{{ error }}</p>
+            {% endfor %}
+          {% endwith %}
+		  {% with success = get_flashed_messages(category_filter=['success']) %}
+			{% if success %}
+			  <p style="color:green">{{ success[0] }}</p>
+            {% endif %}
+          {% endwith %}
           <h3>Create a new user:</h3>
 		  
-		  <form>
+		  <form method="POST">
 		    <div class="form-group">
 			  <div class="form-row">
 				<div class="col">
 				  <label for="fName">User's First Name:</label>
-				  <input type="text" class="form-control" placeholder="First Name">
+				  <input type="text" name="firstName" class="form-control" required="required" placeholder="First Name">
 				</div>
 				<div class="col">
 				  <label for="lName">User's Last Name:</label>
-				  <input type="text" class="form-control" placeholder="Last Name">
+				  <input type="text" name="lastName" class="form-control" required="required" placeholder="Last Name">
 				</div>
 			  </div>
-			
+			</div>
 			<label for="userName">User's Username:</label>
-			<input type="text" class="form-control" id="userName" placeholder="Username">
+			<input type="text" name="username" class="form-control" id="userName" required="required" placeholder="Username">
 			
 			
 			<div class="form-group">
 			  <div class="form-row">
 				<div class="col">
 				<label for="password">User's Password:</label>
-				  <input type="password" class="form-control" id="password" placeholder="Password">
+				  <input type="password" name="password" class="form-control" id="password" required="required" placeholder="Password">
 				</div>
 				<div class="col">
 				<label for="confirmPassword">Confirm Password:</label>
-				  <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+				  <input type="password" name="confPassword" class="form-control" id="confirmPassword" required="required" placeholder="Confirm Password">
 				</div>
 			  </div>
 			
 				<label for="userPermissions">User Permissions:</label>
-				<select class="form-control form-control-sm">
+				<select name="userType" class="form-control form-control-sm">
 					<option>Select One:</option>
-					<option>Admin</option>
-					<option>Full User</option>
-					<option>Super Intern</option>
-					<option>Intern</option>
+					<option value="Admin">Admin</option>
+					<option value="highUser">Full User</option>
+					<option value="superIntern">Super Intern</option>
+					<option value="intern">Intern</option>
 				</select>
 			
 			</div>
 			
-			</form>
+			<button type="submit" method="POST" class="btn btn-primary">Create</button>
+			
+		  </form>
 		  
-		  <button href="#" class="btn btn-primary" id="userCreation">Create</button>
 		  <br><br>
 		  
 		  <!-- Remove a user -->
@@ -178,12 +190,6 @@
                 </table>
             </div>
           </div>
-		  
-		  
-		  
-		  
-		                    
-
         </div>
         <!-- /.container-fluid -->
         <!-- Sticky Footer -->

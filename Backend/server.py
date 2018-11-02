@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect, render_template, session,flash
-from db_helper import validateLogin, getUserType, getUsers
+from db_helper import validateLogin, getUserType, getUsers, validateUsername, createUser
 from werkzeug.utils import secure_filename
 from functions import validFile
 import os
@@ -84,6 +84,7 @@ def recordupload():
             return redirect('/reportspage')
     else:
         return render_template('RecordUpload.html', file="Browse to choose file")
+
 @app.route("/reportspage", methods=['GET', 'POST'])    
 def reportspage():
     return render_template('DataReport.html')
@@ -91,6 +92,44 @@ def reportspage():
 @app.route("/usermgt", methods=['GET','POST'])
 def addRemoveUser():
 	data = getUsers()
+	error = False
+	if request.method =='POST':
+		
+		# Before creating the user entry in the DB, we must validate 3 things:	
+		
+		# 1. Check if the username is already in the DB
+		username = request.form['username']
+		if not validateUsername(username):
+			flash('Username already exists. Please choose a unique username', 'error')
+			error = True
+		
+		# 2. Check if the password and confirm password fields matched
+		password = request.form["password"]
+		confPassword = request.form["confPassword"]
+		if password != confPassword:
+			flash('Passwords do not match', 'error')
+			error = True
+		
+		# 3. Check that a userType was selected
+		userType = request.form["userType"]
+		if userType == 'Select One:':
+			flash('Please select a valid user type', 'error')
+			error = True
+		
+		# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
+		if error:
+			return render_template('UserMgt.html',data=data)
+			
+		# If all 3 conditions passed, then create the entry
+		else:
+			firstName = request.form["firstName"]
+			lastName = request.form["lastName"]
+			values = [username,password,firstName,lastName,userType]
+			createUser(values)
+			data = getUsers()
+			flash ('User created', 'success')
+			return render_template('UserMgt.html',data=data)
+	
 	return render_template('UserMgt.html',data=data)
 
 @app.route("/groupmgt", methods=['GET','POST'])
