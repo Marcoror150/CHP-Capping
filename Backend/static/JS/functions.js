@@ -39,7 +39,7 @@ function loadDateRange(){
     cb(start, end);
 }
 
-function toggleDaterange(){
+function toggleDaterange() {
     let checkbox = document.getElementById('dateBox');
 
     if(checkbox.checked) {
@@ -51,3 +51,21 @@ function toggleDaterange(){
         $('#daterange').val('');
     }
 }
+
+function getButtonID(ID) {
+	let buttonID = $("#" + ID);
+	console.log(buttonID);
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
