@@ -53,8 +53,7 @@ function toggleDaterange() {
 }
 
 function getButtonID(ID) {
-	let buttonID = $("#" + ID);
-	console.log(buttonID);
+	$("#confirmDeletion").prop('id', '#' + ID);
 }	
 
 

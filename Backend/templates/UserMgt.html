@@ -186,7 +186,8 @@
                       <td>{{item[1]}}</td>
                       <td>{{item[3]}}</td>
 					  <td>{{item[4]}}</td>
-                      <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="user-{{ user_loop.index }}" onclick="getButtonID('this.id')">Remove</button></td>
+					  <!-- Function passes the user's UID -->
+                      <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="getButtonID('user-{{ user_loop.index }}')">Remove</button></td>
                     </tr>
 					{% endfor %}
                   </tbody>
@@ -244,7 +245,7 @@
 		  </div>
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" class="close" id="confirmDeletion" type="submit" data-dismiss="modal" method="POST">Yes</button>
+			<button type="button" class="btn btn-success" class="close" id="confirmDeletion" type="submit" data-dismiss="modal" method="POST" name="">Yes</button>
 			<button type="button" class="btn btn-danger" class="close" id="rejectDeletion" data-dismiss="modal">No</button>
 		  </div>
 		</div>

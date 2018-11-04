@@ -131,8 +131,7 @@ def addRemoveUser():
 			data = getUsers()
 			flash ('User created', 'success')
 			return render_template('UserMgt.html',data=data)
-			
-	
+		
 	return render_template('UserMgt.html',data=data)
 
 @app.route("/groupmgt", methods=['GET','POST'])
