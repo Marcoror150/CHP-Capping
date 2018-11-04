@@ -178,12 +178,13 @@
                     </tr>
                   </thead>
                   <tbody>
-					{% for item in data %}
+          {% for item in data %}
+          {% set user_loop = loop %}
                     <tr>
                       <td>{{item[1]}}</td>
                       <td>{{item[3]}}</td>
 					  <td>{{item[4]}}</td>
-                      <td><button href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal" id="user{{ index.loop }}">Remove</button></td>
+                      <td><button href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal" id="user-{{ user_loop.index }}">Remove</button></td>
                     </tr>
 					{% endfor %}
                   </tbody>
