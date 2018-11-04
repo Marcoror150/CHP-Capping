@@ -122,16 +122,30 @@
 			  <div class="form-row">
 				<div class="col">
 				  <label for="fName">User's First Name:</label>
-				  <input type="text" name="firstName" class="form-control" required="required" placeholder="First Name">
+				  {% if session['newUser'] %}
+				  <input type="text" name="firstName" class="form-control" required="required" value = "{{ session.pop('newFirstName',None) }}">
+				  {% else %}
+				  <input type="text" name="firstName" class="form-control" required="required" placeholder = "First Name">
+				  {% endif %}
 				</div>
 				<div class="col">
 				  <label for="lName">User's Last Name:</label>
-				  <input type="text" name="lastName" class="form-control" required="required" placeholder="Last Name">
+				  {% if session['newUser'] %}
+				  <input type="text" name="lastName" class="form-control" required="required" value = "{{ session.pop('newLastName',None) }}">
+				  {% else %}
+				  <input type="text" name="lastName" class="form-control" required="required" placeholder = "Last Name">
+				  {% endif %}
+				  
 				</div>
 			  </div>
 			</div>
 			<label for="userName">User's Username:</label>
-			<input type="text" name="username" class="form-control" id="userName" required="required" placeholder="Username">
+			{% if session['newUser'] %}
+			<input type="text" name="username" class="form-control" required="required" value = "{{ session.pop('newUsername',None) }}">
+			{% else %}
+			<input type="text" name="username" class="form-control" required="required" placeholder = "Username">
+			{% endif %}
+			<!--{{ session.pop('newUser',None) }}-->
 			
 			
 			<div class="form-group">
@@ -178,8 +192,8 @@
                     </tr>
                   </thead>
                   <tbody>
-          {% for item in data %}
-          {% set user_loop = loop %}
+					{% for item in data %}
+					{% set user_loop = loop %}
                     <tr>
                       <td>{{item[1]}}</td>
                       <td>{{item[3]}}</td>

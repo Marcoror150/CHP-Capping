@@ -175,8 +175,11 @@ def validateLogin(uname,pwd):
 		entries = cur.fetchall()
 		conn.close()
 		if not entries:
+			#conn.close()
 			return False
 		else:
+			#session['username'] = entries[0][1]
+			#conn.close()
 			return True
 		
 	except:

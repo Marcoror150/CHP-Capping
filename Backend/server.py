@@ -96,12 +96,15 @@ def addRemoveUser():
 	data = getUsers()
 	error = False
 	if request.method =='POST':
+		firstName = request.form["firstName"]
+		lastName = request.form["lastName"]
 		
 		# Before creating the user entry in the DB, we must validate 3 things:	
 		
 		# 1. Check if the username is already in the DB
 		username = request.form['username']
 		if not validateUsername(username):
+			username = ""
 			flash('Username already exists. Please choose a unique username', 'error')
 			error = True
 		
@@ -120,27 +123,31 @@ def addRemoveUser():
 		
 		# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
 		if error:
+			session['newUser'] = True
+			session['newFirstName'] = firstName
+			session['newLastName'] = lastName
+			session['newUsername'] = username
 			return render_template('UserMgt.html',data=data)
 			
 		# If all 3 conditions passed, then create the entry
 		else:
-			firstName = request.form["firstName"]
-			lastName = request.form["lastName"]
+			session['newUser'] = False
 			values = [username,password,firstName,lastName,userType]
 			createUser(values)
 			data = getUsers()
 			flash ('User created', 'success')
 			return render_template('UserMgt.html',data=data)
-	
 	return render_template('UserMgt.html',data=data)
 
 @app.route("/groupmgt", methods=['GET','POST'])
 def changePermissions():
-	return render_template('GroupMgt.html')
+	data = getUsers()
+	return render_template('GroupMgt.html',data=data)
 
 @app.route("/adminpass", methods=['GET','POST'])
 def resetPassword():
-	return render_template('AdminPass.html')
+	data = getUsers()
+	return render_template('AdminPass.html',data=data)
 	
 
     
