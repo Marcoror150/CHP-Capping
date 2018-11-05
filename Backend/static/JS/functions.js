@@ -39,6 +39,16 @@ function loadDateRange(){
     cb(start, end);
 }
 
+function toggleInput(ID) {
+    let checkbox = document.getElementById(ID);
+
+    if(checkbox.checked) {
+        $(`#${ID.split('-')[0]}`).prop('disabled',false).selectpicker('refresh');
+    } else {
+        $(`#${ID.split('-')[0]}`).prop('disabled',true).selectpicker('refresh');
+    }
+}
+
 function toggleDaterange() {
     let checkbox = document.getElementById('dateBox');
 
@@ -55,6 +65,19 @@ function toggleDaterange() {
 function getButtonID(ID) {
 	$("#confirmDeletion").prop('id', '#' + ID);
 }	
+
+$("#program").on("changed.bs.select", function() {
+    program = $('#program option:selected').text()
+    ip = "http://0.0.0.0:8080/getChildrenProgram/" + program
+
+    $.getJSON(ip, function(data, status) {
+        if (status === "success") {
+            for(var key in data) {
+                $('#kid').append(`<option>${data[key]}</option>`).selectpicker('refresh');;
+            }
+        }
+    });
+});
 
 
 

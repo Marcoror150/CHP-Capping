@@ -1,5 +1,6 @@
-from flask import Flask, request, redirect, render_template, session,flash
-from db_helper import validateLogin, getUserType, getUsers, validateUsername, createUser
+from flask import Flask, request, redirect, render_template, session, flash, jsonify
+from flask_restful import Resource, Api, reqparse
+from db_helper import *
 from werkzeug.utils import secure_filename
 from functions import validFile
 import os
@@ -8,6 +9,8 @@ UPLOAD_FOLDER = 'csvs/'
 
 app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['JSON_SORT_KEYS'] = False
+
 
 # Set a random secret key to be used for the session
 app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e\x86\x81\xe5\x85\xdd'
@@ -57,7 +60,10 @@ def charts():
     
 @app.route("/datareport", methods=['GET', 'POST']) 
 def datareport():
-    return render_template('DataReport.html')
+    programs = getPopulatedPrograms()
+    incident_types = getIncidentTypes()
+    print(incident_types)
+    return render_template('DataReport.html', programs=programs, incidents=incident_types)
     
 @app.route("/admin", methods=['GET'])
 def admin():
@@ -149,8 +155,23 @@ def resetPassword():
 	data = getUsers()
 	return render_template('AdminPass.html',data=data)
 	
+@app.route("/getTable/<table>", methods=['GET'])
+def getTableJson(table):
+    rows = getTable(table)
+    cols = [col[0] for col in getTableCols(table,True)]
+    table = []
+    for row in rows:
+        table.append(dict(zip(cols, row)))
+    return jsonify(table), 200
 
-    
-    
+@app.route("/getChildrenProgram/<program>", methods=['GET'])
+def childrenProgram(program):
+    rows = getChildrenProgram(program)
+    table = []
+    for row in rows:
+        table.append(row[0])
+    return jsonify(table), 200
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)

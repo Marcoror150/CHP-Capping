@@ -37,21 +37,30 @@ def tableExists(table):
         return False 
 
 # Get all columns of a given table
-def getTableCols(table):
+def getTableCols(table, showSerial):
     conn, cur = connectToDB()
+    sql = ""
+    if showSerial == False:
 
-    # Query to get all columns excpet those that are serializable 
-    sql = """
-        SELECT c.name 
-        FROM sys.columns c
-        JOIN sys.tables AS t
-        ON t.object_id=c.object_id
-        WHERE c.name NOT IN(
-            SELECT name 
-            FROM sys.identity_columns
-            WHERE is_identity=1)
-        AND  t.name='%s'
-    """
+        # Query to get all columns except those that are serializable 
+        sql = """
+            SELECT c.name 
+            FROM sys.columns c
+            JOIN sys.tables AS t
+            ON t.object_id=c.object_id
+            WHERE c.name NOT IN(
+                SELECT name 
+                FROM sys.identity_columns
+                WHERE is_identity=1)
+            AND  t.name='%s'
+        """
+    else:
+        # Query to get all columns
+        sql = """
+            SELECT [name] 
+            FROM sys.columns 
+            WHERE object_id = OBJECT_ID('%s') 
+        """
     # Stitch together the sql query
     sql = sql % (table)
 
@@ -73,7 +82,7 @@ def insertTable(table,values):
         raise ValueError('Table:%s does not exist' %table)
 
     # Unpack the columns because they come in as a list of tuples
-    columns = [col for tupl in getTableCols(table) for col in tupl]
+    columns = [col for tupl in getTableCols(table,False) for col in tupl]
 
     sql = """
         INSERT INTO %s values(%s);
@@ -94,7 +103,7 @@ def insertTable(table,values):
         print('Unable to insert into table %s, check proper values or duplicate values' %table)
 
 # Get all entries of a given table
-def selectAll(table):
+def getTable(table):
     conn, cur = connectToDB()
     sql = """
         SELECT * FROM %s;
@@ -109,13 +118,11 @@ def selectAll(table):
 
         # Iterate through the cursor results if there are any
         entries = cur.fetchall()
+        conn.close()
         if not entries:
             print('No entries')
             return
-        # Print all entries to check
-        for entry in entries:
-            print(entry)
-        conn.close()
+        return entries
 
     except:
         conn.close()
@@ -132,13 +139,14 @@ def getAllTables():
     # Execute the query and close the connection
     try:
         cur.execute(sql)
-        # Iterate through the cursor results if there are any
+        # Check if there are any results
         entries = cur.fetchall()
         conn.close()
         return entries
     except Exception as e: 
         print(e)
         conn.close()
+
 # Run any general query
 def query(query):
     conn, cur = connectToDB()
@@ -165,6 +173,145 @@ def query(query):
     except Exception as e: 
         print(e)
         conn.close()
+
+# Run any general query
+def countChildren():
+    conn, cur = connectToDB()
+    sql = """
+        SELECT count(KID)
+        FROM Children
+    """
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Iterate through the cursor results if there are any
+        count = cur.fetchall()
+        conn.close()
+        if not count:
+            print('No entries')
+            return
+        return count[0][0]
+    
+    except Exception as e: 
+        print(e)
+        conn.close()
+
+
+# Get children associated with a given program
+def getChildrenProgram(program):
+    conn, cur = connectToDB()
+    sql = """
+        SELECT *
+        FROM ChildrenProgram
+        WHERE PID in (
+            SELECT PID
+            FROM Program
+            WHERE PID ='%s'
+        )
+    """
+    # Stitch together the sql query
+    sql = sql % (program)
+
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Check if there are any results
+        entries = cur.fetchall()
+        conn.close()
+        if not entries:
+            print('No entries')
+            return
+        return entries
+
+    except Exception as e: 
+        print(e)
+
+# Get the programs that have at least one child enrolled in it
+def getPopulatedPrograms():
+    conn, cur = connectToDB()
+    sql = """
+        SELECT DISTINCT PID
+        FROM ChildrenProgram
+    """
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Check if there are any results
+        entries = cur.fetchall()
+        conn.close()
+        if not entries:
+            print('No entries')
+            return
+        return entries
+
+    except Exception as e: 
+        print(e)
+
+# Get all incident types
+def getIncidentTypes():
+    conn, cur = connectToDB()
+    sql = """
+        SELECT *
+        FROM IncidentTypes
+    """
+    # Execute the query and close the connection
+    try:
+        cur.execute(sql)
+
+        # Check if there are any results
+        entries = cur.fetchall()
+        conn.close()
+        if not entries:
+            print('No entries')
+            return
+        return entries
+
+    except Exception as e: 
+        print(e)
+
+# Get means per month for children of a given Incident Type
+def getMeansPerMonth(incident_type):
+    conn, cur = connectToDB()
+    sql = """
+        SELECT count(distinct KID)
+        FROM Incidents
+        INNER JOIN IncidentClassification ON Incidents.IID = IncidentClassification.IID
+        INNER JOIN IncidentTypes ON IncidentClassification.TID = IncidentTypes.TID
+        WHERE M_In_Pgm = %s
+        AND IncidentTypes.Name = '%s'
+    """
+
+    # Execute the query and close the connection
+    try:
+        total_children = countChildren()
+        incident_type = str(incident_type)
+        months = [str(i) for i in range(1,13)]
+        means = []
+
+
+        for month in months:
+            query = sql % (month, incident_type)
+            cur.execute(query)
+
+            # Check if there are any results
+            entries = cur.fetchall()
+            if entries:
+                means.append(round(float(entries[0][0]/total_children), 2))
+        conn.close()
+
+        mean = {'means':means}
+        month = {'months':months}
+
+        return month, mean
+
+    except Exception as e: 
+        print(e)
+
+
+
 
 def validateLogin(uname,pwd):
 	conn, cur = connectToDB()
