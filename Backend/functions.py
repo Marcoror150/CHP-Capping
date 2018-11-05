@@ -90,4 +90,4 @@ def makeBarGraph(incident_type):
             va=va)                      # Vertically align label differently for
                                         # positive and negative values.
 
-    plt.show()
+    return plt

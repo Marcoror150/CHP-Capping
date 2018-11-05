@@ -173,7 +173,7 @@
                   </div>
                   <div class="col">
                     <form role="form" class="was-validated">
-                      <select id="program" name="program" class="selectpicker" title="KID(s)" data-live-search="true" required>
+                      <select id="program" name="program" class="selectpicker" title="Program" data-live-search="true" required>
                         {% for program in programs %}
                           <option>{{ program[0] }}</option>
                         {% endfor %}
@@ -181,14 +181,15 @@
                     </form>
                   </div>
                 </div>
-                <!-- -->
+
+
                 <div class="row mb-3" style="display: flex; align-items: center;">´
                   <div class="col text-center">
                     <label>Incident Type:</label>
                   </div>
                   <div class="col">
                     <form role="form" class="was-validated">
-                      <select id="incident" name="incident" class="selectpicker" title="Types(s)" data-live-search="true" required>
+                      <select id="incident" name="incident" class="selectpicker" title="Types(s)" required>
                         {% for incident in incidents %}
                           <option>{{ incident[1] }}</option>
                         {% endfor %}
@@ -196,6 +197,21 @@
                     </form>
                   </div>
                 </div>
+
+                <div class="row mb-3" style="display: flex; align-items: center;">´
+                    <div class="col text-center">
+                      <!-- <input type="checkbox" class="form-check-input" id="program-box"> -->
+                      <!-- <label class="form-check-label" for="program-box"></label> -->
+                      <label>Data to Plot:</label>
+                    </div>
+                    <div class="col">
+                      <form role="form" class="was-validated">
+                        <select id="dataplot" name="dataplot" class="selectpicker" title="Type of Data" required>
+                          <option>Means</option>
+                        </select>
+                      </form>
+                    </div>
+                  </div>
 
 
                 <div class="row mb-3" style="display: flex; align-items: center;">´
