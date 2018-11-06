@@ -53,11 +53,11 @@ function toggleDaterange() {
     let checkbox = document.getElementById('dateBox');
 
     if(checkbox.checked) {
-        $('#daterange').prop('readonly', false);
+        $('#daterange').prop('disabled', false);
         loadDateRange()
     } else {
         $('#daterange').data('daterangepicker').remove()
-        $('#daterange').prop('readonly', true);
+        $('#daterange').prop('disabled', true);
         $('#daterange').val('');
     }
 }
