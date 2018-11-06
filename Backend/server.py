@@ -2,8 +2,9 @@ from flask import Flask, request, redirect, render_template, session, flash, jso
 from flask_restful import Resource, Api, reqparse
 from db_helper import *
 from werkzeug.utils import secure_filename
-from functions import validFile
-import os
+from functions import validFile,makeBarGraph
+import os,shutil
+
 
 UPLOAD_FOLDER = 'csvs/'
 
@@ -60,10 +61,34 @@ def charts():
     
 @app.route("/datareport", methods=['GET', 'POST']) 
 def datareport():
-    programs = getPopulatedPrograms()
-    incident_types = getIncidentTypes()
-    print(incident_types)
-    return render_template('DataReport.html', programs=programs, incidents=incident_types)
+    if request.method == 'POST':
+        # try:
+        graph, title = makeBarGraph(request.form.to_dict())
+        # except Exception as e:
+        #     print('graphing failed')
+
+        file_name = 'graph.png'
+        path = 'static/images/'
+        url = path + file_name
+
+        graph.savefig(file_name)
+        shutil.move(file_name,url)
+        return render_template('Charts.html', title=title, url=url)
+        # parameters = []
+        # print(request.form["program"])
+        # print(request.form["incident"])
+        # print(request.form["dataplot"])
+
+        # if request.form['kid']:
+            # pass
+            # parameters.append
+        # if request.form['']:
+            # pass
+        # return redirect('/charts', )
+    else:
+        programs = getPopulatedPrograms()
+        incident_types = getIncidentTypes()
+        return render_template('DataReport.html', programs=programs, incidents=incident_types)
     
 @app.route("/admin", methods=['GET'])
 def admin():

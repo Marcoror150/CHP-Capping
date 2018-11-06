@@ -291,7 +291,6 @@ def getMeansPerMonth(incident_type):
         months = [str(i) for i in range(1,13)]
         means = []
 
-
         for month in months:
             query = sql % (month, incident_type)
             cur.execute(query)
@@ -302,8 +301,8 @@ def getMeansPerMonth(incident_type):
                 means.append(round(float(entries[0][0]/total_children), 2))
         conn.close()
 
-        mean = {'means':means}
-        month = {'months':months}
+        mean = {'Mean Percentage of Youth':means}
+        month = {'Month in Placement':months}
 
         return month, mean
 

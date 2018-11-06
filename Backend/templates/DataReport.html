@@ -157,98 +157,97 @@
         <!-- Create Modal -->
         <div class="modal fade" id="createModal">
           <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Choose your fields to create a report</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div class="row mb-3" style="display: flex; align-items: center;">´
-                  <div class="col text-center">
-                    <!-- <input type="checkbox" class="form-check-input" id="program-box"> -->
-                    <!-- <label class="form-check-label" for="program-box"></label> -->
-                    <label>Program:</label>
-                  </div>
-                  <div class="col">
-                    <form role="form" class="was-validated">
-                      <select id="program" name="program" class="selectpicker" title="Program" data-live-search="true" required>
-                        {% for program in programs %}
-                          <option>{{ program[0] }}</option>
-                        {% endfor %}
-                      </select>
-                    </form>
-                  </div>
+            <form role="form" class="form" id="report_form" name="report_form" method="POST">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Choose your fields to create a report</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
-
-                <div class="row mb-3" style="display: flex; align-items: center;">´
-                  <div class="col text-center">
-                    <label>Incident Type:</label>
-                  </div>
-                  <div class="col">
-                    <form role="form" class="was-validated">
-                      <select id="incident" name="incident" class="selectpicker" title="Types(s)" required>
-                        {% for incident in incidents %}
-                          <option>{{ incident[1] }}</option>
-                        {% endfor %}
-                      </select>
-                    </form>
-                  </div>
-                </div>
-
-                <div class="row mb-3" style="display: flex; align-items: center;">´
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="row mb-3" style="display: flex; align-items: center;">
                     <div class="col text-center">
-                      <!-- <input type="checkbox" class="form-check-input" id="program-box"> -->
-                      <!-- <label class="form-check-label" for="program-box"></label> -->
+                      <label>Program:</label>
+                    </div>
+                    <div class="col">
+                      <div class="was-validated form-group">
+                        <select id="program" name="program" class="selectpicker" title="Program" data-live-search="true" required>
+                          {% for program in programs %}
+                            <option>{{ program[0] }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3" style="display: flex; align-items: center;">
+                    <div class="col text-center">
+                      <label>Incident Type:</label>
+                    </div>
+                    <div class="col">
+                      <div class="was-validated form-group">
+                        <select id="incident" name="incident" class="selectpicker" title="Types(s)" required>
+                          {% for incident in incidents %}
+                            <option>{{ incident[1] }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3" style="display: flex; align-items: center;">
+                    <div class="col text-center">
                       <label>Data to Plot:</label>
                     </div>
                     <div class="col">
-                      <form role="form" class="was-validated">
+                      <div class="was-validated form-group">
                         <select id="dataplot" name="dataplot" class="selectpicker" title="Type of Data" required>
                           <option>Means</option>
                         </select>
-                      </form>
+                      </div>
                     </div>
                   </div>
 
-
-                <div class="row mb-3" style="display: flex; align-items: center;">´
-                  <div class="col control-label form-check text-center">
-                    <input type="checkbox" class="form-check-input" id="kid-box" onclick="toggleInput(this.id)">
-                    <label class="form-check-label" for="kid-box"></label>
-                    <label>KID:</label>
+                  <div class="row mb-3" style="display: flex; align-items: center;">
+                    <div class="col control-label form-check text-center">
+                      <input type="checkbox" class="form-check-input" id="kid-box" onclick="toggleInput(this.id)">
+                      <label class="form-check-label" for="kid-box"></label>
+                      <label>KID:</label>
+                    </div>
+                    <div class="col">
+                      <div class="was-validated form-group">
+                        <select multiple id="kid" name="kid" class="selectpicker" title="KID(s)" data-actions-box="true" data-live-search="true" required disabled>
+                          {% for child in children %}
+                            <option>{{ child[0] }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <form role="form" class="was-validated">
-                      <select multiple id="kid"name="kid" class="selectpicker" title="KID(s)" data-actions-box="true" data-live-search="true" required disabled>
-                        {% for child in children %}
-                          <option>{{ child[0] }}</option>
-                        {% endfor %}
-                      </select>
-                    </form>
-                  </div>
-                </div>
-                <div class="row mb-3" style="display: flex; align-items: center;">´
-                  <div class="col control-label form-check text-center">
-                    <input type="checkbox" class="form-check-input" id="dateBox" onclick="toggleDaterange();">
-                    <label class="form-check-label" for="dateBox"></label>
-                    <label>Date:</label>
-                  </div>
-                  <div class="col">
-                    <div class="input-group mb-3">
-                      <input type="text" id="daterange" class="form-control fa" placeholder="&#xf073 Date(s)" aria-label="Dates(s)" style="cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" readonly>
+                  
+                  <div class="row mb-3" style="display: flex; align-items: center;">
+                    <div class="col control-label form-check text-center">
+                      <input type="checkbox" class="form-check-input" id="dateBox" onclick="toggleDaterange();">
+                      <label class="form-check-label" for="dateBox"></label>
+                      <label>Date:</label>
+                    </div>
+                    <div class="col">
+                      <div class="form-group input-group mb-3">
+                        <input type="text" id="daterange" name=datarange class="form-control fa" placeholder="&#xf073 Date(s)" aria-label="Dates(s)" style="cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" disabled>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success"  id="createReport">Create</button>
+                  <button class="btn btn-danger" id="cancelReport" data-dismiss="modal">Close</button>
+                </div>
               </div>
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-success" class="close" id="createReport" data-dismiss="modal">Create</button>
-                <button type="button" class="btn btn-danger"id="cancelReport" data-dismiss="modal">Close</button>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
 
