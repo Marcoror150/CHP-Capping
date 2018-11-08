@@ -19,7 +19,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8080
+port = 8078
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -39,11 +39,11 @@ def login():
 			session['userType'] = getUserType(username)
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
-			if(session['userType'] == 'admin'):
+			if(session['userType'] == 'Admin'):
 				return render_template('Admin.html')
-			elif(session['userType'] == 'intern'):
+			elif(session['userType'] == 'Intern'):
 				return render_template('RecordUpload.html')
-			elif(session['userType'] == 'viewOnly'):
+			elif(session['userType'] == 'View Only'):
 				return render_template('DataReport.html')
 			else:
 				return render_template('homepage.html')
