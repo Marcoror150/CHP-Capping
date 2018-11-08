@@ -25,7 +25,10 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-
+	  <script>
+		let deleteUID = -1;
+	  </script>
+	  
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
@@ -201,7 +204,7 @@
                       <td>{{item[3]}}</td>
 					  <td>{{item[4]}}</td>
 					  <!-- Function passes the user's UID -->
-                      <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="getButtonID('user-{{ user_loop.index }}')">Remove</button></td>
+                      <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Remove</button></td>
                     </tr>
 					{% endfor %}
                   </tbody>
