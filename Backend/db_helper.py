@@ -437,16 +437,25 @@ def createUser(values):
 	sql = sql[:-1] + ");"
 
 	try:
-		print (sql)
 		cur.execute(sql)
 		conn.commit()
-		print ("executed")
 		conn.close()
 	except Exception as e:
 		print(e)
 		conn.close()
 		
-		
+# Deletes a user from the Users table with the given UID
+def removeUser(UID):
+	conn, cur = connectToDB()
+	sql = "DELETE FROM Users WHERE UID="+UID
+	print(sql)
+	try:
+		cur.execute(sql)
+		conn.commit()
+		conn.close()
+	except Exception as e:
+		print (e)
+		conn.close()
 		
 		
 		

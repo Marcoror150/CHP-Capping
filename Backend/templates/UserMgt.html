@@ -263,12 +263,31 @@
 		  </div>
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" class="close" id="confirmDeletion" type="submit" data-dismiss="modal" method="POST" name="">Yes</button>
+			<button type="button" class="btn btn-success" class="close" id="confirmDeletion" type="submit" data-dismiss="modal" name="">Yes</button>
 			<button type="button" class="btn btn-danger" class="close" id="rejectDeletion" data-dismiss="modal">No</button>
 		  </div>
 		</div>
 	  </div>
 	</div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type=text/javascript>
+			/*$(function() {
+			  $('a#deleteUser').bind('click', function() {
+				$('#deleteUserModal').modal('hide')
+				$.getJSON('/deleteUser/'+deleteUID,
+					function(data) {
+				});
+				return false;
+			  });
+			});*/
+			$(document).ready(function(){
+				$("#confirmDeletion").on("click",function(){
+					$('#deleteUserModal').modal('hide');
+					window.location.href = '/deleteUser/'+deleteUID;                           
+				})
+			})
+	</script>
 	
    
     <!--All JS Script files used-->

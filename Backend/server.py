@@ -170,6 +170,13 @@ def addRemoveUser():
 			return render_template('UserMgt.html',data=data)
 	return render_template('UserMgt.html',data=data)
 
+@app.route("/deleteUser/<UID>", methods=['GET','POST'])
+def deleteUser(UID):
+	removeUser(UID)
+	flash('User deleted', 'success')
+	data = getUsers()
+	return render_template('UserMgt.html',data=data)
+
 @app.route("/groupmgt", methods=['GET','POST'])
 def changePermissions():
 	data = getUsers()
