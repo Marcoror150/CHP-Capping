@@ -9,13 +9,13 @@ INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('root', 'root', 'root', 'root', 'Root');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
-VALUES ('don_marie', 'password', 'Donnamarie', 'LastName', 'Full User');
+VALUES ('donnamarie', 'password', 'Donnamarie', 'Scorzello', 'Full User');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('drC', 'password', 'dr', 'c', 'View Only');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
-VALUES ('Phillip', 'admin', 'Phillip', 'admin', 'Admin');
+VALUES ('Philip', 'admin', 'Philip', 'Edwards', 'Admin');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('s_intern', 'password', 'super', 'intern', 'Super Intern');
