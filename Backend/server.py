@@ -19,7 +19,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8070
+port = 8080
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
