@@ -52,7 +52,7 @@
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        {% if session['userType'] in ['root','highUser','superIntern'] %}
+        {% if session['userType'] in ['Root','High User','Super Intern'] %}
           <li class="nav-item">
             <a class="nav-link" href="/homepage">
               <i class="fas fa-fw fa-home"></i>
@@ -60,7 +60,7 @@
             </a>
           </li>
         {% endif %}
-        {% if session['userType'] == 'admin' %}
+        {% if session['userType'] == 'Admin' %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-fw fa-clipboard"></i>
