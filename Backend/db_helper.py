@@ -399,7 +399,7 @@ def getLastID(id,table):
 # Gets all entries from the User table
 def getUsers():
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Users;"
+	sql = "SELECT * FROM Users ORDER BY Last_Name;"
 	
 	try:
 		cur.execute(sql)
