@@ -9,6 +9,9 @@ __pycache__/
 /*.pyc
 *.pyc
 .vscode
+/backend/static/images/*.png
+
+!/backend/static/images/CHPLogo.png
 
 
 

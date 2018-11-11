@@ -1,7 +1,11 @@
+import matplotlib
+matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import pandas as pd
 from db_helper import getMeansPerMonth
 import numpy as np
+import os, shutil
+
 
 # Check if a filename ends in the proper extension
 def validFile(filename):
@@ -57,7 +61,9 @@ def makeBarGraph(post_data):
     x_labels = []
     frequencies = None
     try:
-        plot_title = program + '-' + incident_type + ': ' + x_key+ ' vs ' + y_key
+        plot_title = f'{program}-{incident_type}: {x_key} vs {y_key}'
+        file_name = f'{program}{incident_type}{x_key}vs{y_key}.png'
+        destination = 'static/images/'
 
         for item in x[x_key]:
             x_labels.append(x_key.split(' ')[0] +' '+ (str(item)))
@@ -72,6 +78,9 @@ def makeBarGraph(post_data):
         ax.set_xlabel(x_key)
         ax.set_ylabel(y_key)
         ax.set_xticklabels(x_labels, rotation=40, ha='center')
+        ax.set_ylim(bottom=0.0)
+        ax.set_xlim(left=0.0)
+
 
         rects = ax.patches
         # For each bar: Place a label
@@ -80,28 +89,33 @@ def makeBarGraph(post_data):
             y_value = rect.get_height()
             x_value = rect.get_x() + rect.get_width() / 2
 
-            # Number of points between bar and label. Change to your liking.
+            # Number of points between bar and label
             space = 5
+            
             # Vertical alignment for positive values
             va = 'bottom'
 
             # If value of bar is negative: Place label below bar
-            if y_value < 0:
+            # if y_value < 0:
                 # Invert space to place label below
-                space *= -1
+                # space *= -1
                 # Vertically align label at top
-                va = 'top'
+                # va = 'top'
 
             # Use Y value as label and format number with one decimal place
             label = "{}".format(y_value)
 
-            
-
             # Create annotation
             plt.annotate(label, (x_value, y_value), xytext=(0, space), textcoords="offset points", ha='center', va=va)
+
         # properties = {"rotation" : 90}
         # plt.setp(ax.get_xticklabels(), **properties)
-        return plt, plot_title
+        plt.savefig(file_name)
+        shutil.move(os.path.join('.', file_name), os.path.join(destination, file_name))
+        plt.clf()
+
+
+        return plot_title, file_name
 
     except Exception as e:
         print(e)
