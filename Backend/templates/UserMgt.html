@@ -54,9 +54,6 @@
 
     <div id="wrapper">
 
-
-
-
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
           <li class="nav-item dropdown">
@@ -200,9 +197,9 @@
 					  <td>{{item[4]}}</td>
 					  <td>{{item[5]}}</td>
 					  <!-- Function passes the user's UID -->
-                      <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Remove</button></td>
-					  <td><button href="#" class="btn btn-danger" type="button" data-toggle="modal" data-target="#changePermissionsModal">Change Permissions</button></td>
-					  <td><button href="#" class="btn btn-danger" type="button" data-toggle="modal" data-target="#resetPasswordModal">Reset Password</button></td>
+                      <td><button href="#" class="btn btn-danger" name="removeUser" type="button" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Remove</button></td>
+					  <td><button href="#" class="btn btn-danger" name="changeGroup" type="button" data-toggle="modal" data-target="#changePermissionsModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Change Permissions</button></td>
+					  <td><button href="#" class="btn btn-danger" name="resetPass" type="button" data-toggle="modal" data-target="#resetPasswordModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Reset Password</button></td>
                     </tr>
 					{% endfor %}
                   </tbody>
