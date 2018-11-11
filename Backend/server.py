@@ -90,10 +90,6 @@ def datareport():
         incident_types = getIncidentTypes()
         return render_template('DataReport.html', programs=programs, incidents=incident_types)
     
-@app.route("/admin", methods=['GET'])
-def admin():
-    return render_template('Admin.html')
-    
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
 	return render_template('Homepage.html')
@@ -176,16 +172,6 @@ def deleteUser(UID):
 	flash('User deleted', 'success')
 	data = getUsers()
 	return render_template('UserMgt.html',data=data)
-
-@app.route("/groupmgt", methods=['GET','POST'])
-def changePermissions():
-	data = getUsers()
-	return render_template('GroupMgt.html',data=data)
-
-@app.route("/adminpass", methods=['GET','POST'])
-def resetPassword():
-	data = getUsers()
-	return render_template('AdminPass.html',data=data)
 	
 @app.route("/getTable/<table>", methods=['GET'])
 def getTableJson(table):
