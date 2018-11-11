@@ -152,7 +152,6 @@
 			{% endif %}
 			<!--{{ session.pop('newUser',None) }}-->
 			
-			
 			<div class="form-group">
 			  <div class="form-row">
 				<div class="col">
@@ -206,6 +205,8 @@
 					  <td>{{item[4]}}</td>
 					  <!-- Function passes the user's UID -->
                       <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Remove</button></td>
+					  <td><button href="#" class="btn btn-danger" type="button" data-toggle="modal" data-target="#changePermissionsModal">Change Permissions</button></td>
+					  <td><button href="#" class="btn btn-danger" type="button" data-toggle="modal" data-target="#resetPasswordModal">Reset Password</button></td>
                     </tr>
 					{% endfor %}
                   </tbody>
@@ -289,6 +290,62 @@
 			})
 	</script>
 	
+	
+   <!-- Reset Password Modal -->
+	<div class="modal fade" id="resetPasswordModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Reset user's password</h4>
+		  </div>
+	        <!-- Form to reset password -->
+			<div class="form-group">
+			  <div class="form-row">
+				<div class="col">
+				<label for="password">User's New Password:</label>
+				  <input type="password" class="form-control" id="password" placeholder="Password">
+				</div>
+				<div class="col">
+				<label for="confirmPassword">Confirm Password:</label>
+				  <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+				</div>
+			  </div>
+			</div>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmPassword" data-dismiss="modal">Change Password</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectPassword" data-dismiss="modal">Cancel</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Change Permissions Modal -->
+	<div class="modal fade" id="changePermissionsModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Select new user permissions</h4>
+		  </div>
+		    <!-- Form to select user's new permissions -->
+			<label for="newUserPermissions">New User Permissions:</label>
+			<select class="form-control form-control-sm">
+				<option>Select One:</option>
+				<option>Admin</option>
+				<option>Full User</option>
+				<option>Super Intern</option>
+				<option>Intern</option>
+			</select>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmChange" data-dismiss="modal">Change user permissions</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectChange" data-dismiss="modal">Cancel</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
    
     <!--All JS Script files used-->
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js') }}"> </script>
