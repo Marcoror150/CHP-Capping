@@ -182,8 +182,8 @@
 		  
 		  <br><br>
 		  
-		  <!-- Remove a user -->
-		  <h3>Remove a user:</h3>
+		  <!-- Manage a user -->
+		  <h3>Manage Users:</h3>
 		  <div class="row justify-content-left">
             <div class="container">
                 <table class="table table-hover">
@@ -193,6 +193,7 @@
                       <th scope="col">Username</th>
                       <th scope="col">First Name</th>
 					  <th scope="col">Last Name</th>
+					  <th scope="col">User Type</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -203,6 +204,7 @@
                       <td>{{item[1]}}</td>
                       <td>{{item[3]}}</td>
 					  <td>{{item[4]}}</td>
+					  <td>{{item[5]}}</td>
 					  <!-- Function passes the user's UID -->
                       <td><button href="#" class="btn btn-danger" name="removeUser" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Remove</button></td>
 					  <td><button href="#" class="btn btn-danger" type="button" data-toggle="modal" data-target="#changePermissionsModal">Change Permissions</button></td>
