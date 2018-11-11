@@ -23,6 +23,7 @@ port = 8080
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+	data = getUsers();
 	# We will only be using the POST method, but we must verify
 	if request.method == 'POST':
 	
@@ -40,14 +41,13 @@ def login():
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
 			if(session['userType'] == 'Admin'):
-				return render_template('Admin.html')
+				return render_template('UserMgt.html', data=data)
 			elif(session['userType'] == 'Intern'):
 				return render_template('RecordUpload.html')
 			elif(session['userType'] == 'View Only'):
 				return render_template('DataReport.html')
 			else:
 				return render_template('homepage.html')
-
 		else:
 			# Credentials are not valid so give error message
 			flash("Invalid login", 'error')
