@@ -100,7 +100,8 @@ def recordupload():
             file.close()      
             return redirect('/reportspage')
     else:
-        return render_template('RecordUpload.html', file="Browse to choose file")
+        programs = getTable('program')
+        return render_template('RecordUpload.html', file="Browse to choose file", programs=programs)
 
 @app.route("/reportspage", methods=['GET', 'POST'])    
 def reportspage():

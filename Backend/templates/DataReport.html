@@ -22,7 +22,7 @@
 
   </head>
 
-  <body id="page-top">
+  <body id="page-top" onload="setKIDListener()">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
@@ -101,97 +101,109 @@
 
       <div id="content-wrapper">
         <div class="container-fluid">
-		
-		  {% if session['userType'] in ['Root','Full User','Super Intern'] %}
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="/homepage">Homepage</a>
-            </li>
-            <li class="breadcrumb-item active">Data Report</li>
-          </ol>
-		  {% endif %}
+          {% if session['userType'] in ['Root','Full User','Super Intern'] %}
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/homepage">Homepage</a>
+              </li>
+              <li class="breadcrumb-item active">Data Report</li>
+            </ol>
+          {% endif %}
 
-          <!-- Page Content -->
+            <!-- Page Content -->
+          <div class="card">
+            <div class="card-header text-center">
+              <h4>Choose your fields to create a report</h4>
+            </div>
+            <div class="card-body">
+              <form role="form" class="form" id="report_form" name="report_form" method="POST">
+                <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center;">
+                  <div class="col-auto text-center">
+                    <label>Program:</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="was-validated form-group col-6">
+                      <select id="program" name="program" class="selectpicker" title="Program" data-live-search="true" required>
+                        {% for program in programs %}
+                        <option>{{ program[0] }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-        <!-- /.container-fluid -->
-	  <h4>Choose your fields to create a report</h4>
-	<form role="form" class="form" id="report_form" name="report_form" method="POST">
-	  <div class="row mb-3" style="display: flex; align-items: center;">
-		<div class="col text-center">
-		  <label>Program:</label>
-		</div>
-		<div class="col">
-		  <div class="was-validated form-group">
-			<select id="program" name="program" class="selectpicker" title="Program" data-live-search="true" required>
-			  {% for program in programs %}
-				<option>{{ program[0] }}</option>
-			  {% endfor %}
-			</select>
-		  </div>
-		</div>
-	  </div>
+                <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center;">
+                  <div class="col-auto text-center">
+                    <label>Incident Type:</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="was-validated form-group col-6">
+                      <select id="incident" name="incident" class="selectpicker" title="Types(s)" required>
+                        {% for incident in incidents %}
+                        <option>{{ incident[1] }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-	  <div class="row mb-3" style="display: flex; align-items: center;">
-		<div class="col text-center">
-		  <label>Incident Type:</label>
-		</div>
-		<div class="col">
-		  <div class="was-validated form-group">
-			<select id="incident" name="incident" class="selectpicker" title="Types(s)" required>
-			  {% for incident in incidents %}
-				<option>{{ incident[1] }}</option>
-			  {% endfor %}
-			</select>
-		  </div>
-		</div>
-	  </div>
+                <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center;">
+                  <div class="col-auto text-center">
+                    <label>Data to Plot:</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="was-validated form-group col-6">
+                      <select id="dataplot" name="dataplot" class="selectpicker" title="Type of Data" required>
+                        <option>Means</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-	  <div class="row mb-3" style="display: flex; align-items: center;">
-		<div class="col text-center">
-		  <label>Data to Plot:</label>
-		</div>
-		<div class="col">
-		  <div class="was-validated form-group">
-			<select id="dataplot" name="dataplot" class="selectpicker" title="Type of Data" required>
-			  <option>Means</option>
-			</select>
-		  </div>
-		</div>
-	  </div>
+                <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center; ">
+                  <div class="col-auto">
+                      <div class="control-label form-check text-center">
+                        <input type="checkbox" class="form-check-input" id="kid-box" onclick="toggleInput(this.id)">
+                        <label class="form-check-label" for="kid-box"></label>
+                        <label>KID:</label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                    <div class="was-validated form-group col-6">
+                      <select multiple id="kid" name="kid" class="selectpicker" title="KID(s)" data-actions-box="true" data-live-search="true" required disabled>
+                        {% for child in children %}
+                        <option>{{ child[0] }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center; ">
+                  <div class="col-auto">
+                    <div class="control-label form-check text-center">
+                      <input type="checkbox" class="form-check-input" id="dateBox" onclick="toggleDaterange();">
+                      <label class="form-check-label" for="dateBox"></label>
+                      <label>Date:</label>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-group input-group">
+                      <input type="text" id="daterange" name=datarange class="form-control fa" placeholder="&#xf073 Date(s)" aria-label="Dates(s)" style="cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" disabled>
+                    </div>
+                  </div>
+                </div>
 
-	  <div class="row mb-3" style="display: flex; align-items: center;">
-		<div class="col control-label form-check text-center">
-		  <input type="checkbox" class="form-check-input" id="kid-box" onclick="toggleInput(this.id)">
-		  <label class="form-check-label" for="kid-box"></label>
-		  <label>KID:</label>
-		</div>
-		<div class="col">
-		  <div class="was-validated form-group">
-			<select multiple id="kid" name="kid" class="selectpicker" title="KID(s)" data-actions-box="true" data-live-search="true" required disabled>
-			  {% for child in children %}
-				<option>{{ child[0] }}</option>
-			  {% endfor %}
-			</select>
-		  </div>
-		</div>
-	  </div>
-	  
-	  <div class="row mb-3" style="display: flex; align-items: center;">
-		<div class="col control-label form-check text-center">
-		  <input type="checkbox" class="form-check-input" id="dateBox" onclick="toggleDaterange();">
-		  <label class="form-check-label" for="dateBox"></label>
-		  <label>Date:</label>
-		</div>
-		<div class="col">
-		  <div class="form-group input-group mb-3">
-			<input type="text" id="daterange" name=datarange class="form-control fa" placeholder="&#xf073 Date(s)" aria-label="Dates(s)" style="cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" disabled>
-		  </div>
-		</div>
-	  </div>
-	<button type="submit" class="btn btn-success"  id="createReport">Create</button>
-	  </form>
-	  </div>
+                <div class="row">
+                  <div class="col-12 text-center"> 
+                      <button type="submit" class="btn btn-lg btn-success"  id="createReport">Create</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">

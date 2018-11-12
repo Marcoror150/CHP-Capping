@@ -54,24 +54,33 @@ def getData(post_data):
     
 # Given a labeled x and y data set, generate and return a bar graph plot object
 def makeBarGraph(post_data):
+    # Get requested data from the db
     x,y,program,incident_type = getData(post_data)
+
+    # Parse the x and y keys
+    # Example: x=month in placement,  y=mean percentage
     x_key = [*x][0]
     y_key = [*y][0]
 
+    # Create title and file names
+    plot_title = f'{program}-{incident_type}: {x_key} vs {y_key}'
+    file_name = f'{program}{incident_type}{x_key}vs{y_key}.png'
+    destination = 'static/images/'
+
+   
     x_labels = []
     frequencies = None
     try:
-        plot_title = f'{program}-{incident_type}: {x_key} vs {y_key}'
-        file_name = f'{program}{incident_type}{x_key}vs{y_key}.png'
-        destination = 'static/images/'
-
+        # Create a label for every X tick on the bar graph
+        # Example: Month 1, Month 2, ...
         for item in x[x_key]:
             x_labels.append(x_key.split(' ')[0] +' '+ (str(item)))
 
+        # Get the frequencies
         frequencies = y[y_key]
         freq_series = pd.Series(frequencies)
 
-        # Plot the figure.
+        # Define the plot figure
         plt.figure(figsize=(12, 8))
         ax = freq_series.plot(kind='bar')
         ax.set_title(plot_title)
@@ -81,8 +90,9 @@ def makeBarGraph(post_data):
         ax.set_ylim(bottom=0.0)
         ax.set_xlim(left=0.0)
 
-
+        # Get the list of bar objects
         rects = ax.patches
+
         # For each bar: Place a label
         for rect in rects:
             # Get X and Y placement of label from rect.
@@ -91,7 +101,7 @@ def makeBarGraph(post_data):
 
             # Number of points between bar and label
             space = 5
-            
+
             # Vertical alignment for positive values
             va = 'bottom'
 
@@ -108,27 +118,14 @@ def makeBarGraph(post_data):
             # Create annotation
             plt.annotate(label, (x_value, y_value), xytext=(0, space), textcoords="offset points", ha='center', va=va)
 
-        # properties = {"rotation" : 90}
-        # plt.setp(ax.get_xticklabels(), **properties)
+        # Save the figure as a png and move it to the right directory
         plt.savefig(file_name)
         shutil.move(os.path.join('.', file_name), os.path.join(destination, file_name))
+        
+        # Close the figure to avoid memory issues
         plt.clf()
 
-
+        # Return the title and the filename
         return plot_title, file_name
-
     except Exception as e:
         print(e)
-
-    
-
-    # index = np.arange(len(x_labels))
-    # plt.bar(index, y['means'])
-
-    # plt.xlabel([*x][0], fontsize=14)
-    # plt.ylabel([*y][0], fontsize=14)
-    # plt.xticks(index, x_labels, fontsize=8, rotation=30)
-    # plt.title(incident_type+': '+ [*x][0]+' vs '+[*y][0])
-
-   
-   
