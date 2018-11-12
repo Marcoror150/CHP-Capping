@@ -448,7 +448,6 @@ def createUser(values):
 def removeUser(UID):
 	conn, cur = connectToDB()
 	sql = "DELETE FROM Users WHERE UID="+UID
-	print(sql)
 	try:
 		cur.execute(sql)
 		conn.commit()
@@ -457,5 +456,16 @@ def removeUser(UID):
 		print (e)
 		conn.close()
 		
-		
+# Changes the userType of the user with the given UID to the given userType
+def changeUserType(UID,userType):
+	conn, cur = connectToDB()
+	sql = "UPDATE Users SET UserType = '"+userType+"' WHERE UID = "+UID+";"
+	try:
+		cur.execute(sql)
+		conn.commit()
+		conn.close()
+	except Exception as e:
+		print (e)
+		conn.close()
+	
 		

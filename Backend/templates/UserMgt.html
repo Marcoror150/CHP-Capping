@@ -27,6 +27,11 @@
 
 	  <script>
 		let deleteUID = -1;
+		let permissionUID = -1;
+		let changePassUID = -1;
+		let newPermission = "";
+		let newPassword = "";
+		let confNewPassword = "";
 	  </script>
 	  
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
@@ -112,6 +117,7 @@
           <h3>Create a new user:</h3>
 		  
 		  <form method="POST">
+			<input type="hidden" name="formType" value="addUser">
 		    <div class="form-group">
 			  <div class="form-row">
 				<div class="col">
@@ -198,8 +204,8 @@
 					  <td>{{item[5]}}</td>
 					  <!-- Function passes the user's UID -->
                       <td><button href="#" class="btn btn-danger" name="removeUser" type="button" data-toggle="modal" data-target="#deleteUserModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Remove</button>
-					  <button href="#" class="btn btn-danger" name="changeGroup" type="button" data-toggle="modal" data-target="#changePermissionsModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Change Permissions</button>
-					  <button href="#" class="btn btn-danger" name="resetPass" type="button" data-toggle="modal" data-target="#resetPasswordModal" id="{{ item[0] }}" onclick="deleteUID = {{ item[0] }}">Reset Password</button></td>
+					  <button href="#" class="btn btn-danger" name="changeGroup" type="button" data-toggle="modal" data-target="#changePermissionsModal" id="{{ item[0] }}" onclick="permissionUID = {{ item[0] }}">Change Permissions</button>
+					  <button href="#" class="btn btn-danger" name="resetPass" type="button" data-toggle="modal" data-target="#resetPasswordModal" id="{{ item[0] }}" onclick="changePassUID = {{ item[0] }}">Reset Password</button></td>
                     </tr>
 					{% endfor %}
                   </tbody>
@@ -264,25 +270,6 @@
 	  </div>
 	</div>
 	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script type=text/javascript>
-			/*$(function() {
-			  $('a#deleteUser').bind('click', function() {
-				$('#deleteUserModal').modal('hide')
-				$.getJSON('/deleteUser/'+deleteUID,
-					function(data) {
-				});
-				return false;
-			  });
-			});*/
-			$(document).ready(function(){
-				$("#confirmDeletion").on("click",function(){
-					$('#deleteUserModal').modal('hide');
-					window.location.href = '/deleteUser/'+deleteUID;                           
-				})
-			})
-	</script>
-	
 	
    <!-- Reset Password Modal -->
 	<div class="modal fade" id="resetPasswordModal">
@@ -297,17 +284,17 @@
 			  <div class="form-row">
 				<div class="col">
 				<label for="password">User's New Password:</label>
-				  <input type="password" class="form-control" id="password" placeholder="Password">
+				  <input type="password" class="form-control" id="newPassword" placeholder="Password">
 				</div>
 				<div class="col">
 				<label for="confirmPassword">Confirm Password:</label>
-				  <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+				  <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm Password">
 				</div>
 			  </div>
 			</div>
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" class="close" id="confirmPassword" data-dismiss="modal">Change Password</button>
+			<button type="button" class="btn btn-success" class="close" id="confirmPassword" type="submit" data-dismiss="modal" name="confirmPassword">Change Password</button>
 			<button type="button" class="btn btn-danger" class="close" id="rejectPassword" data-dismiss="modal">Cancel</button>
 		  </div>
 		</div>
@@ -324,7 +311,7 @@
 		  </div>
 		    <!-- Form to select user's new permissions -->
 			<label for="newUserPermissions">New User Permissions:</label>
-			<select class="form-control form-control-sm">
+			<select name='newUserType' id='newUserType' class="form-control form-control-sm">
 				<option>Select One:</option>
 				<option>Admin</option>
 				<option>Full User</option>
@@ -333,12 +320,41 @@
 			</select>
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" class="close" id="confirmChange" data-dismiss="modal">Change user permissions</button>
+			<button type="button" class="btn btn-success" class="close" id="confirmChange" type="submit" data-dismiss="modal" name="confirmChange">Change user permissions</button>	
 			<button type="button" class="btn btn-danger" class="close" id="rejectChange" data-dismiss="modal">Cancel</button>
 		  </div>
 		</div>
 	  </div>
 	</div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type=text/javascript>
+		$(document).ready(function(){
+			$("#confirmDeletion").on("click",function(){
+				$('#deleteUserModal').modal('hide');
+				window.location.href = '/deleteUser/'+deleteUID;                           
+			})
+		})
+	</script>
+	
+	<script type=text/javascript>
+		$(document).ready(function(){
+			$("#confirmChange").on("click",function(){
+				newPermission = document.getElementById('newUserType').value;
+				window.location.href = '/changePermission/'+permissionUID+'/'+newPermission;                           
+			})
+		})
+	</script>
+	
+	<script type=text/javascript>
+		$(document).ready(function(){
+			$("#confirmPassword").on("click",function(){
+				newPassword = document.getElementById('newPassword').value;
+				confNewPassword = document.getElementById('confirmNewPassword').value;
+				window.location.href = '/changePassword/'+changePassUID+'/'+newPassword+'/'+confNewPassword;                           
+			})
+		})
+	</script>
    
     <!--All JS Script files used-->
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js') }}"> </script>

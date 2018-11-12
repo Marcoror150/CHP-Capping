@@ -19,7 +19,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8080
+port = 8079
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -41,13 +41,13 @@ def login():
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
 			if(session['userType'] == 'Admin'):
-				return render_template('UserMgt.html', data=data)
+				return redirect('usermgt')
 			elif(session['userType'] == 'Intern'):
-				return render_template('RecordUpload.html')
+				return redirect('recordupload')
 			elif(session['userType'] == 'View Only'):
-				return render_template('DataReport.html')
+				return redirect('datareport')
 			else:
-				return render_template('homepage.html')
+				return redirect('homepage')
 		else:
 			# Credentials are not valid so give error message
 			flash("Invalid login", 'error')
@@ -127,55 +127,87 @@ def addRemoveUser():
 	data = getUsers()
 	error = False
 	if request.method =='POST':
-		firstName = request.form["firstName"]
-		lastName = request.form["lastName"]
 		
-		# Before creating the user entry in the DB, we must validate 3 things:	
-		
-		# 1. Check if the username is already in the DB
-		username = request.form['username']
-		if not validateUsername(username):
-			username = ""
-			flash('Username already exists. Please choose a unique username', 'error')
-			error = True
-		
-		# 2. Check if the password and confirm password fields matched
-		password = request.form["password"]
-		confPassword = request.form["confPassword"]
-		if password != confPassword:
-			flash('Passwords do not match', 'error')
-			error = True
-		
-		# 3. Check that a userType was selected
-		userType = request.form["userType"]
-		if userType == 'Select One:':
-			flash('Please select a valid user type', 'error')
-			error = True
-		
-		# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
-		if error:
-			session['newUser'] = True
-			session['newFirstName'] = firstName
-			session['newLastName'] = lastName
-			session['newUsername'] = username
-			return render_template('UserMgt.html',data=data)
+		formType = request.form['formType']
+		print(formType)
+		if(formType == 'addUser'):		
+			firstName = request.form["firstName"]
+			lastName = request.form["lastName"]
 			
-		# If all 3 conditions passed, then create the entry
-		else:
-			session['newUser'] = False
-			values = [username,password,firstName,lastName,userType]
-			createUser(values)
-			data = getUsers()
-			flash ('User created', 'success')
-			return render_template('UserMgt.html',data=data)
+			# Before creating the user entry in the DB, we must validate 3 things:	
+			
+			# 1. Check if the username is already in the DB
+			username = request.form['username']
+			if not validateUsername(username):
+				username = ""
+				flash('Username already exists. Please choose a unique username', 'error')
+				error = True
+			
+			# 2. Check if the password and confirm password fields matched
+			password = request.form["password"]
+			confPassword = request.form["confPassword"]
+			if password != confPassword:
+				flash('Passwords do not match', 'error')
+				error = True
+			
+			# 3. Check that a userType was selected
+			userType = request.form["userType"]
+			if userType == 'Select One:':
+				flash('Please select a valid user type', 'error')
+				error = True
+			
+			# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
+			if error:
+				session['newUser'] = True
+				session['newFirstName'] = firstName
+				session['newLastName'] = lastName
+				session['newUsername'] = username
+				return render_template('UserMgt.html',data=data)
+				
+			# If all 3 conditions passed, then create the entry
+			else:
+				session['newUser'] = False
+				values = [username,password,firstName,lastName,userType]
+				createUser(values)
+				data = getUsers()
+				flash ('User created', 'success')
+				return render_template('UserMgt.html',data=data)
+		elif formType == 'changePermission':
+			userType = request.form['newUserType']
+			print (userType)
 	return render_template('UserMgt.html',data=data)
 
 @app.route("/deleteUser/<UID>", methods=['GET','POST'])
 def deleteUser(UID):
-	removeUser(UID)
-	flash('User deleted', 'success')
-	data = getUsers()
-	return render_template('UserMgt.html',data=data)
+	try:
+		int(UID)
+		removeUser(UID)
+		flash('User deleted', 'success')
+		data = getUsers()
+		return redirect('usermgt')
+	except Exception as e:
+		print (e)
+		return redirect('usermgt')
+
+@app.route("/changePermission/<UID>/<userType>", methods=['GET','POST'])
+def changePermission(UID,userType):
+	try:
+		int(UID)
+		str(userType)
+		changeUserType(UID,userType)
+		flash('Succesfully changed user permissions', 'success')
+		data = getUsers()
+		return redirect('usermgt')
+	except Exception as e:
+		print (e)
+		return redirect('usermgt')
+		
+@app.route("/changePassword/<UID>/<newPassword>/<confNewPassword>", methods = ['GET','POST'])
+def changePassword(UID,newPassword,confNewPassword):
+	print (UID)
+	print (newPassword)
+	print (confNewPassword)
+	return redirect('usermgt')
 	
 @app.route("/getTable/<table>", methods=['GET'])
 def getTableJson(table):
