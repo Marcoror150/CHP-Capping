@@ -1,9 +1,8 @@
-from flask import Flask, request, redirect, render_template, session, flash, jsonify
+from flask import Flask, request, redirect, render_template, session, flash, jsonify, url_for
 from flask_restful import Resource, Api, reqparse
 from db_helper import *
 from werkzeug.utils import secure_filename
-from functions import validFile,makeBarGraph
-import os,shutil
+from functions import validFile, makeBarGraph, cleanse
 
 
 UPLOAD_FOLDER = 'csvs/'
@@ -63,28 +62,17 @@ def charts():
 def datareport():
     if request.method == 'POST':
         # try:
-        graph, title = makeBarGraph(request.form.to_dict())
+        title, file_name = makeBarGraph(request.form.to_dict())
         # except Exception as e:
         #     print('graphing failed')
 
-        file_name = 'graph.png'
-        path = 'static/images/'
-        url = path + file_name
+        # path = 'static/images/'
+        # file_name = f'{file_name}.png'
+        # url = f'{path}{file_name}'
 
-        graph.savefig(file_name)
-        shutil.move(file_name,url)
-        return render_template('Charts.html', title=title, url=url)
-        # parameters = []
-        # print(request.form["program"])
-        # print(request.form["incident"])
-        # print(request.form["dataplot"])
-
-        # if request.form['kid']:
-            # pass
-            # parameters.append
-        # if request.form['']:
-            # pass
-        # return redirect('/charts', )
+        # graph.savefig(file_name)
+        # shutil.move(os.path.join('.', file_name), os.path.join(path, file_name))
+        return render_template('Charts.html', image=file_name, title=title)
     else:
         programs = getPopulatedPrograms()
         incident_types = getIncidentTypes()
@@ -112,7 +100,8 @@ def recordupload():
             file.close()      
             return redirect('/reportspage')
     else:
-        return render_template('RecordUpload.html', file="Browse to choose file")
+        programs = getTable('program')
+        return render_template('RecordUpload.html', file="Browse to choose file", programs=programs)
 
 @app.route("/reportspage", methods=['GET', 'POST'])    
 def reportspage():

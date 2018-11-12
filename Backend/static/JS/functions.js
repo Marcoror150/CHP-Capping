@@ -66,18 +66,37 @@ function getButtonID(ID) {
 	$("#confirmDeletion").prop('id', '#' + ID);
 }	
 
-$("#program").on("changed.bs.select", function() {
-    program = $('#program option:selected').text()
-    ip = "http://0.0.0.0:8080/getChildrenProgram/" + program
-
-    $.getJSON(ip, function(data, status) {
-        if (status === "success") {
-            for(var key in data) {
-                $('#kid').append(`<option>${data[key]}</option>`).selectpicker('refresh');;
+function setKIDListener(){
+    $("#program").on("changed.bs.select", function() {
+        program = $('#program option:selected').text()
+        ip = "http://0.0.0.0:8080/getChildrenProgram/" + program
+    
+        $.getJSON(ip, function(data, status) {
+            if (status === "success") {
+                for(var key in data) {
+                    $('#kid').append(`<option>${data[key]}</option>`).selectpicker('refresh');;
+                }
             }
-        }
+        });
     });
-});
+}
+
+function setPrograms(){
+    $("#program").on("changed.bs.select", function() {
+        program = $('#program option:selected').text()
+        ip = "http://0.0.0.0:8080/getChildrenProgram/" + program
+    
+        $.getJSON(ip, function(data, status) {
+            if (status === "success") {
+                for(var key in data) {
+                    $('#kid').append(`<option>${data[key]}</option>`).selectpicker('refresh');;
+                }
+            }
+        });
+    });
+}
+
+
 
 
 

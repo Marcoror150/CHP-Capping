@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/fontawesome-free/css/all.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/datatables/dataTables.bootstrap4.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.css') }}" /> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/bootstrap-select-1.13.2/dist/css/bootstrap-select.min.css') }}" />
 
   </head>
 
@@ -122,6 +123,20 @@
           </div>
 
           <form method="POST" enctype=multipart/form-data>
+            <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center; ">
+              <div class="col-auto text-center">
+                <label>Program:</label>
+              </div>
+              <div class="col-auto">
+                <div class="was-validated form-group">
+                  <select id="program" name="program" class="selectpicker" title="Choose a program" required>
+                    {% for program in programs %}
+                    <option>{{ program[0] }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              </div>
             <div class="row justify-content-center">
               <div class="input-group" style="max-width:30rem">
                 <label class="btn btn-primary">Browse
@@ -133,18 +148,6 @@
                 </label>
               </div>
             </div>
-			
-			<label for="userPermissions">Select Program:</label>
-			<select name="userType" class="form-control form-control-sm">
-				<option>Select One:</option>
-				<option value="./rtc">RTC</option>
-				<option value="./ymp User">YMP</option>
-				<option value="./shp">SHP</option>
-				<option value="./abh">ABH</option>
-				<option value="./gefc">GEFC</option>
-			</select>
-			
-			
           </form>
         </div>
 		
@@ -191,6 +194,7 @@
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery-easing/jquery.easing.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/js/sb-admin.min.js') }}"> </script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendors/bootstrap-select-1.13.2/dist/js/bootstrap-select.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static',filename='JS/functions.js') }}"> </script>
   </body>
 
