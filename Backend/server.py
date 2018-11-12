@@ -115,55 +115,48 @@ def sqlpage():
 def addRemoveUser():
 	data = getUsers()
 	error = False
-	if request.method =='POST':
+	if request.method =='POST':	
+		firstName = request.form["firstName"]
+		lastName = request.form["lastName"]
 		
-		formType = request.form['formType']
-		print(formType)
-		if(formType == 'addUser'):		
-			firstName = request.form["firstName"]
-			lastName = request.form["lastName"]
+		# Before creating the user entry in the DB, we must validate 3 things:	
+		
+		# 1. Check if the username is already in the DB
+		username = request.form['username']
+		if not validateUsername(username):
+			username = ""
+			flash('Username already exists. Please choose a unique username', 'error')
+			error = True
+		
+		# 2. Check if the password and confirm password fields matched
+		password = request.form["password"]
+		confPassword = request.form["confPassword"]
+		if password != confPassword:
+			flash('Passwords do not match', 'error')
+			error = True
+		
+		# 3. Check that a userType was selected
+		userType = request.form["userType"]
+		if userType == 'Select One:':
+			flash('Please select a valid user type', 'error')
+			error = True
+		
+		# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
+		if error:
+			session['newUser'] = True
+			session['newFirstName'] = firstName
+			session['newLastName'] = lastName
+			session['newUsername'] = username
+			return render_template('UserMgt.html',data=data)
 			
-			# Before creating the user entry in the DB, we must validate 3 things:	
-			
-			# 1. Check if the username is already in the DB
-			username = request.form['username']
-			if not validateUsername(username):
-				username = ""
-				flash('Username already exists. Please choose a unique username', 'error')
-				error = True
-			
-			# 2. Check if the password and confirm password fields matched
-			password = request.form["password"]
-			confPassword = request.form["confPassword"]
-			if password != confPassword:
-				flash('Passwords do not match', 'error')
-				error = True
-			
-			# 3. Check that a userType was selected
-			userType = request.form["userType"]
-			if userType == 'Select One:':
-				flash('Please select a valid user type', 'error')
-				error = True
-			
-			# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
-			if error:
-				session['newUser'] = True
-				session['newFirstName'] = firstName
-				session['newLastName'] = lastName
-				session['newUsername'] = username
-				return render_template('UserMgt.html',data=data)
-				
-			# If all 3 conditions passed, then create the entry
-			else:
-				session['newUser'] = False
-				values = [username,password,firstName,lastName,userType]
-				createUser(values)
-				data = getUsers()
-				flash ('User created', 'success')
-				return render_template('UserMgt.html',data=data)
-		elif formType == 'changePermission':
-			userType = request.form['newUserType']
-			print (userType)
+		# If all 3 conditions passed, then create the entry
+		else:
+			session['newUser'] = False
+			values = [username,password,firstName,lastName,userType]
+			createUser(values)
+			data = getUsers()
+			flash ('User created', 'success')
+			return render_template('UserMgt.html',data=data)
 	return render_template('UserMgt.html',data=data)
 
 @app.route("/deleteUser/<UID>", methods=['GET','POST'])
@@ -184,7 +177,7 @@ def changePermission(UID,userType):
 		int(UID)
 		str(userType)
 		changeUserType(UID,userType)
-		flash('Succesfully changed user permissions', 'success')
+		flash('Successfully changed user permissions', 'success')
 		data = getUsers()
 		return redirect('usermgt')
 	except Exception as e:
@@ -193,9 +186,11 @@ def changePermission(UID,userType):
 		
 @app.route("/changePassword/<UID>/<newPassword>/<confNewPassword>", methods = ['GET','POST'])
 def changePassword(UID,newPassword,confNewPassword):
-	print (UID)
-	print (newPassword)
-	print (confNewPassword)
+	if newPassword != confNewPassword:
+		flash('Passwords did not match, user password was not changed.', 'error')
+	else:
+		changeUserPassword(UID,newPassword)
+		flash('Successfully changed user password', 'success')
 	return redirect('usermgt')
 	
 @app.route("/getTable/<table>", methods=['GET'])

@@ -117,7 +117,6 @@
           <h3>Create a new user:</h3>
 		  
 		  <form method="POST">
-			<input type="hidden" name="formType" value="addUser">
 		    <div class="form-group">
 			  <div class="form-row">
 				<div class="col">
@@ -270,37 +269,6 @@
 	  </div>
 	</div>
 	
-	
-   <!-- Reset Password Modal -->
-	<div class="modal fade" id="resetPasswordModal">
-	  <div class="modal-dialog">
-		<div class="modal-content">
-		  <!-- Modal Header -->
-		  <div class="modal-header">
-			<h4 class="modal-title">Reset user's password</h4>
-		  </div>
-	        <!-- Form to reset password -->
-			<div class="form-group">
-			  <div class="form-row">
-				<div class="col">
-				<label for="password">User's New Password:</label>
-				  <input type="password" class="form-control" id="newPassword" placeholder="Password">
-				</div>
-				<div class="col">
-				<label for="confirmPassword">Confirm Password:</label>
-				  <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm Password">
-				</div>
-			  </div>
-			</div>
-		  <!-- Modal footer -->
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" class="close" id="confirmPassword" type="submit" data-dismiss="modal" name="confirmPassword">Change Password</button>
-			<button type="button" class="btn btn-danger" class="close" id="rejectPassword" data-dismiss="modal">Cancel</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	
 	<!-- Change Permissions Modal -->
 	<div class="modal fade" id="changePermissionsModal">
 	  <div class="modal-dialog">
@@ -327,6 +295,36 @@
 	  </div>
 	</div>
 	
+	<!-- Reset Password Modal -->
+	<div class="modal fade" id="resetPasswordModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Reset user's password</h4>
+		  </div>
+	        <!-- Form to reset password -->
+			<div class="form-group">
+			  <div class="form-row">
+				<div class="col">
+				<label for="password">User's New Password:</label>
+				  <input type="password" class="form-control" id="newPassword" placeholder="Password">
+				</div>
+				<div class="col">
+				<label for="confirmPassword">Confirm Password:</label>
+				  <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm Password">
+				</div>
+			  </div>
+			</div>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmPasswordButton" type="submit" data-dismiss="modal" name="confirmPassword">Change Password</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectPassword" data-dismiss="modal">Cancel</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type=text/javascript>
 		$(document).ready(function(){
@@ -348,7 +346,7 @@
 	
 	<script type=text/javascript>
 		$(document).ready(function(){
-			$("#confirmPassword").on("click",function(){
+			$("#confirmPasswordButton").on("click",function(){
 				newPassword = document.getElementById('newPassword').value;
 				confNewPassword = document.getElementById('confirmNewPassword').value;
 				window.location.href = '/changePassword/'+changePassUID+'/'+newPassword+'/'+confNewPassword;                           

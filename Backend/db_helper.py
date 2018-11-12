@@ -468,4 +468,16 @@ def changeUserType(UID,userType):
 		print (e)
 		conn.close()
 	
+# Changes the password of the user with the given UID to the given password
+def changeUserPassword(UID,password):
+	conn, cur = connectToDB()
+	sql = "UPDATE Users SET Password = '"+password+"' WHERE UID = "+UID+";"
+	print (sql)
+	try:
+		cur.execute(sql)
+		conn.commit()
+		conn.close()
+	except Exception as e:
+		print (e)
+		conn.close()
 		
