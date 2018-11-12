@@ -316,18 +316,10 @@ def validateLogin(uname,pwd):
 	conn, cur = connectToDB()
 	sql = "SELECT * FROM Users WHERE username = '"+uname+"' AND password='"+pwd+"';"
 	try:
-		cur.execute(sql)
-		
+		cur.execute(sql)	
 		entries = cur.fetchall()
 		conn.close()
-		if not entries:
-			#conn.close()
-			return False
-		else:
-			#session['username'] = entries[0][1]
-			#conn.close()
-			return True
-		
+		return entries
 	except:
 		conn.close()
 

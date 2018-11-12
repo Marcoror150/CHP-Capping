@@ -31,11 +31,12 @@ def login():
 		password = request.form["inputPassword"]
 		
 		# Check the given credentials against the DB
-		if validateLogin(username,password):
+		user = validateLogin(username,password)
+		if user:
 		
 			# Credentials are valid so create a session
 			session['logged_in'] = True
-			session['username'] = username
+			session['username'] = user[0][1]
 			session['userType'] = getUserType(username)
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
