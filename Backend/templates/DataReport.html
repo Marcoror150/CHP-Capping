@@ -28,7 +28,14 @@
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
+	  
+	  {% if session['userType'] in ['Full User','Super Intern', 'Intern'] %}
       <a class="navbar-brand mr-1" href="/homepage">CHP Incident Recording and Visualization</a>
+	  {% endif %}
+	  
+	  {% if session['userType'] in ['Root','Admin'] %}
+	  <a class="navbar-brand mr-1" href="/usermgt">CHP Incident Recording and Visualization</a>
+	  {% endif %}
 
       <!-- Account Control -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
