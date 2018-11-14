@@ -18,7 +18,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8080
+port = 8079
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -36,7 +36,7 @@ def login():
 		
 			# Credentials are valid so create a session
 			session['logged_in'] = True
-			session['username'] = user[0][1]
+			session['firstName'] = user[0][3]
 			session['userType'] = getUserType(username)
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
