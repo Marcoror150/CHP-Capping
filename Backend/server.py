@@ -36,7 +36,7 @@ def login():
 		
 			# Credentials are valid so create a session
 			session['logged_in'] = True
-			session['username'] = user[0][1]
+			session['firstName'] = user[0][3]
 			session['userType'] = getUserType(username)
 
 			# If user is admin, send them to Admin page. If not an admin, send to Homepage
