@@ -62,6 +62,9 @@
         </li>
       </ul>
 	</form>
+    <a clas="nav-link dropdown-toggle" href="#" id="help" role="button" data-toggle="modal" data-target="#helpModal">
+		<i class="fas fa-question-circle fa-fw"></i>
+	</a>
     </nav>
 
     <div id="wrapper">
@@ -258,6 +261,29 @@
         </div>
       </div>
     </div>
+	
+	<!-- Help Modal -->
+	<div class="modal fade" id="helpModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Help</h4>
+			</div>
+				{% if session['userType'] in ['Full User','Super Intern', 'Intern', 'Root', 'Admin'] %}
+					Hello this is help for all users.
+				{% endif %}
+				<br></br>
+				{% if session['userType'] in ['Root','Admin'] %}
+					Hello this is help for the admin users.
+				{% endif %}
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" class="close" id="closeHelp" data-dismiss="modal" name="">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 	
 	<!-- Delete User Modal -->
 	<div class="modal fade" id="deleteUserModal">
