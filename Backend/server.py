@@ -18,7 +18,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8079
+port = 8078
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -110,6 +110,10 @@ def reportspage():
 	
 @app.route("/sqlentry", methods=['GET', 'POST'])
 def sqlpage():
+	if request.method == 'POST':
+		sql = request.form['sql']
+		query(sql)
+		flash("Query executed","success")
 	return render_template('SQLEntry.html')
 	
 @app.route("/usermgt", methods=['GET','POST'])

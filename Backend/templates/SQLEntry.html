@@ -51,6 +51,7 @@
           </div>
         </li>
       </ul>
+	</form>
     </nav>
 
     <div id="wrapper">
@@ -99,14 +100,21 @@
           <!-- Page Content -->
           <h1>Admin SQL Entry Tool</h1>
           <hr>
-          <p>Enter SQL Query to be run on the database:</p>
+		  {% with success = get_flashed_messages(category_filter=['success']) %}
+			{% if success %}
+			  <p style="color:green">{{ success[0] }}</p>
+            {% endif %}
+          {% endwith %}
+          <p>Enter an SQL Query to be run on the database:</p>
 		  
-		  <div class="form-group">
-			  <label for="sql">SQL:</label>
-			  <textarea class="form-control" rows="5" id="sql"></textarea>
-		  </div>
-		  
-		  <button type="submit" method="POST" class="btn btn-primary">Execute</button>
+			<form method="POST" id="sqlForm">
+			  <div class="form-group">
+				  <label for="sql">SQL:</label>
+				  <textarea form="sqlForm" class="form-control" rows="5" id="sql" name="sql"></textarea>
+			  </div>
+			  
+			  <button type="submit" id="execute" name="execute" class="btn btn-primary">Execute</button>
+			</form>
 		  
         </div>
         <!-- /.container-fluid -->
