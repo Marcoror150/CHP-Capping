@@ -61,6 +61,24 @@
             <span>Homepage</span>
           </a>
         </li>
+		{% if session['userType'] == 'Admin', 'Root' %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-fw fa-clipboard"></i>
+              <span>Admin Tools</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+              <a class="dropdown-item" href="/usermgt">User Management</a>
+			  <a class="dropdown-item" href="/sqlentry">SQL Entry</a>
+  
+              <!--Database stuff-->
+              <!--<div class="dropdown-divider"></div>
+              <h6 class="dropdown-header">Database Management</h6>
+              <a class="dropdown-item" href="404.html">Add/Remove Fields</a> -->
+  
+            </div>
+          </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="/recordupload">
             <i class="fas fa-fw fa-cloud-upload-alt"></i>
