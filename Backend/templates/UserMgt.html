@@ -270,13 +270,22 @@
 		  <div class="modal-header">
 			<h4 class="modal-title">Help</h4>
 			</div>
-				{% if session['userType'] in ['Full User','Super Intern', 'Intern', 'Root', 'Admin'] %}
-					Hello this is help for all users.
-				{% endif %}
-				<br></br>
-				{% if session['userType'] in ['Root','Admin'] %}
-					Hello this is help for the admin users.
-				{% endif %}
+			{% if session['userType'] in ['Full User','Super Intern', 'Intern', 'Root', 'Admin'] %}
+				Hello this is help for all users.
+                <br>Homepage</br>
+                <br>When you first log into the system it will bring you to the Homepage.</br>
+                <br>When an intern submits a incident report this is where a full user can either review, accept, or deny the report.</br>
+                <br>The incident report that an intern proposes will also contain the name of the report and when it was uploaded.</br>
+                <br>Record Upload</br>
+                <br>This is where you can upload incident reports.</br>
+                <br>If you click "Choose a Program" you can pick what program the child is apart of.</br>
+                <br>Click "Browse" to search for a file. You can either pick an excel (.xlsx) file or a .csv file.</br>
+                <br>Then click "Upload" to upload the file.</br>
+			{% endif %}
+                <br></br>
+			{% if session['userType'] in ['Root','Admin'] %}
+				Hello this is help for the admin users.
+			{% endif %}
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-danger" class="close" id="closeHelp" data-dismiss="modal" name="">Close</button>
