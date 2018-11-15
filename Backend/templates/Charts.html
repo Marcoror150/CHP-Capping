@@ -111,15 +111,15 @@
       <div id="content-wrapper">
         <div class="container-fluid">
 
-		      {% if session['userType'] in ['Root','Full User','Super Intern'] %}
-          <!-- Breadcrumbs-->
+			<!-- Breadcrumbs-->
+		  {% if session['userType'] in ['Root','Full User','Super Intern' 'Intern'] %}
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
             <a href="/homepage">Homepage</a>
             </li>
             <li class="breadcrumb-item active">Charts</li>
           </ol>
-		      {% endif %}
+		  {% endif %}
 
           <!-- Page Content -->
           <div class="card mb-3">
