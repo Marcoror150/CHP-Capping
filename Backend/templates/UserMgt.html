@@ -286,15 +286,25 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 			</div>
 			{% if session['userType'] in ['Full User','Super Intern', 'Intern', 'Root', 'Admin'] %}
 				Hello this is help for all users.
-                <br>Homepage</br>
+                <h3><br>Homepage</br></h3>
 					When you first log into the system it will bring you to the Homepage.
 					When an intern submits a incident report this is where a full user can either review, accept, or deny the report.
 					The incident report that an intern proposes will also contain the name of the report and when it was uploaded.
-                <br>Record Upload</br>
+                <h3><br>Record Upload</br></h3>
 					This is where you can upload incident reports.
 					If you click "Choose a Program" you can pick what program the child is apart of.
 					Click "Browse" to search for a file. You can either pick an excel (.xlsx) file or a .csv file.
 					Then click "Upload" to upload the file.
+				<h3><br>Data Report</br></h3>
+					This is where you can view a chart of the incident reports. Click on the "Program" box to pick a program the
+					incident occurred in. Click "Incident Type" to choose what kind of incident it was. Click "Data to Plot" to choose 
+					how you want the data to be displayed as. Click "KID" checkbox, then type out the child's Kaleidacare ID.
+					Click the "Date" checkbox and choose the Dates you would like to see. Click the "Save report for future use" checkbox 
+					so the chart will be saved under the Charts Page. Click on "Report Name" to type out what you would like to name it.
+					Click "Create" to create the chart.
+				<h3><br>Charts Page</br></h3>
+					This is where you can view charts that you have previously saved. Existing charts will be displayed from newest to oldest.
+					If you click on the "Chart" button, it will display the chart.
 			{% endif %}
                 <br></br>
 			{% if session['userType'] in ['Root','Admin'] %}
