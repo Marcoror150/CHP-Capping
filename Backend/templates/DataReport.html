@@ -69,7 +69,7 @@
             </a>
           </li>
         {% endif %}
-        {% if session['userType'] == 'Admin', 'Root' %}
+        {% if session['userType'] in ['Root','Admin'] %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-fw fa-clipboard"></i>
@@ -205,9 +205,20 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-12 text-center"> 
-                      <button type="submit" class="btn btn-lg btn-success"  id="createReport">Create</button>
+                <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center; ">
+                  <div class="col-auto">
+					<div class="control-label form-check text-center">
+                      <input type="checkbox" class="form-check-input" id="saveBox" onclick="toggleInput(this.id)">
+                      <label class="form-check-label" for="saveBox"></label>
+                      <label>Save report for future use</label>
+					  <input type="text" for="saveBox" class="form-control" placeholder = "Report Name" required disabled>
+					  <br><button type="submit" class="btn btn-lg btn-success"  id="createReport">Create</button></br.
+                    </div>
+				  
+				  
+				  
+				  
+                      
                   </div>
                 </div>
               </form>
