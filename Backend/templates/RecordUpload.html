@@ -70,7 +70,7 @@
             </a>
           </li>
         {% endif %}
-        {% if session['userType'] == 'Root', 'Admin' %}
+        {% if session['userType'] in ['Root','Admin'] %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-fw fa-clipboard"></i>
