@@ -151,6 +151,14 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                   </tr>
                 </thead>
                 <tbody>
+				{% for item in data %}
+				<tr>
+					<td>{{item[1]}}</td>
+					<td>{{item[2]}}</td>
+					<td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='/charts'">Chart</button></td>
+				</tr>
+				{% endfor %}
+				<!--
                   <tr>
                     <td>Report A</td>
                     <td>9/10/18</td>
@@ -166,6 +174,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                     <td>9/20/18</td>
                     <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='/charts'">Chart</button></td>
                   </tr>
+				-->
                 </tbody>
               </table>
             </div>
