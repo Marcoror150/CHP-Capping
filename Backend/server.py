@@ -215,7 +215,17 @@ def childrenProgram(program):
     for row in rows:
         table.append(row[0])
     return jsonify(table), 200
-
+	
+@app.route("/deleteReport/<GID>", methods=['GET','POST'])
+def deleteReport(GID):
+	try:
+		int(GID)
+		removeReport(GID)
+		flash('Report deleted', 'success')
+		return redirect('charts')
+	except Exception as e:
+		print (e)
+		return redirect('charts')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)
