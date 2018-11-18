@@ -173,6 +173,64 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
         </div>
       </div>
     </div>
+	
+	<!-- Help Modal -->
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Help</h4>
+			</div>
+			{% if session['userType'] in ['Full User','Super Intern', 'Intern', 'Root', 'Admin'] %}
+				<h4>All Users Help</h4>
+				Hello this is help for all users.
+                <h4><br>Homepage</br></h4>
+					When you first log into the system it will bring you to the Homepage.
+					When an intern submits a incident report this is where a full user can either review, accept, or deny the report.
+					The incident report that an intern proposes will also contain the name of the report and when it was uploaded.
+                <h4><br>Record Upload</br></h4>
+					This is where you can upload incident reports.
+					If you click "Choose a Program" you can pick what program the child is apart of.
+					Click "Browse" to search for a file. You can either pick an excel (.xlsx) file or a .csv file.
+					Then click "Upload" to upload the file.
+				<h4><br>Data Report</br></h4>
+					This is where you can view a chart of the incident reports. Click on the "Program" box to pick a program the
+					incident occurred in. Click "Incident Type" to choose what kind of incident it was. Click "Data to Plot" to choose 
+					how you want the data to be displayed as. Click "KID" checkbox, then type out the child's Kaleidacare ID.
+					Click the "Date" checkbox and choose the Dates you would like to see. Click the "Save report for future use" checkbox 
+					so the chart will be saved under the Charts Page. Click on "Report Name" to type out what you would like to name it.
+					Click "Create" to create the chart.
+				<h4><br>Charts Page</br></h4>
+					This is where you can view charts that you have previously saved. Existing charts will be displayed from newest to oldest.
+					If you click on the "Chart" button, it will display the chart.
+			{% endif %}
+                <br></br>
+			{% if session['userType'] in ['Root','Admin'] %}
+				<h4>Admin Help</h4>
+				Hello this is help for the admin users.
+				<h4><br>User Management</br></h4>
+					This is where you get to create a new user, remove a user, change the user's permissions and reset their password.
+				<h5><br>Create a New User</br></h5>
+					This is where you can create a new user. Click on the fields to type in the new user's credentials. 
+					Click on "Select One:" under the "User Permissions:" to pick what permissions each user should have. (Admin, Full User,
+					Super Intern, Intern, and View Only)
+				<h5><br>Current Users<br></h5>
+					Each user listed is in alphabetical order by last name. To the right you can see that you can remove, change permissions,
+					and reset their password. Click "Remove" then it will ask you to confirm if you want to delete the user. Click either "Yes" or "No".
+					Click "Change Permissions" then it will ask you to choose what permission you would like to grant the user.
+					Click "Reset Password" then it will ask you to type in the user's new password.
+				<h4><br>SQL Entry</br></h4>
+					This is where you can enter SQL queries that will alter the database. Type in the SQL queries then click "Execute" in order to enter
+					the query.
+			{% endif %}
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" class="close" id="closeHelp" data-dismiss="modal" name="">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
    
     <!--All JS Script files used-->
     <script type="text/javascript" src="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/vendor/jquery/jquery.min.js') }}"> </script>
