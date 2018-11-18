@@ -464,7 +464,6 @@ def changeUserType(UID,userType):
 def changeUserPassword(UID,password):
 	conn, cur = connectToDB()
 	sql = "UPDATE Users SET Password = '"+password+"' WHERE UID = "+UID+";"
-	print (sql)
 	try:
 		cur.execute(sql)
 		conn.commit()
@@ -472,4 +471,20 @@ def changeUserPassword(UID,password):
 	except Exception as e:
 		print (e)
 		conn.close()
+		
+# Gets all of the saved report queries
+def getSavedReports():
+	conn, cur = connectToDB()
+	sql = "SELECT * FROM Graph ORDER BY Date_Created DESC"
+	try:
+		cur.execute(sql)
+		entries = cur.fetchall()
+		conn.close()
+		return entries
+	except Exception as e:
+		print (e)
+		conn.close()
+		
+		
+		
 		

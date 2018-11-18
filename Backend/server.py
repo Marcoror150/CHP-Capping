@@ -18,7 +18,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8079
+port = 8078
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -57,7 +57,8 @@ def login():
 
 @app.route("/charts", methods=['GET'])
 def charts():
-    return render_template('Charts.html')
+	data = getSavedReports()
+	return render_template('Charts.html', data=data)
     
 @app.route("/datareport", methods=['GET', 'POST']) 
 def datareport():
