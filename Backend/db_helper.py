@@ -485,6 +485,17 @@ def getSavedReports():
 		print (e)
 		conn.close()
 		
-		
+# Deletes a report from the Graph table with the given GID
+def removeReport(GID):
+	conn, cur = connectToDB()
+	sql = "DELETE FROM Graph WHERE GID="+GID
+	try:
+		print(sql)
+		cur.execute(sql)
+		conn.commit()
+		conn.close()
+	except Exception as e:
+		print (e)
+		conn.close()
 		
 		

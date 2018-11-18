@@ -18,7 +18,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8078
+port = 8080
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -215,6 +215,17 @@ def childrenProgram(program):
     for row in rows:
         table.append(row[0])
     return jsonify(table), 200
+	
+@app.route("/deleteReport/<GID>", methods=['GET','POST'])
+def deleteReport(GID):
+	try:
+		int(GID)
+		removeReport(GID)
+		flash('Report deleted', 'success')
+		return redirect('charts')
+	except Exception as e:
+		print (e)
+		return redirect('charts')
 
 
 if __name__ == "__main__":
