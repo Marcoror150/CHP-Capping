@@ -34,7 +34,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
         <i class="fas fa-bars"></i>
       </button>
 	  
-	  {% if session['userType'] in ['Full User','Super Intern', 'Intern'] %}
+	  {% if session['userType'] in ['Full User','Super Intern','Intern', 'View Only'] %}
       <a class="navbar-brand mr-1" href="/homepage">CHP Incident Recording and Visualization</a>
 	  {% endif %}
 	  
