@@ -5,6 +5,7 @@
 # 10/16/2018
 
 import pyodbc
+from flask import flash
 
 # Connect to the db and return the connection and cursor for query execution
 def connectToDB():
@@ -497,5 +498,56 @@ def removeReport(GID):
 	except Exception as e:
 		print (e)
 		conn.close()
+		
+# Verifies that the password meets CHP's requirements
+def verifyPassword(pwd):
+	# Requirement 1: Password must be between 8-25 characters
+	if len(pwd) < 8:
+		flash("Password must be at least 8 characters.","error")
+	elif len(pwd) > 25:
+		flash("Password must be no more than 25 characters.","error")
+	
+	# Requirement 2: Password must contain at least 1 letter, 1 number, and 1 symbol
+	hasLetter = False
+	hasNumber = False
+	hasSymbol = False
+	validSymbols = ["!","@","#","$","%","^","&","*","(",")","`","~","-","_","+","=","{","}","[","]",":",";","'","|","\"","<",",",">",".","?","/"]
+	
+	# Requirement 3: Password must not contain spaces
+	hasSpace = False
+	
+	# Checking requirements 2 and 3
+	for char in pwd:
+		if char.isalpha():
+			hasLetter = True
+		elif char.isdigit():
+			hasNumber = True
+		elif char in validSymbols:
+			hasSymbol = True
+		elif " " in pwd:
+			hasSpace = True
+			
+	# Check if any of the requirements failed and display the proper message(s)
+	error = False
+	
+	if not hasLetter:
+		flash("Password must contain at least one letter.","error")
+		error = True
+	if not hasNumber:
+		flash("Password must contain at least one number.","error")
+		error = True
+	if not hasSymbol:
+		flash("Password must contain at least one symbol.","error")
+		error = True
+	if hasSpace:
+		flash("Password cannot contain spaces.","error")
+		error = True
+	if error:
+		flash("User password was not changed.","error")
+		
+	# Return the opposite of error because this function should return true if the password is valid
+	return not error
+		
+	
 		
 		

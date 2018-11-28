@@ -18,7 +18,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8079
+port = 8078
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -288,7 +288,7 @@ def changePassword(UID,newPassword,confNewPassword):
 	# Verify that passwords matched
 	if newPassword != confNewPassword:
 		flash('Passwords did not match, user password was not changed.', 'error')
-	else:
+	elif verifyPassword(newPassword):
 		changeUserPassword(UID,newPassword)
 		flash('Successfully changed user password', 'success')
 		
