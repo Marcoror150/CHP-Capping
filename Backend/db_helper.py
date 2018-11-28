@@ -542,8 +542,6 @@ def verifyPassword(pwd):
 	if hasSpace:
 		flash("Password cannot contain spaces.","error")
 		error = True
-	if error:
-		flash("User password was not changed.","error")
 		
 	# Return the opposite of error because this function should return true if the password is valid
 	return not error

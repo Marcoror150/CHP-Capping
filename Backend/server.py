@@ -182,7 +182,7 @@ def addRemoveUser():
 		firstName = request.form["firstName"]
 		lastName = request.form["lastName"]
 		
-		# Before creating the user entry in the DB, we must validate 3 things:	
+		# Before creating the user entry in the DB, we must validate 4 things:	
 		
 		# 1. Check if the username is already in the DB
 		username = request.form['username']
@@ -198,13 +198,17 @@ def addRemoveUser():
 			flash('Passwords do not match', 'error')
 			error = True
 		
-		# 3. Check that a userType was selected
+		# 3. Verify the password meets the requirements
+		if not verifyPassword(password):
+			error = True
+		
+		# 4. Check that a userType was selected
 		userType = request.form["userType"]
 		if userType == 'Select One:':
 			flash('Please select a valid user type', 'error')
 			error = True
 		
-		# If any of the 3 conditions above failed, we do not create a new entry and tell the user what they did wrong
+		# If any of the 4 conditions above failed, we do not create a new entry and tell the user what they did wrong
 		if error:
 			session['newUser'] = True
 			session['newFirstName'] = firstName
@@ -212,7 +216,7 @@ def addRemoveUser():
 			session['newUsername'] = username
 			return render_template('UserMgt.html',data=data)
 			
-		# If all 3 conditions passed, then create the entry
+		# If all 4 conditions passed, then create the entry
 		else:
 			session['newUser'] = False
 			values = [username,password,firstName,lastName,userType]
@@ -291,6 +295,8 @@ def changePassword(UID,newPassword,confNewPassword):
 	elif verifyPassword(newPassword):
 		changeUserPassword(UID,newPassword)
 		flash('Successfully changed user password', 'success')
+	else:
+		flash('User password was not changed.','error')
 		
 	return redirect('usermgt')
 	
