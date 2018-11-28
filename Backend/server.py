@@ -154,7 +154,7 @@ def recordupload():
 				os.makedirs(app.config['UPLOAD_FOLDER'])
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 			file.close()      
-			return redirect('/reportspage')
+		return render_template('DataReport.html')
 	else:
 		programs = getTable('program')
 		return render_template('RecordUpload.html', file="Browse to choose file", programs=programs)
