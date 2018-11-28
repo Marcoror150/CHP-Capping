@@ -116,6 +116,37 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
             <div class="card-header">Recent Incident Records</div>
             <div class="card-body">
               <table class="table table-hover">
+                  {% with success = get_flashed_messages(category_filter=['success']) %}
+                  {% if success %}
+                    <p style="color:green">{{ success[0] }}</p>
+                  {% endif %}
+                  {% endwith %}
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Date Created</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in data %}
+                    <tr>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[2]}}</td>
+                      <td>
+                          <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
+                          <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
+                      </td>
+                      <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
+                      <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+
+
+              <!-- <table class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -150,10 +181,10 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                       <button type="button" class="btn btn-primary btn-sm m-0">Review</button>
                       <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
                       <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
-                    </td><!--onclick="location.href='Charts.html'"-->
+                    </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
             </div>
           </div>
           <!-- Modal -->
@@ -169,7 +200,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                 
                 <!-- Modal body -->
                 <div class="modal-body">
-                  PDF goes here
+                  Reviewing Stuff goes here
                 </div>
                 
                 <!-- Modal footer -->

@@ -473,10 +473,25 @@ def changeUserPassword(UID,password):
 		print (e)
 		conn.close()
 		
+
+def storeReport(title,report):
+    conn, cur = connectToDB()
+    sql = f"""
+        INSERT INTO Graph VALUES ('{title}',GETDATE(),'{report}')
+    """
+    try:
+        print(sql)
+        cur.execute(sql)
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(e)
+        conn.close()
+
 # Gets all of the saved report queries
 def getSavedReports():
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Graph ORDER BY Date_Created DESC"
+	sql = "SELECT * FROM Graph ORDER BY GID DESC"
 	try:
 		cur.execute(sql)
 		entries = cur.fetchall()

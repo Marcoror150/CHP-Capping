@@ -129,3 +129,11 @@ def makeBarGraph(post_data):
         return plot_title, file_name
     except Exception as e:
         print(e)
+
+def makeChartDict(data):
+    d = {}
+    chart_data = data.split(',')
+    for key_vals in chart_data:
+        key,val = key_vals.split(':')
+        d.update({ key:val })
+    return d

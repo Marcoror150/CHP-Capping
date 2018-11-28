@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, render_template, session, flash, jso
 from flask_restful import Resource, Api, reqparse
 from db_helper import *
 from werkzeug.utils import secure_filename
-from functions import validFile, makeBarGraph, cleanse
+from functions import validFile, makeBarGraph, cleanse,makeChartDict
 import os
 
 
@@ -71,10 +71,20 @@ def charts():
 	# Prevent unauthorized access to this page via URL manipulation
 	if not session.get('userType'):
 		return redirect('')
-		
+	report = request.args.get('report')
+	if report != None:
+		d = makeChartDict(report)
+
+		title, file_name = makeBarGraph(d)
+		return render_template('Charts.html', image=file_name, title=title, data=getSavedReports())
+
 	# Charts.html needs all records from the Graph table in the DB
 	data = getSavedReports()
-	return render_template('Charts.html', data=data)
+	latest_report = data[0][3]
+
+	d = makeChartDict(latest_report)
+	title, file_name = makeBarGraph(d)
+	return render_template('Charts.html', image=file_name, title=title, data=data)
     
 @app.route("/datareport", methods=['GET', 'POST']) 
 def datareport():
@@ -84,7 +94,17 @@ def datareport():
 		
 	if request.method == 'POST':
         # try:
-		title, file_name = makeBarGraph(request.form.to_dict())
+		report = request.form.to_dict()
+		title, file_name = makeBarGraph(report)
+
+		report_string = ''
+		for key, val in report.items():
+			report_string += f'{key}:{val},'
+
+		report_string = report_string[:-1]
+
+		storeReport(title,report_string)
+		
         # except Exception as e:
         #     print('graphing failed')
 
@@ -94,7 +114,7 @@ def datareport():
 
         # graph.savefig(file_name)
         # shutil.move(os.path.join('.', file_name), os.path.join(path, file_name))
-		return render_template('Charts.html', image=file_name, title=title)
+		return render_template('Charts.html', image=file_name, title=title, data=getSavedReports())
 	else:
 		programs = getPopulatedPrograms()
 		incident_types = getIncidentTypes()
@@ -110,7 +130,7 @@ def homepage():
 	elif session['userType'] == 'View Only':
 		return redirect('/datareport')
 		
-	return render_template('Homepage.html')
+	return render_template('Homepage.html', data=getSavedReports())
     
 @app.route("/recordupload", methods=['GET', 'POST'])
 def recordupload():
