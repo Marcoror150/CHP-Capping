@@ -10,7 +10,7 @@ import pyodbc
 def connectToDB():
     try:
         # Connect to the db and capture its object
-        conn = pyodbc.connect('DSN=pochildrenshome;UID=ChildrensHome;PWD=Capping2018!;')
+        conn = pyodbc.connect('DSN=pochildrenshome;UID=ChildrensHome;PWD=!Capping2018;')
 
         # conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=10.11.12.200,1433;DATABASE=POCHILDRENSHOME;UID=ChildrensHome;PWD=Capping2018!;')
 

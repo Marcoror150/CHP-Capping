@@ -3,6 +3,7 @@ from flask_restful import Resource, Api, reqparse
 from db_helper import *
 from werkzeug.utils import secure_filename
 from functions import validFile, makeBarGraph, cleanse
+import os
 
 
 UPLOAD_FOLDER = 'csvs/'
