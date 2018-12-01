@@ -561,6 +561,29 @@ def verifyPassword(pwd):
 	# Return the opposite of error because this function should return true if the password is valid
 	return not error
 		
-	
-		
+# Gets all Incident Reports	submitted by Donnamarie that have not been reviewed
+def getUnreviewedReportsDM():
+	conn, cur = connectToDB()
+	sql = "SELECT * FROM Incidents WHERE Status = 'Not Reviewed' AND UID = (SELECT UID FROM Users WHERE Username='Donnamarie');"
+	try:
+		cur.execute(sql)
+		entries = cur.fetchall()
+		conn.close()
+		return entries
+	except Exception as e:
+		print (e)
+		conn.close()
+
+# Gets all Incident Reports submitted by Interns (or anyone other than Donnamarie) that have not been reviewed
+def getUnreviewedReportsInterns():
+	conn, cur = connectToDB()
+	sql = "SELECT * FROM Incidents WHERE Status = 'Not Reviewed' AND UID <> (SELECT UID FROM Users WHERE Username='Donnamarie');"
+	try:
+		cur.execute(sql)
+		entries = cur.fetchall()
+		conn.close()
+		return entries
+	except Exception as e:
+		print (e)
+		conn.close()		
 		
