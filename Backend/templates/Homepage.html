@@ -135,8 +135,8 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                       <td>{{item[2]}}</td>
                       <td>
                           <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
-                          <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
-                          <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
+                          <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept">Accept</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject"">Deny</button>
                       </td>
                       <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
                       <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
@@ -144,47 +144,6 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                     {% endfor %}
                   </tbody>
               </table>
-
-
-              <!-- <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date Created</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Incident Record A</td>
-                    <td>9/10/18</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
-                      <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
-                      <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Incident Record B</td>
-                    <td>9/15/18</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-sm m-0">Review</button>
-                      <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
-                      <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Incident Record C</td>
-                    <td>9/20/18</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-sm m-0">Review</button>
-                      <button type="button" class="btn btn-success btn-sm m-0">Accept</button>
-                      <button type="button" class="btn btn-danger btn-sm m-0">Deny</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
             </div>
           </div>
           <!-- Modal -->
@@ -259,6 +218,57 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
         </div>
       </div>
     </div>
+	
+	<!-- Accept Incident Modal -->
+	<div class="modal fade" id="confirmAccept">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Are you sure you want to accept this incident?</h4>
+		  </div>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmAccept" type="submit" data-dismiss="modal" name="">Yes</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectAccept" data-dismiss="modal">No</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Reject Incident Modal -->
+	<div class="modal fade" id="confirmReject">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Are you sure you want to reject this incident?</h4>
+		  </div>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmReject" type="submit" data-dismiss="modal" name="">Yes</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectReject" data-dismiss="modal">No</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Accept All Incidents Modal -->
+	<div class="modal fade" id="acceptAllIncidents">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+			<h4 class="modal-title">Are you sure you want to accept all incidents proposed by Full Users and Super Interns?</h4>
+		  </div>
+		  <!-- Modal footer -->
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" class="close" id="confirmAcceptAllIncidents" type="submit" data-dismiss="modal" name="">Yes</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectAcceptAllIncidents" data-dismiss="modal">No</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 	
 	<!-- Help Modal -->
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true">
