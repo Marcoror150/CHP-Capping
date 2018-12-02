@@ -62,7 +62,15 @@ CREATE TABLE IncidentClassification (
 );
 
 -- Trigger to remove rejected database entries
-CREATE TRIGGER removeRejectedEntries on Incidents
+CREATE OR REPLACE TRIGGER removeRejectedEntries on Incidents
 AFTER UPDATE
 AS
 BEGIN
+  -- Store IID to delete from both tables
+  DECLARE IIDToDelete INT;
+  SET IIDToDelete = SELECT FROM Incidents WHERE Status = 'Rejected';  
+  
+  -- Trigger Code
+  DELETE FROM IncidentClassification WHERE IID = IIDToDelete;
+  DELETE FROM Incidents WHERE IID = IIDToDelete;
+END;
