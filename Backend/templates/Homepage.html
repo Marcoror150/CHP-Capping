@@ -113,7 +113,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
           <!-- Page Content -->
           <div class="card text-center">
-            <div class="card-header">Recent Incident Records</div>
+            <div class="card-header">Recent Incident Records Uploaded by Donnamarie</div>
             <div class="card-body">
               <table class="table table-hover">
                   {% with success = get_flashed_messages(category_filter=['success']) %}
@@ -123,20 +123,50 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                   {% endwith %}
                   <thead>
                     <tr>
-                      <th scope="col">Name</th>
+                      <th scope="col">Child's KID</th>
                       <th scope="col">Date Created</th>
-                      <th></th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for item in data %}
+                    {% for item in data1 %}
                     <tr>
                       <td>{{item[1]}}</td>
-                      <td>{{item[2]}}</td>
+                      <td>{{item[5]}}</td>
                       <td>
                           <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
                           <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept">Accept</button>
-                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject"">Deny</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject">Deny</button>
+                      </td>
+                      <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
+                      <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+			  <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#acceptAllIncidents">Accept All</button>
+            </div>
+		</div>
+		<div class="card text-center">
+			<div class="card-header">Recent Incident Records Uploaded by Interns</div>
+            <div class="card-body">
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Child's KID</th>
+                      <th scope="col">Date Created</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in data2 %}
+                    <tr>
+                      <td>{{item[1]}}</td>
+                      <td>{{item[5]}}</td>
+                      <td>
+                          <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
+                          <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept">Accept</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject">Deny</button>
                       </td>
                       <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
                       <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
@@ -225,7 +255,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 		<div class="modal-content">
 		  <!-- Modal Header -->
 		  <div class="modal-header">
-			<h4 class="modal-title">Are you sure you want to accept this incident?</h4>
+			<h4 class="modal-title">Accept this incident?</h4>
 		  </div>
 		  <!-- Modal footer -->
 		  <div class="modal-footer">

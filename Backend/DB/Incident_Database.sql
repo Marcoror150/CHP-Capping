@@ -16,8 +16,8 @@ DROP TABLE IF EXISTS Children;
 
 --Children Table
 CREATE TABLE Children (
-  KID		 int,
-  ACEs_Score int,
+  KID		 INT,
+  ACEs_Score INT,
   PRIMARY KEY (KID)
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE Program (
 
 --ChildrenProgram Table
 CREATE TABLE ChildrenProgram (
-  KID 			int REFERENCES Children (KID),
+  KID 			INT REFERENCES Children (KID),
   PID			VARCHAR (50) NOT NULL REFERENCES Program (PID),
   StartDate		DATE,
   EndDate		DATE,
@@ -38,24 +38,40 @@ CREATE TABLE ChildrenProgram (
 
 --IncidentTypes Table
 CREATE TABLE IncidentTypes (
-  TID   int identity (1,1),
+  TID   INT identity (1,1),
   Name  VARCHAR (50) NOT NULL,
   PRIMARY KEY (TID)
 );
 
 --Incidents Table
 CREATE TABLE Incidents (
-  IID          int identity (1,1),
-  KID          int REFERENCES Children (KID),
-  M_In_Pgm     int,
+  IID          INT identity (1,1),
+  KID          INT REFERENCES Children (KID),
+  M_In_Pgm     INT,
   Status       VARCHAR (15) NOT NULL,
-  UID,         int REFERENCES Users (UID),
+  UID          INT REFERENCES Users (UID) NOT NULL,
+  Date_Created DATE DEFAULT getdate(),
   PRIMARY KEY (IID),
 );
 
 --IncidentClassification
 CREATE TABLE IncidentClassification (
-  IID  int REFERENCES Incidents (IID),
-  TID  int REFERENCES IncidentTypes (TID),
+  IID  INT REFERENCES Incidents (IID),
+  TID  INT REFERENCES IncidentTypes (TID),
   PRIMARY KEY (IID, TID)
 );
+
+-- Trigger to remove rejected database entries
+CREATE OR ALTER TRIGGER removeRejectedEntries ON Incidents
+AFTER UPDATE
+AS
+BEGIN
+  -- Store IID to delete from both tables
+  DECLARE @IIDToDelete INT
+  SET @IIDToDelete = (SELECT IID FROM Incidents WHERE Status = 'Rejected')
+  
+  -- Trigger Code
+  DELETE FROM IncidentClassification WHERE IID = @IIDToDelete
+  DELETE FROM Incidents WHERE IID = @IIDToDelete
+END
+GO

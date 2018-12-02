@@ -21,7 +21,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8079
+port = 8078
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -128,15 +128,15 @@ def datareport():
     
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
-    # Prevent unauthorized access to this page via URL manipulation
-    if not session.get('userType'):
-        return redirect('')
-    elif session['userType'] in ['Intern','Super Intern']:
-        return redirect('/recordupload')
-    elif session['userType'] == 'View Only':
-        return redirect('/datareport')
-        
-    return render_template('Homepage.html', data=getSavedReports())
+	# Prevent unauthorized access to this page via URL manipulation
+	if not session.get('userType'):
+		return redirect('')
+	elif session['userType'] == 'Intern':
+		return redirect('/recordupload')
+	elif session['userType'] == 'View Only':
+		return redirect('/datareport')
+
+	return render_template('Homepage.html',data1=getUnreviewedReportsSuperInterns(),data2=getUnreviewedReportsInterns())
     
 @app.route("/recordupload", methods=['GET', 'POST'])
 def recordupload():
