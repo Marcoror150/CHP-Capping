@@ -22,7 +22,7 @@ CREATE TABLE UserTypes (
 --Users Table
 
 CREATE TABLE Users (
-  UID          int identity (1,1),
+  UID          INT identity (1,1),
   Username     VARCHAR (50) NOT NULL,
   Password     VARCHAR (50) NOT NULL,
   First_Name   VARCHAR (50) NOT NULL,
