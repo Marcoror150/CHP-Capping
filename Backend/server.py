@@ -4,6 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from db_helper import *
 from werkzeug.utils import secure_filename
 from functions import validFile, makeBarGraph, cleanse,makeChartDict
+from sheet_parser import excel_to_csv
 import os
 
 
@@ -153,14 +154,12 @@ def recordupload():
         except Exception as e:
             print(e)
 
-        print('BIG FISH')
         # if user does not select file submit an empty part without filename
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
 
         if file and validFile(file.filename):
-            print('BIG FISHeeeeeee')
             filename = secure_filename(file.filename)
             if not os.path.exists(app.config['UPLOAD_FOLDER']):
                 os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -168,20 +167,16 @@ def recordupload():
             file.close()  
 
 
-            # try:
-                # parseFile(filename)
-            # except Exception as e:
-            #     print(e)
-
-        programs = getPopulatedPrograms()
-        incident_types = getIncidentTypes()
-
+            try:
+                excel_to_csv(filename)
+            except Exception as e:
+                print(e)
+        flash('File Uploaded')
+        return redirect('recordupload')
+        # programs = getPopulatedPrograms()
+        # incident_types = getIncidentTypes()
         
-        # response = render_template('DataReport.html', programs=programs, incidents=incident_types)
-        
-        # response = render_template('DataReport.html', programs=programs, incidents=incident_types)
-        print('FISHHHHH')
-        return redirect(url_for('datareport'))
+        # return redirect(url_for('datareport'))
         
     else:
         programs = getTable('program')

@@ -114,8 +114,8 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
       <div id="content-wrapper">
 
-        <div class="container-fluid mx-auto" >
-		{% if session['userType'] in ['Root','Full User','Super Intern', 'Intern'] %}
+        <div class="container-fluid mx-auto">
+		      {% if session['userType'] in ['Root','Full User','Super Intern', 'Intern'] %}
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -123,7 +123,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
             </li>
             <li class="breadcrumb-item active">Record Upload</li>
           </ol>
-		  {% endif %}
+          {% endif %}
 
           <!-- Page Content -->
           <div class="row justify-content-center">
@@ -135,7 +135,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
           </div>
 
           <form method="POST" enctype=multipart/form-data>
-            <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center; ">
+            <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center;">
               <div class="col-auto text-center">
                 <label>Program:</label>
               </div>
@@ -161,6 +161,18 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
               </div>
             </div>
           </form>
+
+          <div class="row justify-content-center">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-success" role="alert">
+              {% for message in messages %}
+                <header>{{ message }}</header>
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+          </div>
         </div>
 		
         <!-- Sticky Footer -->

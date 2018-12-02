@@ -4,16 +4,17 @@
 # Michael Gutierrez
 # 10/16/2018
 
-# import os, re, calendar
+import os, re, calendar
+import pandas as pd
 # from db_helper import *
 # from parser_helper import *
 
 
-def parseFile(file_name,program):
+def parseFile(filename, program):
+    csv = excel_to_csv(filename)
 
-    # Open the correct csv and chose the right program
-    os.chdir('./../csvs')  
-    f = open(file_name, 'r')
+    os.chdir('./csvs')  
+    f = open(csv, 'r')
 
     # Header line of the csv
     header = f.readline().split(',')
@@ -176,3 +177,26 @@ def parseFile(file_name,program):
 
         f.close()
 
+# Function to convert an excel sheet to csv format
+def excel_to_csv(filename):
+
+    # Goto the correct directory where the excel sheets reside
+    os.chdir('./csvs')
+    
+    # Get a filename from the excel filename
+    csv_name = filename.split('.')[0]
+    
+    if csv_name[1] == 'csv':
+        return filename
+        
+    csv_name = f'{csv_name}.csv'
+
+    # Convert to excel format and write the file to the directory
+    data_xls = pd.read_excel(filename, index_col=None)
+    data_xls.to_csv(csv_name, encoding='utf-8')
+
+    # Change back to the original directory
+    os.chdir('./..')
+
+    # Return the csv 
+    return csv_name

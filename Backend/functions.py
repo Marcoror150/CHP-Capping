@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 from db_helper import getMeansPerMonth
@@ -81,14 +81,14 @@ def makeBarGraph(post_data):
         freq_series = pd.Series(frequencies)
 
         # Define the plot figure
-        plt.figure(figsize=(12, 8))
+        plt.figure(figsize=(16, 9))
         ax = freq_series.plot(kind='bar')
         ax.set_title(plot_title)
         ax.set_xlabel(x_key)
         ax.set_ylabel(y_key)
         ax.set_xticklabels(x_labels, rotation=40, ha='center')
-        ax.set_ylim(bottom=0.0)
-        ax.set_xlim(left=0.0)
+        # ax.set_ylim(bottom=0.0)
+        # ax.set_xlim(left=0.0)
 
         # Get the list of bar objects
         rects = ax.patches

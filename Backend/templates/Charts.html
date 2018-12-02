@@ -163,8 +163,10 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                 <tr>
                   <td>{{item[1]}}</td>
                   <td>{{item[2]}}</td>
-                  <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
-                  <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td>
+                  <td>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
+                    <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button>
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -172,55 +174,6 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
           </div>
         </div>
       </div>
-		
-		
-		  <!-- <div class="row ">
-            <div class="container">
-              <table class="table table-hover">
-                <h2 style="text-align:center">Existing Charts</h2>
-                {% with success = get_flashed_messages(category_filter=['success']) %}
-                {% if success %}
-                  <p style="color:green">{{ success[0] }}</p>
-                {% endif %}
-                {% endwith %}
-                <thead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date Created</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-				{% for item in data %}
-				<tr>
-					<td>{{item[1]}}</td>
-					<td>{{item[2]}}</td>
-					<td><button type="button" class="btn btn-success" onclick="location.href='/charts'">Chart</button>
-					<button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td>
-				</tr>
-				{% endfor %}
-				<!--
-                  <tr>
-                    <td>Report A</td>
-                    <td>9/10/18</td>
-                    <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='/charts'">Chart</button></td>
-                  </tr>
-                  <tr>
-                    <td>Report B</td>
-                    <td>9/15/18</td>
-                    <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='/charts'">Chart</button></td>
-                  </tr>
-                  <tr>
-                    <td>Report C</td>
-                    <td>9/20/18</td>
-                    <td><button type="button" class="btn btn-success btn-sm m-0" onclick="location.href='/charts'">Chart</button></td>
-                  </tr>
-				-->
-                <!-- </tbody> -->
-              <!-- </table> -->
-            <!-- </div> -->
-      <!-- </div> --> -->
-
       </div>
       <!-- /.container-fluid -->
 
