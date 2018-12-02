@@ -20,7 +20,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8078
+port = 8079
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -389,6 +389,18 @@ def deleteReport(GID):
     except Exception as e:
         print (e)
         return redirect('charts')
-
+		
+@app.route("/acceptRecord/<IID>", methods=['GET','POST'])
+def acceptRecord(IID):
+	acceptReport(IID)
+	flash('Record Accepted','success')
+	return redirect('/homepage')
+	
+@app.route("/denyRecord/<IID>", methods=['GET','POST'])
+def denyRecord(IID):
+	denyReport(IID)
+	flash('Record Rejected','success')
+	return redirect('/homepage')
+	
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)
