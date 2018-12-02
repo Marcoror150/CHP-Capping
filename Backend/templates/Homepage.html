@@ -25,6 +25,9 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
   </head>
 
   <body id="page-top">
+	<script>
+		let IID = -1;
+	</script>
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -113,7 +116,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
           <!-- Page Content -->
           <div class="card text-center">
-            <div class="card-header">Recent Incident Records Uploaded by Donnamarie</div>
+            <div class="card-header">Recent Incident Records Uploaded by Donnamarie/Super Interns</div>
             <div class="card-body">
               <table class="table table-hover">
                   {% with success = get_flashed_messages(category_filter=['success']) %}
@@ -134,9 +137,9 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                       <td>{{item[1]}}</td>
                       <td>{{item[5]}}</td>
                       <td>
-                          <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
-                          <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept">Accept</button>
-                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject">Deny</button>
+                          <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal" onclick="IID = {{item[0]}}">Review</button>
+                          <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept" onclick="IID = {{item[0]}}">Accept</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject" onclick="IID = {{item[0]}}">Deny</button>
                       </td>
                       <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
                       <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
@@ -164,9 +167,9 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                       <td>{{item[1]}}</td>
                       <td>{{item[5]}}</td>
                       <td>
-                          <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal">Review</button>
-                          <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept">Accept</button>
-                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject">Deny</button>
+                          <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal" onclick="IID = {{item[0]}}">Review</button>
+                          <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept" onclick="IID = {{item[0]}}">Accept</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject" onclick="IID = {{item[0]}}">Deny</button>
                       </td>
                       <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
                       <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
@@ -266,6 +269,16 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 	  </div>
 	</div>
 	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type=text/javascript>
+		$(document).ready(function(){
+			$("#confirmAccept").on("click",function(){
+				$('#confirmAccept').modal('hide');
+				window.location.href = '/acceptRecord/'+IID;                           
+			})
+		})
+	</script>
+	
 	<!-- Reject Incident Modal -->
 	<div class="modal fade" id="confirmReject">
 	  <div class="modal-dialog">
@@ -276,12 +289,21 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 		  </div>
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" class="close" id="confirmReject" type="submit" data-dismiss="modal" name="">Yes</button>
-			<button type="button" class="btn btn-danger" class="close" id="rejectReject" data-dismiss="modal">No</button>
+			<button type="button" class="btn btn-success" class="close" id="confirmRejection" type="submit" data-dismiss="modal" name="">Yes</button>
+			<button type="button" class="btn btn-danger" class="close" id="rejectRejection" data-dismiss="modal">No</button>
 		  </div>
 		</div>
 	  </div>
 	</div>
+	
+	<script type=text/javascript>
+		$(document).ready(function(){
+			$("#confirmRejection").on("click",function(){
+				$('#confirmReject').modal('hide');
+				window.location.href = '/denyRecord/'+IID;                           
+			})
+		})
+	</script>
 	
 	<!-- Accept All Incidents Modal -->
 	<div class="modal fade" id="acceptAllIncidents">
