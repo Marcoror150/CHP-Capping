@@ -147,9 +147,12 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                     {% endfor %}
                   </tbody>
               </table>
+			  {% if data1 %}
 			  <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#acceptAllIncidents">Accept All</button>
+			  {% endif %}
             </div>
 		</div>
+		<br>
 		<div class="card text-center">
 			<div class="card-header">Recent Incident Records Uploaded by Interns</div>
             <div class="card-body">
@@ -321,6 +324,15 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 		</div>
 	  </div>
 	</div>
+	
+	<script type=text/javascript>
+		$(document).ready(function(){
+			$("#confirmAcceptAllIncidents").on("click",function(){
+				$('#acceptAllIncidents').modal('hide');
+				window.location.href = '/acceptAllRecords';                           
+			})
+		})
+	</script>
 	
 	<!-- Help Modal -->
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true">

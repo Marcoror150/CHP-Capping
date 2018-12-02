@@ -564,7 +564,7 @@ def verifyPassword(pwd):
 # Gets all Incident Reports	submitted by Donnamarie or SuperInterns that have not been reviewed
 def getUnreviewedReportsSuperInterns():
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Incidents WHERE status = 'Not Reviewed' AND UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
+	sql = "SELECT * FROM Incidents WHERE status = 'NR' AND UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
 	try:
 		cur.execute(sql)
 		entries = cur.fetchall()
@@ -577,7 +577,7 @@ def getUnreviewedReportsSuperInterns():
 # Gets all Incident Reports submitted by Interns that have not been reviewed
 def getUnreviewedReportsInterns():
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Incidents WHERE status = 'Not Reviewed' AND UID NOT IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
+	sql = "SELECT * FROM Incidents WHERE status = 'NR' AND UID NOT IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
 	try:
 		cur.execute(sql)
 		entries = cur.fetchall()
@@ -587,10 +587,10 @@ def getUnreviewedReportsInterns():
 		print (e)
 		conn.close()		
 		
-# Changes the Incident's Status to 'Accepted'	
+# Changes the Incident's Status to 'A' for accepted
 def acceptReport(IID):
 	conn, cur = connectToDB()
-	sql = "UPDATE Incidents SET Status = 'Accepted' WHERE IID = "+IID+";"
+	sql = "UPDATE Incidents SET Status = 'A' WHERE IID = "+IID+";"
 	try:
 		cur.execute(sql)
 		conn.commit()
@@ -599,10 +599,22 @@ def acceptReport(IID):
 		print (e)
 		conn.close()
 		
-# Changes the Incident's Status to 'Denied'	
+# Changes the Incident's Status to 'R' for rejected
 def denyReport(IID):
 	conn, cur = connectToDB()
-	sql = "UPDATE Incidents SET Status = 'Rejected' WHERE IID = "+IID+";"
+	sql = "UPDATE Incidents SET Status = 'R' WHERE IID = "+IID+";"
+	try:
+		cur.execute(sql)
+		conn.commit()
+		conn.close()
+	except Exception as e:
+		print (e)
+		conn.close()
+
+# Changes all Incident Statuses to 'A' for accepted where the UID was that of a Full User or Super Intern
+def acceptAllReports():
+	conn, cur = connectToDB()
+	sql = "UPDATE Incidents SET Status = 'A' WHERE UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
 	try:
 		cur.execute(sql)
 		conn.commit()

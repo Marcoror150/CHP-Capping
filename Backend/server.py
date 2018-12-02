@@ -388,13 +388,19 @@ def deleteReport(GID):
 @app.route("/acceptRecord/<IID>", methods=['GET','POST'])
 def acceptRecord(IID):
 	acceptReport(IID)
-	flash('Record Accepted','success')
+	flash('Record accepted','success')
 	return redirect('/homepage')
 	
 @app.route("/denyRecord/<IID>", methods=['GET','POST'])
 def denyRecord(IID):
 	denyReport(IID)
-	flash('Record Rejected','success')
+	flash('Record rejected','success')
+	return redirect('/homepage')
+	
+@app.route("/acceptAllRecords", methods=['GET','POST'])
+def acceptAllRecords():
+	acceptAllReports()
+	flash('All Donnamarie/Super Intern records accepted','success')
 	return redirect('/homepage')
 	
 if __name__ == "__main__":
