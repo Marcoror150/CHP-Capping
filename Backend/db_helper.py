@@ -561,10 +561,10 @@ def verifyPassword(pwd):
 	# Return the opposite of error because this function should return true if the password is valid
 	return not error
 		
-# Gets all Incident Reports	submitted by Donnamarie that have not been reviewed
-def getUnreviewedReportsDM():
+# Gets all Incident Reports	submitted by Donnamarie or SuperInterns that have not been reviewed
+def getUnreviewedReportsSuperInterns():
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Incidents WHERE Status = 'Not Reviewed' AND UID = (SELECT UID FROM Users WHERE Username='Donnamarie');"
+	sql = "SELECT * FROM Incidents WHERE status = 'Not Reviewed' AND UID NOT IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
 	try:
 		cur.execute(sql)
 		entries = cur.fetchall()
@@ -574,10 +574,10 @@ def getUnreviewedReportsDM():
 		print (e)
 		conn.close()
 
-# Gets all Incident Reports submitted by Interns (or anyone other than Donnamarie) that have not been reviewed
+# Gets all Incident Reports submitted by Interns that have not been reviewed
 def getUnreviewedReportsInterns():
 	conn, cur = connectToDB()
-	sql = "SELECT * FROM Incidents WHERE Status = 'Not Reviewed' AND UID <> (SELECT UID FROM Users WHERE Username='Donnamarie');"
+	sql = "SELECT * FROM Incidents WHERE status = 'Not Reviewed' AND UID NOT IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
 	try:
 		cur.execute(sql)
 		entries = cur.fetchall()
@@ -587,3 +587,7 @@ def getUnreviewedReportsInterns():
 		print (e)
 		conn.close()		
 		
+		
+def acceptReport(IID):
+	conn, cur = connectToDB()
+	sql = "UPDATE TABLE Incidents,"
