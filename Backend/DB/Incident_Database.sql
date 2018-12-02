@@ -60,3 +60,9 @@ CREATE TABLE IncidentClassification (
   TID  INT REFERENCES IncidentTypes (TID),
   PRIMARY KEY (IID, TID)
 );
+
+-- Trigger to remove rejected database entries
+CREATE TRIGGER removeRejectedEntries on Incidents
+AFTER UPDATE
+AS
+BEGIN
