@@ -48,7 +48,7 @@ CREATE TABLE Incidents (
   IID          INT identity (1,1),
   KID          INT REFERENCES Children (KID),
   M_In_Pgm     INT,
-  Status       VARCHAR (15) NOT NULL,
+  Status       VARCHAR (15) DEFAULT 'NR',
   UID          INT REFERENCES Users (UID) NOT NULL,
   Date_Created DATE DEFAULT getdate(),
   PRIMARY KEY (IID),
