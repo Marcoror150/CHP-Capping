@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS Children;
 DROP TABLE IF EXISTS Graph;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS UserTypes;
+DROP TRIGGER IF EXISTS removeRejectedEntries;
 */
 
 --Graph Table
