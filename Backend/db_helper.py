@@ -585,6 +585,19 @@ def getUnreviewedReportsInterns():
 		return entries
 	except Exception as e:
 		print (e)
+		conn.close()
+
+# Gets all Incident Reports submitted by Interns that have not been reviewed
+def getAllUnreviewedReports():
+	conn, cur = connectToDB()
+	sql = "SELECT Incidents.*, Users.username, IncidentTypes.Name FROM Incidents INNER JOIN Users ON Incidents.UID = Users.UID INNER JOIN IncidentClassification ON Incidents.IID = IncidentClassification.IID INNER JOIN IncidentTypes ON IncidentClassification.TID = IncidentTypes.TID WHERE status = 'NR';"
+	try:
+		cur.execute(sql)
+		entries = cur.fetchall()
+		conn.close()
+		return entries
+	except Exception as e:
+		print (e)
 		conn.close()		
 		
 # Changes the Incident's Status to 'A' for accepted
