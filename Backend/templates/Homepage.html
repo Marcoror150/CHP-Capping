@@ -255,19 +255,17 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                     <form method="POST">
                       <tr>
                         <td><label for="KID">Child's KaleidaCare ID:</label></td>
-                        <td style="padding-left:20px;"><input type="text" id="KID"></td>
+                        <td style="padding-left:20px;"><input type="text" id="newKID"></td>
                       </tr>
                       <tr>
                         <td><label for="IC">Incident Type:</label></td>
                         <td style="padding-left:20px;">
-						<select name='newUserType' id='newUserType' class="form-control form-control-sm">
-							<option>Select One:</option>
-							<option>Admin</option>
-							<option>Full User</option>
-							<option>Super Intern</option>
-							<option>Intern</option>
-							<option>View Only</option>
-						</select>
+                          <select name='newUserType' id='newUserType' class="form-control form-control-sm">
+                          {% for type in IncidentTypes %}
+                            <option value={{ type[0] }}>{{ type[1] }}</option>
+                          {% endfor %}
+                          </select>
+                        </td>
                       </tr>                
                     </form>
                   </table>
@@ -281,6 +279,17 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
               </div>
             </div>
           </div>
+          
+          <script type=text/javascript>
+            $(document).ready(function(){
+              $("#confirmIncident").on("click",function(){
+                $('#createIncidentModal').modal('hide');
+                KID = document.getElementById('newKID').value;
+                newUserType = document.getElementById('newUserType').value;
+                window.location.href = '/createIncident/'+KID+'/'+newUserType;                           
+              })
+            })
+          </script>
           
           <script type=text/javascript>
             let IIDs = {{ alldata|map(attribute=0)|list|tojson|safe }};

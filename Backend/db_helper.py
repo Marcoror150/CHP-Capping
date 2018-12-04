@@ -5,7 +5,7 @@
 # 10/16/2018
 
 import pyodbc
-from flask import flash
+from flask import flash, session
 
 # Connect to the db and return the connection and cursor for query execution
 def connectToDB():
@@ -626,12 +626,45 @@ def denyReport(IID):
 
 # Changes all Incident Statuses to 'A' for accepted where the UID was that of a Full User or Super Intern
 def acceptAllReports():
-	conn, cur = connectToDB()
-	sql = "UPDATE Incidents SET Status = 'A' WHERE UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
-	try:
-		cur.execute(sql)
-		conn.commit()
-		conn.close()
-	except Exception as e:
-		print (e)
-		conn.close()
+  conn, cur = connectToDB()
+  sql = "UPDATE Incidents SET Status = 'A' WHERE UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
+  try:
+    cur.execute(sql)
+    conn.commit()
+    conn.close()
+  except Exception as e:
+    print (e)
+    conn.close()
+    
+# Gets all Incident Types from the DB
+def getIncidentTypes():
+  conn,cur = connectToDB()
+  sql = "SELECT * FROM IncidentTypes;"
+  try:
+    cur.execute(sql)
+    return cur.fetchall()
+    conn.close()
+  except Exception as e:
+    print (e)
+    conn.close()
+    
+# Creates an Incident record in the DB from the manual entry modal
+def createManualIncident(KID,incidentType,UID):
+  conn,cur = connectToDB()
+  sql = "INSERT INTO Incidents (KID,UID) VALUES ("+str(KID)+","+str(UID)+");"
+  try:
+    cur.execute(sql)
+    conn.commit()
+  except Exception as e:
+    print (e)
+    conn.close()
+    
+  iid = getLastID('IID','Incidents')
+  sql = "INSERT INTO IncidentClassification VALUES("+str(iid)+","+incidentType+");"
+  try:
+    cur.execute(sql)
+    conn.commit()
+    conn.close()
+  except Exception as e:
+    print (e)
+    conn.close()
