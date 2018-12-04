@@ -12,7 +12,6 @@ DROP TABLE IF EXISTS UserTypes;
 
 
 --UserTypes Table
-
 CREATE TABLE UserTypes (
   UserType		    VARCHAR (50) NOT NULL,
   Description		VARCHAR (100) NOT NULL,
@@ -20,7 +19,6 @@ CREATE TABLE UserTypes (
 );
 
 --Users Table
-
 CREATE TABLE Users (
   UID          INT identity (1,1),
   Username     VARCHAR (50) NOT NULL,

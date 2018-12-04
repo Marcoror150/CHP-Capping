@@ -12,7 +12,7 @@ INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('donnamarie', 'password', 'Donnamarie', 'Scorzello', 'Full User');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
-VALUES ('drC', 'password', 'dr', 'c', 'View Only');
+VALUES ('drC', 'password', 'Doctor', 'Crenshaw', 'View Only');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('Philip', 'admin', 'Philip', 'Edwards', 'Admin');
