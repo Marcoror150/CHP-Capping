@@ -154,6 +154,8 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 			  {% if data1 %}
 			  <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#acceptAllIncidents">Accept All</button>
 			  {% endif %}
+			  <br></br>
+			  <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#createIncidentModal">Create New Incident</button>
             </div>
 		</div>
 		<br>
@@ -187,7 +189,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
             </div>
           </div>
           
-          <!-- Modal -->
+          <!-- Review Modal -->
           <div class="modal fade" id="reviewModal">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -231,6 +233,50 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                 <div class="modal-footer">
                   <button type="button" class="btn btn-success" class="close" id="confirmChanges" type="submit" data-dismiss="modal" name="">Accept Changes</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Discard Changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+		  
+		  <!-- Manually create incident Modal -->
+          <div class="modal fade" id="createIncidentModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Manually Create Incident</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <table>
+                    <form method="POST">
+                      <tr>
+                        <td><label for="KID">Child's KaleidaCare ID:</label></td>
+                        <td style="padding-left:20px;"><input type="text" id="KID"></td>
+                      </tr>
+                      <tr>
+                        <td><label for="IC">Incident Type:</label></td>
+                        <td style="padding-left:20px;">
+						<select name='newUserType' id='newUserType' class="form-control form-control-sm">
+							<option>Select One:</option>
+							<option>Admin</option>
+							<option>Full User</option>
+							<option>Super Intern</option>
+							<option>Intern</option>
+							<option>View Only</option>
+						</select>
+                      </tr>                
+                    </form>
+                  </table>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" class="close" id="confirmIncident" type="submit" data-dismiss="modal" name="">Create Incident</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
             </div>
