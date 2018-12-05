@@ -154,6 +154,8 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 			  {% if data1 %}
 			  <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#acceptAllIncidents">Accept All</button>
 			  {% endif %}
+			  <br></br>
+			  <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#createIncidentModal">Create New Incident</button>
             </div>
 		</div>
 		<br>
@@ -187,7 +189,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
             </div>
           </div>
           
-          <!-- Modal -->
+          <!-- Review Modal -->
           <div class="modal fade" id="reviewModal">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -201,40 +203,104 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                 <!-- Modal body -->
                 <div class="modal-body">
                   <table>
+                    <tr>
+                      <td><label for="IID">Incident ID:</label></td>
+                      <td style="padding-left:20px;"><p id="IID"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="KID">Child's KaleidaCare ID:</label></td>
+                      <td style="padding-left:20px;"><p id="KID"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="IC">Incident Type(s):</label></td>
+                      <td style="padding-left:20px;"><p id="IC"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="UID">Submitted By:</label></td>
+                      <td style="padding-left:20px;"><p id="UID"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="UID">Submitted On:</label></td>
+                      <td style="padding-left:20px;"><p id="date"></p></td>
+                    </tr>
+                      
+                  </table>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmAccept" class="close" id="confirmChanges" type="submit" data-dismiss="modal" name="">Accept</button>
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmReject" data-dismiss="modal">Reject</button>
+				  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+		  
+		  <!-- Manually create incident Modal -->
+          <div class="modal fade" id="createIncidentModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Manually Create Incident</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <table>
                     <form method="POST">
                       <tr>
-                        <td><label for="IID">Incident ID:</label></td>
-                        <td style="padding-left:20px;"><p id="IID"></p></td>
-                      </tr>
-                      <tr>
                         <td><label for="KID">Child's KaleidaCare ID:</label></td>
-                        <td style="padding-left:20px;"><p id="KID"></p></td>
+                        <td style="padding-left:20px;"><input type="text" id="newKID"></td>
                       </tr>
                       <tr>
-                        <td><label for="IC">Incident Type(s):</label></td>
-                        <td style="padding-left:20px;"><input type="text" id="IC"></td>
-                      </tr>
-                      <tr>
-                        <td><label for="UID">Submitted By:</label></td>
-                        <td style="padding-left:20px;"><p id="UID"></p></td>
-                      </tr>
-                      <tr>
-                        <td><label for="UID">Submitted On:</label></td>
-                        <td style="padding-left:20px;"><p id="date"></p></td>
-                      </tr>
-                      
+                        <td><label for="IC">Incident Type:</label></td>
+                        <td style="padding-left:20px;">
+                          <select name='newUserType' id='newUserType' class="form-control form-control-sm">
+                          {% for type in IncidentTypes %}
+                            <option value={{ type[0] }}>{{ type[1] }}</option>
+                          {% endfor %}
+                          </select>
+                        </td>
+                      </tr>                
                     </form>
                   </table>
                 </div>
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-success" class="close" id="confirmChanges" type="submit" data-dismiss="modal" name="">Accept Changes</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Discard Changes</button>
+				  <button type="button" class="btn btn-success" class="close" id="confirmIncidentAccept" type="submit" data-dismiss="modal" name="">Create Incident and Accept</button>
+                  <button type="button" class="btn btn-success" class="close" id="confirmIncident" type="submit" data-dismiss="modal" name="">Create Incident</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
             </div>
           </div>
+          
+          <script type=text/javascript>
+            $(document).ready(function(){
+              $("#confirmIncident").on("click",function(){
+                $('#createIncidentModal').modal('hide');
+                KID = document.getElementById('newKID').value;
+                newUserType = document.getElementById('newUserType').value;
+                window.location.href = '/createIncident/'+KID+'/'+newUserType;                           
+              })
+            })
+          </script>
+          
+          <script type=text/javascript>
+            $(document).ready(function(){
+              $("#confirmIncidentAccept").on("click",function(){
+                $('#createIncidentModal').modal('hide');
+                KID = document.getElementById('newKID').value;
+                newUserType = document.getElementById('newUserType').value;
+                window.location.href = '/createIncidentAccept/'+KID+'/'+newUserType;                           
+              })
+            })
+          </script>
           
           <script type=text/javascript>
             let IIDs = {{ alldata|map(attribute=0)|list|tojson|safe }};
@@ -245,17 +311,18 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
             
             $(document).ready(function(){
               $('#reviewModal').on('shown.bs.modal', function() {
-                document.getElementById('IC').value = "";
+                ICstr = "";
                 for(i=0;i<IIDs.length;i++) {
                   
                   if(IID == IIDs[i]) {
                     document.getElementById('IID').innerHTML = IIDs[i].toString();
                     document.getElementById('KID').innerHTML = KIDs[i].toString();
                     document.getElementById('UID').innerHTML = Users[i].toString();
-                    document.getElementById('IC').value += ICs1[i];
+                    ICstr += ICs1[i]+", ";
                     document.getElementById('date').innerHTML = Dates[i].substring(0,16);
                   }
                 }
+                document.getElementById('IC').innerHTML = ICstr.substr(0,ICstr.length-2);
               })
             })
           </script>

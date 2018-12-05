@@ -21,7 +21,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8079
+port = 8078
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -39,6 +39,7 @@ def login():
             session['logged_in'] = True
             session['uid'] = user[0][0]
             session['firstName'] = user[0][3]
+            session['UID'] = user[0][0]
             session['userType'] = getUserType(username)
 
             # Landing page for Admin is UserMgt.hmtl
@@ -128,21 +129,60 @@ def homepage():
 		return redirect('/recordupload')
 	elif session['userType'] == 'View Only':
 		return redirect('/datareport')
-
-	return render_template('Homepage.html',data1=getUnreviewedReportsSuperInterns(),data2=getUnreviewedReportsInterns(),alldata=getAllUnreviewedReports())
   
-@app.route("/homepage/<IID>", methods=['GET', 'POST'])
-def homepageReview(IID):
-	# Prevent unauthorized access to this page via URL manipulation
-	if not session.get('userType'):
-		return redirect('')
-	elif session['userType'] == 'Intern':
-		return redirect('/recordupload')
-	elif session['userType'] == 'View Only':
-		return redirect('/datareport')
-  
-	return render_template('Homepage.html',data1=getUnreviewedReportsSuperInterns(),data2=getUnreviewedReportsInterns(),IID=IID)
+	return render_template('Homepage.html',data1=getUnreviewedReportsSuperInterns(),data2=getUnreviewedReportsInterns(),alldata=getAllUnreviewedReports(),IncidentTypes=getIncidentTypes())
     
+@app.route("/createIncident/<KID>/<incidentType>", methods=['GET', 'POST'])
+def createIncident(KID,incidentType):
+	# Prevent unauthorized access to this page via URL manipulation
+  if not session.get('userType'):
+    return redirect('')
+  elif session['userType'] == 'Intern':
+    return redirect('/recordupload')
+  elif session['userType'] == 'View Only':
+    return redirect('/datareport') 
+    
+  try:
+    # Leave the next 2 lines. Temporary fix for bug where this route 
+    # is called twice with CHPLogo.png as the IncidentType
+    int(KID)
+    int(incidentType)
+
+    createManualIncident(KID,incidentType,session['UID'])
+    
+    flash("Incident created.","success")
+    return redirect('homepage')
+        
+  except Exception as e:
+    print (e)
+    return redirect('homepage')
+    
+@app.route("/createIncidentAccept/<KID>/<incidentType>", methods=['GET', 'POST'])
+def createIncidentAccept(KID,incidentType):
+	# Prevent unauthorized access to this page via URL manipulation
+  if not session.get('userType'):
+    return redirect('')
+  elif session['userType'] == 'Intern':
+    return redirect('/recordupload')
+  elif session['userType'] == 'View Only':
+    return redirect('/datareport') 
+    
+  try:
+    # Leave the next 2 lines. Temporary fix for bug where this route 
+    # is called twice with CHPLogo.png as the IncidentType
+    int(KID)
+    int(incidentType)
+
+    createManualIncidentAccept(KID,incidentType,session['UID'])
+    
+    flash("Incident created and accepted.","success")
+    return redirect('homepage')
+        
+  except Exception as e:
+    print (e)
+    return redirect('homepage')
+  
+ 
 @app.route("/recordupload", methods=['GET', 'POST'])
 def recordupload():
     # Prevent unauthorized access to this page via URL manipulation
