@@ -46,7 +46,7 @@ def login():
                 return redirect('usermgt')
                 
             # Landing page for Intern/Super Intern is RecordUpload.html
-            elif(session['userType'] in ['Intern','Super Intern']):
+            elif(session['userType'] in ['Intern']):
                 return redirect('recordupload')
                 
             # Landing page for View Only is DataReport.html
