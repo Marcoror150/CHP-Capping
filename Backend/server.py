@@ -82,11 +82,16 @@ def charts():
         title, file_name = makeBarGraph(d)
         return render_template('Charts.html', image=file_name, title=title, data=getSavedReports())
 
+    # Charts.html needs all records from the Graph table in the DB
+    data = getSavedReports()
+
     # Get the latest report and render it if navigating to the charts page without creating a report
     try:
         latest_report = data[0][3]
+        print('latestttt', latest_report)
         d = makeChartDict(latest_report)
         title, file_name = makeBarGraph(d)
+        print(file_name,'[][][][]')
         return render_template('Charts.html', image=file_name, title=title, data=getSavedReports())
     except:
         return render_template('Charts.html', data=getSavedReports())
@@ -104,6 +109,7 @@ def datareport():
         try:
             # Try to create the chart
             title, file_name = makeBarGraph(report)
+            print('YOOOO',file_name)
 
             # Create a string that stores the exact query for later use
             report_string = ''

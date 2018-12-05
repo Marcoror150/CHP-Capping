@@ -5,6 +5,8 @@ import pandas as pd
 from db_helper import getMeansPerMonth
 import numpy as np
 import os, shutil
+from pathlib import Path
+
 
 
 # Check if a filename ends in the proper extension
@@ -106,6 +108,7 @@ def makeBarGraph(post_data):
     # Dont procede further cant get the data
     if x is None:
         return None
+    print(y)
 
     # Parse the x and y keys
     # Example: x=month in placement, y=mean percentage
@@ -124,7 +127,6 @@ def makeBarGraph(post_data):
     else:
         kid = post_data.get('kid')
         date = post_data.get('datarange')
-        print(date)
 
         if kid:
             plot_title += f'{kid}-'        
@@ -132,14 +134,15 @@ def makeBarGraph(post_data):
             plot_title += f'{date}-'
 
         plot_title += f'{program}-{incident_type}: {x_key} vs {y_key}'
-        file_name += f'{plot_title}.png'
+        file_name = f'{plot_title}.png'
+        
         print(plot_title)
         print('----')
         print(file_name)
         print('----')
 
-    # Directory where the generated image will be stored
-    destination = 'static/images/'
+   
+
 
     # Predefined variables outside try except block
     x_labels = []
@@ -192,9 +195,16 @@ def makeBarGraph(post_data):
             # Create annotation
             plt.annotate(label, (x_value, y_value), xytext=(0, space), textcoords="offset points", ha='center', va=va)
 
+        # Directory where the generated image will be stored
+        destination = Path("static/images/")
+        destination = destination / file_name
+
         # Save the figure as a png and move it to the right directory
-        plt.savefig(file_name)
-        shutil.move(os.path.join('.', file_name), os.path.join(destination, file_name))
+        plt.savefig(destination)
+
+         
+        # print(destination)
+        # shutil.move(os.path.join('.', file_name), os.path.join(destination))
         
         # Close the figure to avoid memory issues
         plt.clf()
