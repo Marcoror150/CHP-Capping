@@ -88,10 +88,8 @@ def charts():
     # Get the latest report and render it if navigating to the charts page without creating a report
     try:
         latest_report = data[0][3]
-        print('latestttt', latest_report)
         d = makeChartDict(latest_report)
         title, file_name = makeBarGraph(d)
-        print(file_name,'[][][][]')
         return render_template('Charts.html', image=file_name, title=title, data=getSavedReports())
     except:
         return render_template('Charts.html', data=getSavedReports())
@@ -109,18 +107,21 @@ def datareport():
         try:
             # Try to create the chart
             title, file_name = makeBarGraph(report)
-            print('YOOOO',file_name)
 
-            # Create a string that stores the exact query for later use
-            report_string = ''
-            for key, val in report.items():
-                report_string += f'{key}:{val},'
+            saved_report = request.args.get('report')
 
-            # Remove the last comma
-            report_string = report_string[:-1]
+            # Check if we are saving the report
+            if saved_report:
+                # Create a string that stores the exact query for later use
+                report_string = ''
+                for key, val in report.items():
+                    report_string += f'{key}:{val},'
 
-            # Store the query in the db
-            storeReport(title,report_string)
+                # Remove the last comma
+                report_string = report_string[:-1]
+
+                # Store the query in the db
+                storeReport(title,report_string)
             
             # Goto the chart page if a chart is created successfully 
             return redirect(url_for('charts', image=file_name, title=title))

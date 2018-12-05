@@ -108,7 +108,6 @@ def makeBarGraph(post_data):
     # Dont procede further cant get the data
     if x is None:
         return None
-    print(y)
 
     # Parse the x and y keys
     # Example: x=month in placement, y=mean percentage
@@ -135,14 +134,6 @@ def makeBarGraph(post_data):
 
         plot_title += f'{program}-{incident_type}: {x_key} vs {y_key}'
         file_name = f'{plot_title}.png'
-        
-        print(plot_title)
-        print('----')
-        print(file_name)
-        print('----')
-
-   
-
 
     # Predefined variables outside try except block
     x_labels = []
