@@ -62,6 +62,17 @@ function toggleDaterange() {
     }
 }
 
+function toggleFilename() {
+    let checkbox = document.getElementById('fileBox');
+
+    if(checkbox.checked) {
+        $('#filename').prop('disabled', false);
+    } else {
+        $('#filename').prop('disabled', true);
+        $('#filename').val('');
+    }
+}
+
 function getButtonID(ID) {
 	$("#confirmDeletion").prop('id', '#' + ID);
 }	
@@ -94,6 +105,11 @@ function setPrograms(){
             }
         });
     });
+}
+
+function setRecordUpload() {
+    changeVal('showPath','Browse to choose file');
+    $("#upload").attr( "disabled", "disabled" );
 }
 
 

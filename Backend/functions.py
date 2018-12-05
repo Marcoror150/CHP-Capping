@@ -13,6 +13,14 @@ def validFile(filename):
         return True
     return False
 
+def cleanExcelFiles():
+    directory = "csvs"
+    files = os.listdir(directory)
+
+    for file in files:
+        if file.endswith(".xlsx"):
+            os.remove(os.path.join(directory, file))     
+
 # Cleanse input from bad characters
 def cleanse(input):
     output = cleanseWhiteSpace(input)
@@ -38,33 +46,95 @@ def cleanseNonNumbers(input):
     return regex.sub('', input)
 
 def getData(post_data):
-    need_kid = post_data.get('kid', None)
-    need_daterange = post_data.get('datarange', None)
+    kid = post_data.get('kid', None)
+    daterange = post_data.get('datarange', None)
 
-    if need_kid == None and need_daterange == None:
+    if kid == None and daterange == None:
         if post_data.get('dataplot') == 'Means':
             try:
                 program = post_data.get('program')
                 incident_type = post_data.get('incident')
-                x,y = getMeansPerMonth(incident_type)
+                x,y = getMeansPerMonth(incident_type,0,0)
+                return x,y,program,incident_type
             except Exception as e:
                 print(e)
 
-            return x,y,program,incident_type
+           
+    
+    if kid and daterange:
+        if post_data.get('dataplot') == 'Means':
+            try:
+                program = post_data.get('program')
+                incident_type = post_data.get('incident')
+                x,y = getMeansPerMonth(incident_type,kid,daterange)
+                return x,y,program,incident_type
+            except Exception as e:
+                print(e)
+
+    if kid:
+         if post_data.get('dataplot') == 'Means':
+            try:
+                program = post_data.get('program')
+                incident_type = post_data.get('incident')
+                x,y = getMeansPerMonth(incident_type,kid,0)
+                return x,y,program,incident_type
+            except Exception as e:
+                print(e)
+    
+    elif daterange:
+         if post_data.get('dataplot') == 'Means':
+            try:
+                program = post_data.get('program')
+                incident_type = post_data.get('incident')
+                x,y = getMeansPerMonth(incident_type,0,daterange)
+                return x,y,program,incident_type
+            except Exception as e:
+                print(e)
+
+    return None,None,None,None
+
+   
     
 # Given a labeled x and y data set, generate and return a bar graph plot object
 def makeBarGraph(post_data):
     # Get requested data from the db
     x,y,program,incident_type = getData(post_data)
 
+    if x is None:
+        return
+
+    custom_title = post_data.get('filename')        
+
+
     # Parse the x and y keys
     # Example: x=month in placement,  y=mean percentage
     x_key = [*x][0]
     y_key = [*y][0]
 
+    plot_title = ''
+    file_name = ''
+    
     # Create title and file names
-    plot_title = f'{program}-{incident_type}: {x_key} vs {y_key}'
-    file_name = f'{program}{incident_type}{x_key}vs{y_key}.png'
+    if custom_title:
+        plot_title = custom_title
+        file_name = f'{custom_title}.png'
+    else:
+        kid = post_data.get('kid')
+        date = post_data.get('datarange')
+        print(date)
+
+
+        if kid:
+            plot_title += f'{kid}-'
+            file_name += f'{kid}-'
+        
+        if date:
+            plot_title += f'{date}-'
+            file_name += f'{date}-'
+
+        plot_title += f'{program}-{incident_type}: {x_key} vs {y_key}'
+        file_name += f'{program}{incident_type}{x_key}vs{y_key}.png'
+
     destination = 'static/images/'
 
    
@@ -126,6 +196,7 @@ def makeBarGraph(post_data):
         plt.clf()
 
         # Return the title and the filename
+        print(plot_title,file_name)
         return plot_title, file_name
     except Exception as e:
         print(e)

@@ -4,199 +4,95 @@
 # Michael Gutierrez
 # 10/16/2018
 
-import os, re, calendar
+import os, re, calendar,subprocess
+from pathlib import Path
+from functions import cleanExcelFiles
+from shutil import move
+from parser_helper import *
+from db_helper import insertTable
 import pandas as pd
-# from db_helper import *
-# from parser_helper import *
 
+def parseFile(filename, program, incident_type,uid):
+    csv_name = excel_to_csv(filename)
+    csv_folder = Path("csvs/")
 
-def parseFile(filename, program):
-    csv = excel_to_csv(filename)
+    csv_path = csv_folder / csv_name
 
-    os.chdir('./csvs')  
-    f = open(csv, 'r')
-
-    # Header line of the csv
-    header = f.readline().split(',')
-    incidents_types = header[4:16]
     
-    # Iterate over every entry in the csv and parse out the columns of data
-    for line in f.readlines():
-        child_info = line.split(',')
+    # os.chdir('./csvs/')
+    # os.listdir()
 
-        # KID, Start Date, and ACEs Score
-        KID = int(child_info[0])
-        start_date = child_info[1]
-        try:
-            end_date = child_info[2]
-        except IndexError:
-            end_date = None
+    f = open(csv_path, 'r')
+    lines = f.readlines()
 
-        try:
-            ACEs_score = int(child_info[3])
-        except IndexError:
-            ACESs_score = None
-    
-        # Insert the child if they already doesn't exist and their program info
-        child = []
-        child_programs = []
-        child.extend((KID,ACEs_score))
-        child_programs.extend((KID,program,start_date,end_date))
+    # Get the KID
+    kid = getKID(lines)
 
-        insertTable('Children',child)
-        insertTable('ChildrenProgram',child_programs)
+    # Get Start Date
+    start_date = getStartDate(lines)
 
-        # Seperate out the incident data
-        incidents = child_info[4:]
+    # Get Incident Month Date
+    incident_month = getMonthInProgram(lines,start_date)
 
-        # Counter to keep track of what column is currently being parsed 
-        counter = 0
+    # Create list for child,child_program, and incident to be inserted to db
+    child = [kid,None]
+    child_program = [kid,program,start_date,None]
 
-        # Variable to track if there is an incident that needs to be inserted
-        need_insert = False 
+    # Insert statements
+    insertTable('Children',child)
+    insertTable('ChildrenProgram',child_program)
 
-        # Variable to track the month is being looked at
-        month = None
+    incident = [kid,incident_month,uid]
+    print(incident)
+    insertTable('Incidents',incident)
 
-        # Variable to temporarily store incident id
-        iid = ''
+    # Get the Incident ID that was just created, and the type ID
+    iid = getLastID('iid','Incidents')
+    tid = int(getTID(incident_type))
 
-        # Loop incident columns in one entry
-        for idx,val in enumerate(incidents):
-            try:
-                val = int(val)
-            except:
-                # print('Child left')
-                break
+    # Create a list for the classsification to be inserted
+    incident_classification = [iid,tid]
+    insertTable('IncidentClassification',incident_classification)
 
-            if counter == 0:
-                month = int(val)
-                # print('\n'+incidents_types[counter]+':'+ str(month))
-                counter+=1
+    #  parseFile('JS_Restraint_Form_w_LSI.csv','GFC')
+   
+    # Destination path of the already parsed file
+    destination = Path(f'csvs/{program}/Archive/{csv_name}')
+    try:
+    # Move the file
+        move(csv_path,destination)
+    except Exception as e:
+        print(e)
 
-            elif counter == 1:
-                phys_ass = val
-                # print(incidents_types[counter]+':'+phys_ass)
-                if phys_ass != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 2:
-                sex_agg = val
-                # print(incidents_types[counter]+':'+sex_agg)
-                if sex_agg != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 3:
-                restraints = val
-                # print(incidents_types[counter]+':'+restraints)
-                if restraints != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 4:
-                awols = val
-                # print(incidents_types[counter]+':'+awols)
-                if awols != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 5:
-                self_harm = val
-                # print(incidents_types[counter]+':'+self_harm)
-                if self_harm != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 6:
-                prop_dam = val
-                # print(incidents_types[counter]+':'+prop_dam)
-                if sex_agg != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 7:
-                steal = val
-                # print(incidents_types[counter]+':'+steal)
-                if steal != 0:
-                    print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 8:
-                weapons = val
-                # print(incidents_types[counter]+':'+weapons)
-                if weapons != 0:
-                    print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-                
-            elif counter == 9:
-                suicide = val
-                # print(incidents_types[counter]+':'+suicide)
-                if suicide != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 10:
-                er_visits = val
-                # print(incidents_types[counter]+':'+er_visits)
-                if er_visits != 0:
-                    # print('inserting',incidents_types[counter])
-                    need_insert = True
-                counter+=1
-
-            elif counter == 11:
-                month_total = val
-                # print(incidents_types[counter]+'in month'+  str(month) + ':'+str(month_total))
-                counter = 0
-                need_insert = False
-            
-            if need_insert:
-                # print('inserting incident')
-                incident = []
-                incident.extend((KID,month))
-                insertTable('Incidents',incident)
-                iid = getLastID('iid','Incidents')
-
-                incident_class = []
-                tid = int(getTID(incidents_types[counter-1]))
-
-                incident_class.extend((iid,tid))
-
-                insertTable('IncidentClassification',incident_class)
-                need_insert = False
-
-        f.close()
+    f.close()
 
 # Function to convert an excel sheet to csv format
 def excel_to_csv(filename):
-
-    # Goto the correct directory where the excel sheets reside
-    os.chdir('./csvs')
-    
     # Get a filename from the excel filename
-    csv_name = filename.split('.')[0]
+    file = filename.split('.')
     
-    if csv_name[1] == 'csv':
+    # Return the filename if it's already a csv
+    if file[1] == 'csv':
         return filename
-        
-    csv_name = f'{csv_name}.csv'
 
-    # Convert to excel format and write the file to the directory
-    data_xls = pd.read_excel(filename, index_col=None)
-    data_xls.to_csv(csv_name, encoding='utf-8')
+    # Make a new filename with csv extension
+    csv_name = f'{file[0]}.csv'
 
-    # Change back to the original directory
-    os.chdir('./..')
+    # Directory where uploaded files reside
+    csv_folder = Path("csvs/")
 
-    # Return the csv 
+    # Path of the uploaded file
+    excel_file = csv_folder / filename
+
+    # Path of the new csv being created
+    csv_file = csv_folder / csv_name
+
+    # Convert to csv format and write the file to the directory
+    data_xls = pd.read_excel(excel_file, index_col=None)
+    data_xls.to_csv(csv_file, encoding='utf-8')
+    cleanExcelFiles()
+
+    # Return the csv name
     return csv_name
+
+

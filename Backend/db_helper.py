@@ -88,8 +88,14 @@ def insertTable(table,values):
     sql = """
         INSERT INTO %s values(%s);
     """
-    # columns_sql = ','.join(columns)
-    values_sql = ','.join(['?' for i in range(len(values))])
+
+    values_sql = ''
+    if table == 'incident':
+        values_sql = ','.join(['?' for i in range(3)])
+    else:
+        values_sql = ','.join(['?' for i in range(len(values))])
+
+    print(values_sql)
 
     # Stitch together the sql query
     sql = sql % (table,values_sql)
@@ -102,6 +108,7 @@ def insertTable(table,values):
     except ValueError:
         conn.close()
         print('Unable to insert into table %s, check proper values or duplicate values' %table)
+
 
 # Get all entries of a given table
 def getTable(table):
@@ -274,16 +281,29 @@ def getIncidentTypes():
         print(e)
 
 # Get means per month for children of a given Incident Type
-def getMeansPerMonth(incident_type):
+def getMeansPerMonth(incident_type,kid,daterange):
     conn, cur = connectToDB()
     sql = """
-        SELECT count(distinct KID)
+        SELECT count(Children.KID)
         FROM Incidents
         INNER JOIN IncidentClassification ON Incidents.IID = IncidentClassification.IID
         INNER JOIN IncidentTypes ON IncidentClassification.TID = IncidentTypes.TID
+        INNER JOIN Children ON Children.KID = Incidents.KID
+        INNER JOIN ChildrenProgram ON ChildrenProgram.KID = Children.KID
+        
         WHERE M_In_Pgm = %s
         AND IncidentTypes.Name = '%s'
     """
+
+    if kid is not 0:
+        sql+= f'AND Incidents.KID = {kid}'
+
+    if daterange is not 0:
+        daterange = daterange.split(' to ')
+        date1 = daterange[0]
+        date2 = daterange[1]
+
+        sql+= f"AND ChildrenProgram.StartDate >= '{date1}' AND ChildrenProgram.StartDate <= '{date2}'"
 
     # Execute the query and close the connection
     try:

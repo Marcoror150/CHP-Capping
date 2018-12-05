@@ -4,7 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from db_helper import *
 from werkzeug.utils import secure_filename
 from functions import validFile, makeBarGraph, cleanse,makeChartDict
-from sheet_parser import excel_to_csv
+from sheet_parser import parseFile
 import os
 
 
@@ -35,9 +35,9 @@ def login():
         # Check the given credentials against the DB
         user = validateLogin(username,password)
         if user:
-        
             # Credentials are valid so create a session
             session['logged_in'] = True
+            session['uid'] = user[0][0]
             session['firstName'] = user[0][3]
             session['userType'] = getUserType(username)
 
@@ -103,6 +103,7 @@ def datareport():
         report = request.form.to_dict()
         title, file_name = makeBarGraph(report)
 
+
         report_string = ''
         for key, val in report.items():
             report_string += f'{key}:{val},'
@@ -111,20 +112,12 @@ def datareport():
 
         storeReport(title,report_string)
         
-        # except Exception as e:
-        #     print('graphing failed')
-
-        # path = 'static/images/'
-        # file_name = f'{file_name}.png'
-        # url = f'{path}{file_name}'
-
-        # graph.savefig(file_name)
-        # shutil.move(os.path.join('.', file_name), os.path.join(path, file_name))
         return redirect(url_for('charts', image=file_name, title=title))
     else:
         programs = getPopulatedPrograms()
-        incident_types = getIncidentTypes()
-        return render_template('DataReport.html', programs=programs, incidents=incident_types)
+        incident_types = getTable('IncidentTypes')
+        children = getTable('Children')
+        return render_template('DataReport.html', programs=programs, incidents=incident_types,children=children)
     
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
@@ -177,10 +170,11 @@ def recordupload():
                 os.makedirs(app.config['UPLOAD_FOLDER'])
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.close()  
-
-
+            program = request.form['program']
+            incident_type = request.form['incident']
+            uid = session.get('uid')
             try:
-                excel_to_csv(filename)
+                parseFile(filename,program,incident_type,uid)
             except Exception as e:
                 print(e)
         flash('File Uploaded')
@@ -192,7 +186,8 @@ def recordupload():
         
     else:
         programs = getTable('program')
-        return render_template('RecordUpload.html', file="Browse to choose file", programs=programs)
+        incidents = getIncidentTypes()
+        return render_template('RecordUpload.html', file="Browse to choose file", programs=programs,incidents=incidents)
     
 @app.route("/sqlentry", methods=['GET', 'POST'])
 def sqlpage():

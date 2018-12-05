@@ -23,9 +23,11 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/startbootstrap-sb-admin-gh-pages/css/sb-admin.css') }}" /> 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendors/bootstrap-select-1.13.2/dist/css/bootstrap-select.min.css') }}" />
 
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/functions.js') }}"> </script>
+
   </head>
 
-  <body id="page-top">
+  <body id="page-top" onload="setRecordUpload()">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -149,9 +151,23 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                 </div>
               </div>
             </div>
+            <div class="form-row justify-content-center mb-3" style="display: flex; align-items: center;">
+              <div class="col-auto text-center">
+                <label>Incident Type:</label>
+              </div>
+              <div class="col-auto">
+                <div class="was-validated form-group">
+                  <select id="incident" name="incident" class="selectpicker" title="Choose an incident type" required>
+                    {% for incident in incidents %}
+                    <option>{{ incident[1] }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
             <div class="row justify-content-center">
               <div class="input-group" style="max-width:30rem">
-                <label class="btn btn-primary">Browse
+                <label class="btn btn-primary" >Browse
                   <input type="file" name="file" id="path" accept=".xlsx, .xls, .csv" onchange="previewFilePath()" hidden>
                 </label>
                 <input type="text" class="form-control" name="showPath" id="showPath" value="{{ file }}" readonly>
