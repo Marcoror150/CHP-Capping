@@ -203,36 +203,34 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                 <!-- Modal body -->
                 <div class="modal-body">
                   <table>
-                    <form method="POST">
-                      <tr>
-                        <td><label for="IID">Incident ID:</label></td>
-                        <td style="padding-left:20px;"><p id="IID"></p></td>
-                      </tr>
-                      <tr>
-                        <td><label for="KID">Child's KaleidaCare ID:</label></td>
-                        <td style="padding-left:20px;"><p id="KID"></p></td>
-                      </tr>
-                      <tr>
-                        <td><label for="IC">Incident Type(s):</label></td>
-                        <td style="padding-left:20px;"><input type="text" id="IC"></td>
-                      </tr>
-                      <tr>
-                        <td><label for="UID">Submitted By:</label></td>
-                        <td style="padding-left:20px;"><p id="UID"></p></td>
-                      </tr>
-                      <tr>
-                        <td><label for="UID">Submitted On:</label></td>
-                        <td style="padding-left:20px;"><p id="date"></p></td>
-                      </tr>
+                    <tr>
+                      <td><label for="IID">Incident ID:</label></td>
+                      <td style="padding-left:20px;"><p id="IID"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="KID">Child's KaleidaCare ID:</label></td>
+                      <td style="padding-left:20px;"><p id="KID"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="IC">Incident Type(s):</label></td>
+                      <td style="padding-left:20px;"><p id="IC"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="UID">Submitted By:</label></td>
+                      <td style="padding-left:20px;"><p id="UID"></p></td>
+                    </tr>
+                    <tr>
+                      <td><label for="UID">Submitted On:</label></td>
+                      <td style="padding-left:20px;"><p id="date"></p></td>
+                    </tr>
                       
-                    </form>
                   </table>
                 </div>
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-success" class="close" id="confirmChanges" type="submit" data-dismiss="modal" name="">Accept Changes</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Discard Changes</button>
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmAccept" class="close" id="confirmChanges" type="submit" data-dismiss="modal" name="">Accept</button>
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmReject" data-dismiss="modal">Reject</button>
                 </div>
               </div>
             </div>
@@ -293,6 +291,17 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
           </script>
           
           <script type=text/javascript>
+            $(document).ready(function(){
+              $("#confirmIncidentAccept").on("click",function(){
+                $('#createIncidentModal').modal('hide');
+                KID = document.getElementById('newKID').value;
+                newUserType = document.getElementById('newUserType').value;
+                window.location.href = '/createIncidentAccept/'+KID+'/'+newUserType;                           
+              })
+            })
+          </script>
+          
+          <script type=text/javascript>
             let IIDs = {{ alldata|map(attribute=0)|list|tojson|safe }};
             let KIDs = {{ alldata|map(attribute=1)|list|tojson|safe }};
             let Users = {{ alldata|map(attribute=6)|list|tojson|safe }};
@@ -301,17 +310,18 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
             
             $(document).ready(function(){
               $('#reviewModal').on('shown.bs.modal', function() {
-                document.getElementById('IC').value = "";
+                ICstr = "";
                 for(i=0;i<IIDs.length;i++) {
                   
                   if(IID == IIDs[i]) {
                     document.getElementById('IID').innerHTML = IIDs[i].toString();
                     document.getElementById('KID').innerHTML = KIDs[i].toString();
                     document.getElementById('UID').innerHTML = Users[i].toString();
-                    document.getElementById('IC').value += ICs1[i];
+                    ICstr += ICs1[i]+", ";
                     document.getElementById('date').innerHTML = Dates[i].substring(0,16);
                   }
                 }
+                document.getElementById('IC').innerHTML = ICstr.substr(0,ICstr.length-2);
               })
             })
           </script>

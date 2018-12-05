@@ -668,3 +668,24 @@ def createManualIncident(KID,incidentType,UID):
   except Exception as e:
     print (e)
     conn.close()
+    
+# Creates an Incident record in the DB from the manual entry modal
+def createManualIncidentAccept(KID,incidentType,UID):
+  conn,cur = connectToDB()
+  sql = "INSERT INTO Incidents (KID,Status,UID) VALUES ("+str(KID)+",'A',"+str(UID)+");"
+  try:
+    cur.execute(sql)
+    conn.commit()
+  except Exception as e:
+    print (e)
+    conn.close()
+    
+  iid = getLastID('IID','Incidents')
+  sql = "INSERT INTO IncidentClassification VALUES("+str(iid)+","+incidentType+");"
+  try:
+    cur.execute(sql)
+    conn.commit()
+    conn.close()
+  except Exception as e:
+    print (e)
+    conn.close()

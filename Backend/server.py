@@ -156,6 +156,33 @@ def createIncident(KID,incidentType):
     int(incidentType)
 
     createManualIncident(KID,incidentType,session['UID'])
+    
+    flash("Incident created.","success")
+    return redirect('homepage')
+        
+  except Exception as e:
+    print (e)
+    return redirect('homepage')
+    
+@app.route("/createIncidentAccept/<KID>/<incidentType>", methods=['GET', 'POST'])
+def createIncidentAccept(KID,incidentType):
+	# Prevent unauthorized access to this page via URL manipulation
+  if not session.get('userType'):
+    return redirect('')
+  elif session['userType'] == 'Intern':
+    return redirect('/recordupload')
+  elif session['userType'] == 'View Only':
+    return redirect('/datareport') 
+    
+  try:
+    # Leave the next 2 lines. Temporary fix for bug where this route 
+    # is called twice with CHPLogo.png as the IncidentType
+    int(KID)
+    int(incidentType)
+
+    createManualIncidentAccept(KID,incidentType,session['UID'])
+    
+    flash("Incident created and accepted.","success")
     return redirect('homepage')
         
   except Exception as e:
