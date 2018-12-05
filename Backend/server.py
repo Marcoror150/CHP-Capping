@@ -20,7 +20,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8078
+port = 8070
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -46,7 +46,7 @@ def login():
                 return redirect('usermgt')
                 
             # Landing page for Intern/Super Intern is RecordUpload.html
-            elif(session['userType'] in ['Intern','Super Intern']):
+            elif(session['userType'] in ['Intern']):
                 return redirect('recordupload')
                 
             # Landing page for View Only is DataReport.html
