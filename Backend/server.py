@@ -111,18 +111,18 @@ def datareport():
             saved_report = request.args.get('report')
 
             # Check if we are saving the report
-            if saved_report:
-                # Create a string that stores the exact query for later use
-                report_string = ''
-                for key, val in report.items():
-                    report_string += f'{key}:{val},'
+            # if saved_report:
+            # Create a string that stores the exact query for later use
+            report_string = ''
+            for key, val in report.items():
+                report_string += f'{key}:{val},'
 
-                # Remove the last comma
-                report_string = report_string[:-1]
+            # Remove the last comma
+            report_string = report_string[:-1]
 
-                # Store the query in the db
-                storeReport(title,report_string)
-            
+            # Store the query in the db
+            storeReport(title,report_string)
+            print(file_name)
             # Goto the chart page if a chart is created successfully 
             return redirect(url_for('charts', image=file_name, title=title))
         
