@@ -432,12 +432,10 @@ def deleteReport(GID):
     # Prevent unauthorized access to this page via URL manipulation
     if not session.get('userType'):
         return redirect('')
-    elif session['userType'] == 'Full User':
-        return redirect('/homepage')
     elif session['userType'] in ['Intern','Super Intern']:
         return redirect('/recordupload')
     elif session['userType'] == 'View Only':
-        return redirect('/datareport')
+        return redirect('/recordupload')
         
     try:
         # Leave this line. Temporary fix for bug where this route 
