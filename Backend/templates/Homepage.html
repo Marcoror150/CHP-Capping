@@ -120,7 +120,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
           <!-- Page Content -->
           <div class="card text-center">
-            <div class="card-header">Recent Incident Records Uploaded by Donnamarie/Super Interns</div>
+            <div class="card-header">Recent Incident Records Uploaded by Full Users/Super Interns</div>
             <div class="card-body">
               <table class="table table-hover">
                   {% with success = get_flashed_messages(category_filter=['success']) %}
@@ -143,7 +143,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                       <td>
                           <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal" onclick="IID = {{item[0]}}">Review</button>
                           <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept" onclick="IID = {{item[0]}}">Accept</button>
-                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject" onclick="IID = {{item[0]}}">Deny</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject" onclick="IID = {{item[0]}}">Reject</button>
                       </td>
                       <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
                       <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
@@ -178,7 +178,7 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                       <td>
                           <button type="button" class="btn btn-primary btn-sm m-0" data-toggle="modal" data-target="#reviewModal" onclick="IID = {{item[0]}}">Review</button>
                           <button type="button" class="btn btn-success btn-sm m-0" data-toggle="modal" data-target="#confirmAccept" onclick="IID = {{item[0]}}">Accept</button>
-                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject" onclick="IID = {{item[0]}}">Deny</button>
+                          <button type="button" class="btn btn-danger btn-sm m-0" data-toggle="modal" data-target="#confirmReject" onclick="IID = {{item[0]}}">Reject</button>
                       </td>
                       <!-- <td><button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
                       <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button></td> -->
