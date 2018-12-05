@@ -1,22 +1,27 @@
+// Function to update the path preview when a file to upload is selected
 function previewFilePath() {
     var path = $("#path").val();
     $("#showPath").val(path.split("\\")[2])
     $("#upload").removeAttr('disabled')
 }
 
+// Function to change the value inside a textbox
 function changeVal(id, text) {
     $("#" + id).val(text)
 }
 
+// Loads the calendar tool on the ReportPage
 function loadDateRange(){
+    // Default start and end dates
     var start = moment();
     var end = moment();
 
+    // Callback to insert text in the box when dates are chosen
     function cb(start, end) {
         $('#daterange span').html(start.format('MM/DD/YYYY') + ' to ' + end.format('MM/DD/YYYY'));
     }
 
-
+    // Activates the calendar tool
     $('#daterange').daterangepicker({
         drops: 'down',
         opens: 'center',
@@ -39,6 +44,7 @@ function loadDateRange(){
     cb(start, end);
 }
 
+// Toggles disabled/enabled given a textbox ID
 function toggleInput(ID) {
     let checkbox = document.getElementById(ID);
 
@@ -49,6 +55,7 @@ function toggleInput(ID) {
     }
 }
 
+// Enables/Disables the calendar tool on click of the checkbox
 function toggleDaterange() {
     let checkbox = document.getElementById('dateBox');
 
@@ -62,6 +69,7 @@ function toggleDaterange() {
     }
 }
 
+// Enables/Disables the filename textbox on click of the checkbox 
 function toggleFilename() {
     let checkbox = document.getElementById('fileBox');
 
@@ -73,10 +81,12 @@ function toggleFilename() {
     }
 }
 
+// Gets the id of the confirmDeletion button
 function getButtonID(ID) {
 	$("#confirmDeletion").prop('id', '#' + ID);
 }	
 
+// Sets a listener to dynamically update the KID depending on the chosen program on the reports page
 function setKIDListener(){
     $("#program").on("changed.bs.select", function() {
         program = $('#program option:selected').text()
@@ -92,6 +102,7 @@ function setKIDListener(){
     });
 }
 
+// Inserts the programs that have children enrolled in them on the reports page
 function setPrograms(){
     $("#program").on("changed.bs.select", function() {
         program = $('#program option:selected').text()
@@ -107,6 +118,7 @@ function setPrograms(){
     });
 }
 
+// Sets the default text for the upload textbox
 function setRecordUpload() {
     changeVal('showPath','Browse to choose file');
     $("#upload").attr( "disabled", "disabled" );

@@ -45,10 +45,12 @@ def cleanseNonNumbers(input):
     regex = re.compile(r'[^0-9^.,]')
     return regex.sub('', input)
 
+# Function that decides what data needs to be pulled from the db
 def getData(post_data):
     kid = post_data.get('kid', None)
     daterange = post_data.get('datarange', None)
 
+    # Check when KID and daterange are not specified
     if kid == None and daterange == None:
         if post_data.get('dataplot') == 'Means':
             try:
@@ -59,8 +61,7 @@ def getData(post_data):
             except Exception as e:
                 print(e)
 
-           
-    
+    # Check when KID and daterange are specified
     if kid and daterange:
         if post_data.get('dataplot') == 'Means':
             try:
@@ -71,6 +72,7 @@ def getData(post_data):
             except Exception as e:
                 print(e)
 
+    # Check when KID is specified and daterange is not
     if kid:
          if post_data.get('dataplot') == 'Means':
             try:
@@ -81,6 +83,7 @@ def getData(post_data):
             except Exception as e:
                 print(e)
     
+    # Check when KID is not specified and daterange is
     elif daterange:
          if post_data.get('dataplot') == 'Means':
             try:
@@ -100,21 +103,21 @@ def makeBarGraph(post_data):
     # Get requested data from the db
     x,y,program,incident_type = getData(post_data)
 
+    # Dont procede further cant get the data
     if x is None:
-        return
-
-    custom_title = post_data.get('filename')        
-
+        return None
 
     # Parse the x and y keys
-    # Example: x=month in placement,  y=mean percentage
+    # Example: x=month in placement, y=mean percentage
     x_key = [*x][0]
     y_key = [*y][0]
 
+    # Create title and file names
     plot_title = ''
     file_name = ''
     
-    # Create title and file names
+    # If there is a desired name, use that else use a default one
+    custom_title = post_data.get('filename')        
     if custom_title:
         plot_title = custom_title
         file_name = f'{custom_title}.png'
@@ -123,21 +126,22 @@ def makeBarGraph(post_data):
         date = post_data.get('datarange')
         print(date)
 
-
         if kid:
-            plot_title += f'{kid}-'
-            file_name += f'{kid}-'
-        
+            plot_title += f'{kid}-'        
         if date:
             plot_title += f'{date}-'
-            file_name += f'{date}-'
 
         plot_title += f'{program}-{incident_type}: {x_key} vs {y_key}'
-        file_name += f'{program}{incident_type}{x_key}vs{y_key}.png'
+        file_name += f'{plot_title}.png'
+        print(plot_title)
+        print('----')
+        print(file_name)
+        print('----')
 
+    # Directory where the generated image will be stored
     destination = 'static/images/'
 
-   
+    # Predefined variables outside try except block
     x_labels = []
     frequencies = None
     try:
@@ -196,15 +200,23 @@ def makeBarGraph(post_data):
         plt.clf()
 
         # Return the title and the filename
-        print(plot_title,file_name)
+        # print(plot_title,file_name)
         return plot_title, file_name
     except Exception as e:
         print(e)
 
+# Converts a stored query string into a dictionary needed to recreate a chart
 def makeChartDict(data):
+    # Dictionary to insert data into
     d = {}
+
+    # Split the string to parse out columns
     chart_data = data.split(',')
+
+    # Create the necessary dictionary
     for key_vals in chart_data:
         key,val = key_vals.split(':')
         d.update({ key:val })
+
+    # Return the dictionary
     return d

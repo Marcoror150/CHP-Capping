@@ -14,7 +14,6 @@ def connectToDB():
         conn = pyodbc.connect('DSN=pochildrenshome;UID=ChildrensHome;PWD=!Capping2018;')
 
         # conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=10.11.12.200,1433;DATABASE=POCHILDRENSHOME;UID=ChildrensHome;PWD=Capping2018!;')
-
         conn.setencoding('utf-8') 
 
         # Create a cursor from the connection object
@@ -290,26 +289,29 @@ def getMeansPerMonth(incident_type,kid,daterange):
         INNER JOIN IncidentTypes ON IncidentClassification.TID = IncidentTypes.TID
         INNER JOIN Children ON Children.KID = Incidents.KID
         INNER JOIN ChildrenProgram ON ChildrenProgram.KID = Children.KID
-        
         WHERE M_In_Pgm = %s
         AND IncidentTypes.Name = '%s'
     """
 
     if kid is not 0:
-        sql+= f'AND Incidents.KID = {kid}'
+        sql += f'AND Incidents.KID = {kid} '
 
     if daterange is not 0:
         daterange = daterange.split(' to ')
         date1 = daterange[0]
         date2 = daterange[1]
 
-        sql+= f"AND ChildrenProgram.StartDate >= '{date1}' AND ChildrenProgram.StartDate <= '{date2}'"
+        sql += f"AND ChildrenProgram.StartDate >= '{date1}' AND ChildrenProgram.StartDate <= '{date2}'"
 
     # Execute the query and close the connection
     try:
         total_children = countChildren()
         incident_type = str(incident_type)
+
+        # X axis
         months = [str(i) for i in range(1,13)]
+
+        # Y axis
         means = []
 
         for month in months:
@@ -318,6 +320,7 @@ def getMeansPerMonth(incident_type,kid,daterange):
 
             # Check if there are any results
             entries = cur.fetchall()
+            print(entries)
             if entries:
                 means.append(round(float(entries[0][0]/total_children), 2))
         conn.close()
@@ -330,9 +333,7 @@ def getMeansPerMonth(incident_type,kid,daterange):
     except Exception as e: 
         print(e)
 
-
-
-
+# Check whether a username and password combination exists
 def validateLogin(uname,pwd):
 	conn, cur = connectToDB()
 	sql = "SELECT * FROM Users WHERE username = '"+uname+"' AND password='"+pwd+"';"
@@ -344,7 +345,7 @@ def validateLogin(uname,pwd):
 	except:
 		conn.close()
 
-#		
+# Given a username return that user's type
 def getUserType(uname):
 	conn, cur = connectToDB()
 	sql = "SELECT UserType FROM Users WHERE username = '"+uname+"';"
@@ -493,14 +494,13 @@ def changeUserPassword(UID,password):
 		print (e)
 		conn.close()
 		
-
+# Stores an already generated report as a string in the db
 def storeReport(title,report):
     conn, cur = connectToDB()
     sql = f"""
         INSERT INTO Graph VALUES ('{title}',GETDATE(),'{report}')
     """
     try:
-        print(sql)
         cur.execute(sql)
         conn.commit()
         conn.close()

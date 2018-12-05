@@ -43,7 +43,6 @@ def parseFile(filename, program, incident_type,uid):
     insertTable('ChildrenProgram',child_program)
 
     incident = [kid,incident_month,uid]
-    print(incident)
     insertTable('Incidents',incident)
 
     # Get the Incident ID that was just created, and the type ID
@@ -53,8 +52,6 @@ def parseFile(filename, program, incident_type,uid):
     # Create a list for the classsification to be inserted
     incident_classification = [iid,tid]
     insertTable('IncidentClassification',incident_classification)
-
-    #  parseFile('JS_Restraint_Form_w_LSI.csv','GFC')
    
     # Destination path of the already parsed file
     destination = Path(f'csvs/{program}/Archive/{csv_name}')

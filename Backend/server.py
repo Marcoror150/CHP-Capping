@@ -1,6 +1,5 @@
 from flask import Flask, request, redirect, render_template, session, flash, jsonify, url_for
 from flask_restful import Resource, Api, reqparse
-# from parser import parseFile
 from db_helper import *
 from werkzeug.utils import secure_filename
 from functions import validFile, makeBarGraph, cleanse,makeChartDict
@@ -75,15 +74,15 @@ def charts():
     if not session.get('userType'):
         return redirect('')
     report = request.args.get('report')
+
+    # If loading a saved query, chart it
     if report != None:
         d = makeChartDict(report)
 
         title, file_name = makeBarGraph(d)
         return render_template('Charts.html', image=file_name, title=title, data=getSavedReports())
 
-    # Charts.html needs all records from the Graph table in the DB
-    data = getSavedReports()
-
+    # Get the latest report and render it if navigating to the charts page without creating a report
     try:
         latest_report = data[0][3]
         d = makeChartDict(latest_report)
@@ -100,20 +99,33 @@ def datareport():
         return redirect('')
         
     if request.method == 'POST':
-        # try:
         report = request.form.to_dict()
-        title, file_name = makeBarGraph(report)
 
+        try:
+            # Try to create the chart
+            title, file_name = makeBarGraph(report)
 
-        report_string = ''
-        for key, val in report.items():
-            report_string += f'{key}:{val},'
+            # Create a string that stores the exact query for later use
+            report_string = ''
+            for key, val in report.items():
+                report_string += f'{key}:{val},'
 
-        report_string = report_string[:-1]
+            # Remove the last comma
+            report_string = report_string[:-1]
 
-        storeReport(title,report_string)
+            # Store the query in the db
+            storeReport(title,report_string)
+            
+            # Goto the chart page if a chart is created successfully 
+            return redirect(url_for('charts', image=file_name, title=title))
         
-        return redirect(url_for('charts', image=file_name, title=title))
+        # Flash an error if something goes wrong
+        except Exception as e:
+            print(e)
+            flash("Chart Creation error",'error')
+            return redirect('datareport')
+
+    # Render the page
     else:
         programs = getPopulatedPrograms()
         incident_types = getTable('IncidentTypes')

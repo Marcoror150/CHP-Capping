@@ -227,6 +227,17 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                   <button type="submit" class="btn btn-lg btn-success"  id="createReport">Create</button>
                 </div>
               </form>
+              <div class="row justify-content-center">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="alert alert-success" role="alert">
+                  {% for message in messages %}
+                    <header>{{ message }}</header>
+                  {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+              </div>
             </div>
           </div>
         </div>
