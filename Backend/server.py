@@ -439,7 +439,7 @@ def deleteReport(GID):
     # Prevent unauthorized access to this page via URL manipulation
     if not session.get('userType'):
         return redirect('')
-    elif session['userType'] in ['Intern','Super Intern']:
+    elif session['userType'] == 'Intern':
         return redirect('/recordupload')
     elif session['userType'] == 'View Only':
         return redirect('/recordupload')
