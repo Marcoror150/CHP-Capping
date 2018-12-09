@@ -671,6 +671,8 @@ def getIncidentTypes():
 # Creates an Incident record in the DB from the manual entry modal
 def createManualIncident(KID,incidentType,UID):
   conn,cur = connectToDB()
+  
+  # Must create an entry in the Incident table first.
   sql = "INSERT INTO Incidents (KID,UID) VALUES ("+str(KID)+","+str(UID)+");"
   try:
     cur.execute(sql)
@@ -679,6 +681,7 @@ def createManualIncident(KID,incidentType,UID):
     print (e)
     conn.close()
     
+  # Create an entry in IncidentClassification, using the last IID created (the one we just created)
   iid = getLastID('IID','Incidents')
   sql = "INSERT INTO IncidentClassification VALUES("+str(iid)+","+incidentType+");"
   try:
@@ -692,6 +695,8 @@ def createManualIncident(KID,incidentType,UID):
 # Creates an Incident record in the DB from the manual entry modal
 def createManualIncidentAccept(KID,incidentType,UID):
   conn,cur = connectToDB()
+  
+  # Must create an entry in the Incident table first.
   sql = "INSERT INTO Incidents (KID,Status,UID) VALUES ("+str(KID)+",'A',"+str(UID)+");"
   try:
     cur.execute(sql)
@@ -700,6 +705,7 @@ def createManualIncidentAccept(KID,incidentType,UID):
     print (e)
     conn.close()
     
+  # Create an entry in IncidentClassification, using the last IID created (the one we just created)
   iid = getLastID('IID','Incidents')
   sql = "INSERT INTO IncidentClassification VALUES("+str(iid)+","+incidentType+");"
   try:

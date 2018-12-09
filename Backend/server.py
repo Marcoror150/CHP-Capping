@@ -20,7 +20,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8080
+port = 8079
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -65,6 +65,7 @@ def login():
         
 @app.route("/logout", methods=['GET'])
 def logout():
+    # Clear all session variables upon logout
     session.clear()
     return redirect('')
 
@@ -260,10 +261,12 @@ def sqlpage():
     elif session['userType'] == 'View Only':
         return redirect('/datareport')
     
+    # Get the user's query and send it to the DB.
     if request.method == 'POST':
         sql = request.form['sql']
         query(sql)
         flash("Query executed","success")
+
     return render_template('SQLEntry.html')
     
 @app.route("/usermgt", methods=['GET','POST'])
@@ -312,10 +315,13 @@ def addRemoveUser():
         
         # If any of the 4 conditions above failed, we do not create a new entry and tell the user what they did wrong
         if error:
+        
+            # These session variables are used to refill the form with the values the user entered before submitting.
             session['newUser'] = True
             session['newFirstName'] = firstName
             session['newLastName'] = lastName
             session['newUsername'] = username
+            
             return render_template('UserMgt.html',data=data)
             
         # If all 4 conditions passed, then create the entry
@@ -325,6 +331,7 @@ def addRemoveUser():
             createUser(values)
             data = getUsers()
             flash ('User created', 'success')
+            
             return render_template('UserMgt.html',data=data)
             
     return render_template('UserMgt.html',data=data)
@@ -464,7 +471,7 @@ def denyRecord(IID):
 @app.route("/acceptAllRecords", methods=['GET','POST'])
 def acceptAllRecords():
 	acceptAllReports()
-	flash('All Donnamarie/Super Intern records accepted','success')
+	flash('All Full User/Super Intern records accepted','success')
 	return redirect('/homepage')
 	
 if __name__ == "__main__":
