@@ -165,7 +165,9 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                   <td>{{item[2]}}</td>
                   <td>
                     <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'charts', report=item[3]) }}'">Chart</button>
+                  {% if session['userType'] in ['Root', 'Admin', 'Full User', 'Super Intern'] %}
                     <button href="#" class="btn btn-danger" name="removeReport" type="button" data-toggle="modal" data-target="#deleteReportModal" id="{{ item[0] }}" onclick="deleteGID = {{ item[0] }}">Remove</button>
+                  {% endif %}
                   </td>
                 </tr>
                 {% endfor %}
