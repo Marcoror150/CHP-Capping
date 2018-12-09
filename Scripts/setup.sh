@@ -1,8 +1,8 @@
 #!/bin/bash
 choco list -li
 
-# cd ..
-# pip install -r requirements.txt
+pip install -r requirements.txt
 
-# cd Backend
-# python server.py
+cd ../
+cd ./Backend
+python server.py
