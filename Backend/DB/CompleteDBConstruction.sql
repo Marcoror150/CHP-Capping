@@ -7,10 +7,10 @@ Tested on MS SQL 2017
 */
 
 /* Delete all tables
+DROP TABLE IF EXISTS IncidentClassification;
 DROP TABLE IF EXISTS Incidents;
 DROP TABLE IF EXISTS IncidentTypes;
 DROP TABLE IF EXISTS ChildrenProgram;
-DROP TABLE IF EXISTS IncidentClassification;
 DROP TABLE IF EXISTS Program;
 DROP TABLE IF EXISTS Children;
 DROP TABLE IF EXISTS Graph;
@@ -44,7 +44,7 @@ CREATE TABLE Program (
 --ChildrenProgram Table
 CREATE TABLE ChildrenProgram (
   KID 			INT REFERENCES Children (KID),
-  PID			VARCHAR (50) NOT NULL REFERENCES Program (PID),
+  PID			VARCHAR (3) NOT NULL REFERENCES Program (PID),
   StartDate		DATE,
   EndDate		DATE,
   PRIMARY KEY (KID, PID, StartDate)
@@ -92,21 +92,6 @@ CREATE TABLE IncidentClassification (
   TID  INT REFERENCES IncidentTypes (TID),
   PRIMARY KEY (IID, TID)
 );
-
--- Trigger to remove rejected database entries
-CREATE OR ALTER TRIGGER removeRejectedEntries ON Incidents
-AFTER UPDATE
-AS
-BEGIN
-  -- Store IID to delete from both tables
-  DECLARE @IIDToDelete INT
-  SET @IIDToDelete = (SELECT IID FROM Incidents WHERE Status = 'R')
-  
-  -- Trigger Code
-  DELETE FROM IncidentClassification WHERE IID = @IIDToDelete
-  DELETE FROM Incidents WHERE IID = @IIDToDelete
-END
-GO
 
 --Inserts for each table, all are required besides the user inserts, but one Root/Admin account must exist.
 
@@ -188,3 +173,19 @@ VALUES ('s_intern', 'password', 'super', 'intern', 'Super Intern');
 
 INSERT INTO Users (Username, Password, First_Name, Last_Name, UserType)
 VALUES ('intern1', 'password', 'intern', 'intern', 'Intern');
+
+--Execute the trigger create statement after building the database
+-- Trigger to remove rejected database entries
+CREATE OR ALTER TRIGGER removeRejectedEntries ON Incidents
+AFTER UPDATE
+AS
+BEGIN
+  -- Store IID to delete from both tables
+  DECLARE @IIDToDelete INT
+  SET @IIDToDelete = (SELECT IID FROM Incidents WHERE Status = 'R')
+  
+  -- Trigger Code
+  DELETE FROM IncidentClassification WHERE IID = @IIDToDelete
+  DELETE FROM Incidents WHERE IID = @IIDToDelete
+END
+GO 
