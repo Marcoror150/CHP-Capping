@@ -20,7 +20,7 @@ app.secret_key = b'\xf9\x8co\xed\xce\xb0\x1a\xc3\xc9\xa8\x08=\xb1\x07Q%}\x16\x8e
 
 
 # Define port for Flask to run on
-port = 8079
+port = 8077
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -474,9 +474,11 @@ def acceptAllRecords():
 	flash('All Full User/Super Intern records accepted','success')
 	return redirect('/homepage')
 	
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, debug=True)
-
 @app.route("/pepe", methods=['GET'])
 def pepe():
     return render_template('Pepe.html')    
+
+	
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=port, debug=True)
+
