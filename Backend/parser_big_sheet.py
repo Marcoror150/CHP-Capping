@@ -23,6 +23,7 @@ def parseBigSheet(file,program):
 
         # KID, Start Date, and ACEs Score
         kid = int(child_info[0])
+        print(kid)
         # KID = child_info[0]
 
         start_date = child_info[1]
