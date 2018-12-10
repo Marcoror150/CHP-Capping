@@ -106,7 +106,7 @@ function setKIDListener(port){
 function setPrograms(){
     $("#program").on("changed.bs.select", function() {
         program = $('#program option:selected').text()
-        ip = "http://0.0.0.0:8080/getChildrenProgram/" + program
+        ip = `http://localhost:8076/getChildrenProgram/${program}`
     
         $.getJSON(ip, function(data, status) {
             if (status === "success") {
