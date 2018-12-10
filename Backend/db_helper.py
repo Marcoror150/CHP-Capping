@@ -323,7 +323,6 @@ def getMeansPerMonth(incident_type,kid,daterange):
 
             # Check if there are any results
             entries = cur.fetchall()
-            print(entries)
             if entries:
                 means.append(round(float(entries[0][0]/total_children), 2))
         conn.close()

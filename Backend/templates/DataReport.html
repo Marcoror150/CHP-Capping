@@ -137,6 +137,9 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
                   <div class="col-auto">
                     <div class="was-validated form-group col-6">
                       <select id="program" name="program" class="selectpicker" title="Program" data-live-search="true" required>
+                        {% for program in programs %}
+                        <option>{{ program[0] }}</option>
+                        {% endfor %}
                       </select>
                     </div>
                   </div>
