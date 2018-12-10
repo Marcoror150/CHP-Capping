@@ -43,9 +43,14 @@ def parseBigSheet(file,program):
         child.extend((kid,ACEs_score))
         child_programs.extend((kid,program,start_date,end_date))
 
+        try:
 
-        insertTable('Children',child)
+            insertTable('Children',child)
+        except:
+            print('duplocate kid, skipping')
+            
         insertTable('ChildrenProgram',child_programs)
+            
 
         # Seperate out the incident data
         incidents = child_info[4:]
