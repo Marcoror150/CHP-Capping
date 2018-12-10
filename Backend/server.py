@@ -137,8 +137,8 @@ def datareport():
     else:
         programs = getPopulatedPrograms()
         incident_types = getTable('IncidentTypes')
-        # children = getTable('Children')
-        return render_template('DataReport.html', programs=programs, incidents=incident_types,port=str(port))
+        children = getTable('Children')
+        return render_template('DataReport.html', programs=programs, incidents=incident_types, children=children port=str(port))
     
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
