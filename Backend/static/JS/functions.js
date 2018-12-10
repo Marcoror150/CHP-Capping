@@ -87,15 +87,15 @@ function getButtonID(ID) {
 }	
 
 // Sets a listener to dynamically update the KID depending on the chosen program on the reports page
-function setKIDListener(){
+function setKIDListener(port){
     $("#program").on("changed.bs.select", function() {
         program = $('#program option:selected').text()
-        ip = "http://0.0.0.0:8080/getChildrenProgram/" + program
+        ip = `http://0.0.0.0:${port}/getChildrenProgram/${program}`
     
         $.getJSON(ip, function(data, status) {
             if (status === "success") {
                 for(var key in data) {
-                    $('#kid').append(`<option>${data[key]}</option>`).selectpicker('refresh');;
+                    $('#kid').append(`<option>${data[key]}</option>`).selectpicker('refresh');
                 }
             }
         });

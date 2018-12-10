@@ -12,8 +12,8 @@ def connectToDB():
     try:
         # Connect to the db and capture its object
         conn = pyodbc.connect('DSN=pochildrenshome;UID=ChildrensHome;PWD=!Capping2018;')
+        # conn = pyodbc.connect('DSN=childrenshomeus.local;UID=SOMETHING;PWD=SOMETHING;')
 
-        # conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=10.11.12.200,1433;DATABASE=POCHILDRENSHOME;UID=ChildrensHome;PWD=Capping2018!;')
         conn.setencoding('utf-8') 
 
         # Create a cursor from the connection object
@@ -89,15 +89,18 @@ def insertTable(table,values):
     """
 
     values_sql = ''
-    if table == 'incident':
+    if table == 'Incidents':
+        sql = """
+            INSERT INTO %s (kid,M_In_Pgm,uid) values(%s);
+        """
         values_sql = ','.join(['?' for i in range(3)])
     else:
         values_sql = ','.join(['?' for i in range(len(values))])
 
-    print(values_sql)
 
     # Stitch together the sql query
     sql = sql % (table,values_sql)
+    print(sql)
 
     # Execute the query, commit changes and close the connection
     try:

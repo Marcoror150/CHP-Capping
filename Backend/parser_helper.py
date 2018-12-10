@@ -44,6 +44,7 @@ def getStartDate(lines):
 
     # If can't find the start date, try a different regex
     else:
+        print('got here--')
         # Different regex to help find the line where the start date resides
         line_regex = r'Placement Date'
 
@@ -58,9 +59,12 @@ def getStartDate(lines):
         
             # Return the start date which resides one line ahead
             if match:
-                return re.search(date_regex, lines[i+1]).group()
-            else:
-                return None
+                date_string =  re.search(date_regex, lines[i+1]).group()
+                
+                # Return the correct string date
+                return str(datetime.strptime(date_string, '%Y-%m-%d').strftime('%m/%d/%Y'))
+        else:
+            return None
 
 # Function to parse out the incident
 def getIncidentDate(lines):
@@ -97,8 +101,8 @@ def getIncidentDate(lines):
             # Return the start date which resides one line ahead
             if match:
                 return re.search(date_regex, lines[i+1]).group()
-            else:
-                return None
+        else:
+            return None
 
 # Function to calculate the month a child was involved with an incident
 def getMonthInProgram(lines,start_date):

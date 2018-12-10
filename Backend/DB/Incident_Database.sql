@@ -47,11 +47,11 @@ CREATE TABLE IncidentTypes (
 CREATE TABLE Incidents (
   IID          INT identity (1,1),
   KID          INT REFERENCES Children (KID),
-  M_In_Pgm     INT,
-  Status       VARCHAR (15) DEFAULT 'NR',
+  M_In_Pgm     INT NOT NULL,
   UID          INT REFERENCES Users (UID) NOT NULL,
+  Status       VARCHAR (2) DEFAULT 'NR',
   Date_Created DATE DEFAULT getdate(),
-  PRIMARY KEY (IID),
+  PRIMARY KEY (IID)
 );
 
 --IncidentClassification

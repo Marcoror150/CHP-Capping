@@ -27,7 +27,8 @@ https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
   </head>
 
-  <body id="page-top" onload="setKIDListener()">
+  {{ port }}
+  <body id="page-top" onload="setKIDListener('{{ port }}')">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">

@@ -27,22 +27,28 @@ def parseFile(filename, program, incident_type,uid):
 
     # Get the KID
     kid = getKID(lines)
+    print(kid)
 
     # Get Start Date
     start_date = getStartDate(lines)
+    print(start_date)
 
     # Get Incident Month Date
     incident_month = getMonthInProgram(lines,start_date)
+    print(incident_month)
 
     # Create list for child,child_program, and incident to be inserted to db
     child = [kid,None]
     child_program = [kid,program,start_date,None]
 
     # Insert statements
+    print('inserting child:', child)
     insertTable('Children',child)
+    print('inserting children program:', child_program)
     insertTable('ChildrenProgram',child_program)
 
     incident = [kid,incident_month,uid]
+    print('inserting incident:',incident)
     insertTable('Incidents',incident)
 
     # Get the Incident ID that was just created, and the type ID
@@ -51,17 +57,31 @@ def parseFile(filename, program, incident_type,uid):
 
     # Create a list for the classsification to be inserted
     incident_classification = [iid,tid]
+    print('inserting incident classification:', incident_classification)
     insertTable('IncidentClassification',incident_classification)
+    print('done...')
    
     # Destination path of the already parsed file
-    destination = Path(f'csvs/{program}/Archive/{csv_name}')
+    destination = Path(f'csvs/{program}/archive/{csv_name}')
     try:
-    # Move the file
-        move(csv_path,destination)
+        # Move the file
+        if os.path.exists( Path(f'csvs/{program}/archive/')):
+            move(csv_path,destination)
+        else:
+            status_code = subprocess.call("md csvs\\RTC\\archive csvs\\YMP\\archive csvs\\SHP\\archive csvs\\ABH\\archive  csvs\\GEFC\\archive", shell=True) 
+            if status_code is 0:
+                move(csv_path,destination) 
     except Exception as e:
-        print(e)
-
+        print(e,"...")
+        # status_code = subprocess.call("md csvs\\RTC\\archive csvs\\YMP\\archive csvs\\SHP\\archive csvs\\ABH\\archive  csvs\\GEFC\\archive", shell=True) 
+        # if status_code is 0:
+        #     move(csv_path,destination) 
     f.close()
+    try:
+        os.remove(csv_path)
+    except Exception as e:
+        print(e)  
+
 
 # Function to convert an excel sheet to csv format
 def excel_to_csv(filename):
