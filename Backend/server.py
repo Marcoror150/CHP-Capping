@@ -479,5 +479,5 @@ def pepe():
 
 	
 if __name__ == "__main__":
-    app.run(host='localhost', port=port, debug=True)
+    app.run(host='127.0.0.1', port=port, debug=True)
 
