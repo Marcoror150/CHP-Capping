@@ -22,7 +22,7 @@ def parseBigSheet(file,program):
         child_info = line.split(',')
 
         # KID, Start Date, and ACEs Score
-        KID = int(child_info[0])
+        kid = int(child_info[0])
         # KID = child_info[0]
 
         start_date = child_info[1]
@@ -39,8 +39,8 @@ def parseBigSheet(file,program):
         # Insert the child if they already doesn't exist and their program info
         child = []
         child_programs = []
-        child.extend((KID,ACEs_score))
-        child_programs.extend((KID,program,start_date,end_date))
+        child.extend((kid,ACEs_score))
+        child_programs.extend((kid,program,start_date,end_date))
 
 
         # insertTable('Children',child)
@@ -161,17 +161,21 @@ def parseBigSheet(file,program):
                 need_insert = False
 
             if need_insert:
-                incident = []
-                incident.extend((KID,month,2))
-                insertTable('Incidents',incident)
-                iid = getLastID('iid','Incidents')
 
-                incident_class = []
-                tid = int(getTID(incidents_types[counter-1]))
+                try:
+                    incident = []
+                    incident.extend((kid,month,2))
+                    insertTable('Incidents',incident)
+                    iid = getLastID('iid','Incidents')
 
-                incident_class.extend((iid,tid))
+                    incident_class = []
+                    tid = int(getTID(incidents_types[counter-1]))
 
-                insertTable('IncidentClassification',incident_class)
+                    incident_class.extend((iid,tid))
+
+                    insertTable('IncidentClassification',incident_class)
+                except:
+                    print('.')
                 need_insert = False
 
         f.close()
