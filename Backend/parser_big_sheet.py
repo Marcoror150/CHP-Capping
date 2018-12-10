@@ -44,8 +44,8 @@ def parseBigSheet(file,program):
         child_programs.extend((kid,program,start_date,end_date))
 
 
-        # insertTable('Children',child)
-        # insertTable('ChildrenProgram',child_programs)
+        insertTable('Children',child)
+        insertTable('ChildrenProgram',child_programs)
 
         # Seperate out the incident data
         incidents = child_info[4:]
