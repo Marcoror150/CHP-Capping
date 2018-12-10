@@ -137,8 +137,7 @@ def datareport():
     else:
         programs = getPopulatedPrograms()
         incident_types = getTable('IncidentTypes')
-        children = getTable('Children')
-        print(port)
+        # children = getTable('Children')
         return render_template('DataReport.html', programs=programs, incidents=incident_types,port=str(port))
     
 @app.route("/homepage", methods=['GET', 'POST'])
@@ -216,7 +215,6 @@ def recordupload():
         file = ''
         try:
             file = request.files['file']
-            print(file)
         except Exception as e:
             print(e)
 

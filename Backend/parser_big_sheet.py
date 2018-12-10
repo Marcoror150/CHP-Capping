@@ -161,7 +161,6 @@ def parseBigSheet(file,program):
                 need_insert = False
 
             if need_insert:
-                print('inserting incident')
                 incident = []
                 incident.extend((KID,month))
                 insertTable('Incidents',incident)

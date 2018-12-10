@@ -44,7 +44,6 @@ def getStartDate(lines):
 
     # If can't find the start date, try a different regex
     else:
-        print('got here--')
         # Different regex to help find the line where the start date resides
         line_regex = r'Placement Date'
 

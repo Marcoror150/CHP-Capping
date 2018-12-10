@@ -27,28 +27,28 @@ def parseFile(filename, program, incident_type,uid):
 
     # Get the KID
     kid = getKID(lines)
-    print(kid)
+    # print(kid)
 
     # Get Start Date
     start_date = getStartDate(lines)
-    print(start_date)
+    # print(start_date)
 
     # Get Incident Month Date
     incident_month = getMonthInProgram(lines,start_date)
-    print(incident_month)
+    #print(incident_month)
 
     # Create list for child,child_program, and incident to be inserted to db
     child = [kid,None]
     child_program = [kid,program,start_date,None]
 
     # Insert statements
-    print('inserting child:', child)
+    #print('inserting child:', child)
     insertTable('Children',child)
-    print('inserting children program:', child_program)
+    #print('inserting children program:', child_program)
     insertTable('ChildrenProgram',child_program)
 
     incident = [kid,incident_month,uid]
-    print('inserting incident:',incident)
+    #print('inserting incident:',incident)
     insertTable('Incidents',incident)
 
     # Get the Incident ID that was just created, and the type ID
@@ -57,9 +57,9 @@ def parseFile(filename, program, incident_type,uid):
 
     # Create a list for the classsification to be inserted
     incident_classification = [iid,tid]
-    print('inserting incident classification:', incident_classification)
+    #print('inserting incident classification:', incident_classification)
     insertTable('IncidentClassification',incident_classification)
-    print('done...')
+    #print('done...')
    
     # Destination path of the already parsed file
     destination = Path(f'csvs/{program}/archive/{csv_name}')
