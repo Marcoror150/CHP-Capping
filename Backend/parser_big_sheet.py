@@ -162,7 +162,7 @@ def parseBigSheet(file,program):
 
             if need_insert:
                 incident = []
-                incident.extend((KID,month))
+                incident.extend((KID,month,2))
                 insertTable('Incidents',incident)
                 iid = getLastID('iid','Incidents')
 
