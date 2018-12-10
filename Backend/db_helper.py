@@ -11,7 +11,7 @@ from flask import flash, session
 def connectToDB():
     try:
         # Connect to the db and capture its object
-        conn = pyodbc.connect('DSN=pochildrenshome;UID=ChildrensHome;PWD=!Capping2018;')
+        conn = pyodbc.connect('DSN=CHP-Server;UID=MaristSA;PWD=MaristSAPa$$1;')
         # conn = pyodbc.connect('DSN=childrenshomeus.local;UID=SOMETHING;PWD=SOMETHING;')
 
         conn.setencoding('utf-8') 
