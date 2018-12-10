@@ -90,7 +90,7 @@ function getButtonID(ID) {
 function setKIDListener(port){
     $("#program").on("changed.bs.select", function() {
         program = $('#program option:selected').text()
-        ip = `http://0.0.0.0${port}/getChildrenProgram/${program}`
+        ip = `http://10.10.10.5${port}/getChildrenProgram/${program}`
     
         $.getJSON(ip, function(data, status) {
             if (status === "success") {
@@ -106,7 +106,7 @@ function setKIDListener(port){
 function setPrograms(){
     $("#program").on("changed.bs.select", function() {
         program = $('#program option:selected').text()
-        ip = `http://0.0.0.0:8076/getChildrenProgram/${program}`
+        ip = `http://10.10.10.5:8076/getChildrenProgram/${program}`
     
         $.getJSON(ip, function(data, status) {
             if (status === "success") {
