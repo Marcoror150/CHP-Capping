@@ -625,7 +625,7 @@ def getAllUnreviewedReports():
 # Changes the Incident's Status to 'A' for accepted
 def acceptReport(IID):
 	conn, cur = connectToDB()
-	sql = "UPDATE Incidents SET Status = 'A' WHERE IID = "+IID+";"
+	sql = "UPDATE Incidents SET Status = 'A', UID = '1' WHERE IID = "+IID+";"
 	try:
 		cur.execute(sql)
 		conn.commit()
@@ -649,7 +649,7 @@ def denyReport(IID):
 # Changes all Incident Statuses to 'A' for accepted where the UID was that of a Full User or Super Intern
 def acceptAllReports():
   conn, cur = connectToDB()
-  sql = "UPDATE Incidents SET Status = 'A' WHERE UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
+  sql = "UPDATE Incidents SET Status = 'A', UID = '1' WHERE UID IN (SELECT UID FROM Users WHERE UserType='Full User' OR UserType='Super Intern');"
   try:
     cur.execute(sql)
     conn.commit()
